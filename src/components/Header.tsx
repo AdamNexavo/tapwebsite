@@ -178,7 +178,11 @@ const Header = () => {
             }`}>
               Contact
             </a>
-            <Button variant="accent" size="default">
+            <Button
+              variant="accent-bottom"
+              size="default"
+              className="rounded-sm border-b-[2px] shadow-none hover:shadow-none"
+            >
               Personeel aanvragen
             </Button>
           </div>
@@ -291,7 +295,10 @@ const Header = () => {
                 Contact
               </a>
               <div className="pt-4">
-                <Button variant="accent" className="w-full">
+                <Button
+                  variant="accent-bottom"
+                  className="w-full rounded-sm border-b-[2px] shadow-none hover:shadow-none"
+                >
                   Personeel aanvragen
                 </Button>
               </div>

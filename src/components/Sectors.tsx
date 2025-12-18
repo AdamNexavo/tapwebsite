@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Music, Briefcase, Calendar, Sparkles, Trophy, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Music, Briefcase, Calendar, Sparkles, Trophy, Theater, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import mysterylandImg from "@/assets/mysteryland.png";
 import ziggoDomeImg from "@/assets/ziggo-dome-concert.png";
@@ -7,20 +7,9 @@ import beurzenImg from "@/assets/beurzen.png";
 import bedrijfseventsImg from "@/assets/bedrijfsevenementen.png";
 import sporteventsImg from "@/assets/sportevenementen.png";
 import nederlandHubsImg from "@/assets/nederland-hubs.png";
-
-// Logo imports
-import logoRammstein from "@/assets/logo-rammstein.png";
-import logoCiscoLive from "@/assets/logo-cisco-live.png";
-import logoTcsMarathon from "@/assets/logo-tcs-marathon.png";
-import logoIronman from "@/assets/logo-ironman.png";
-import logoAmsterdamseZomer from "@/assets/logo-amsterdamse-zomer.png";
-import logoMysteryland from "@/assets/logo-mysteryland.png";
-import logoElrow from "@/assets/logo-elrow.png";
-import logoTaylorSwift from "@/assets/logo-taylor-swift.png";
-import logoGraspop from "@/assets/logo-graspop.png";
-import logoF1DutchGp from "@/assets/logo-f1-dutch-gp.png";
-import logoTomorrowland from "@/assets/logo-tomorrowland.png";
-import logoVerknipt from "@/assets/logo-verknipt.png";
+import theatersImg from "@/assets/theaters.png";
+import crewTechniekImg from "@/assets/crew-techniek.png";
+import crewTeamImg from "@/assets/crew-steps.png";
 
 const sectors = [
   {
@@ -53,94 +42,142 @@ const sectors = [
     title: "Sportevenementen",
     image: sporteventsImg,
   },
+  {
+    icon: Theater,
+    category: "Theaters",
+    title: "Theaters",
+    image: theatersImg,
+  },
 ];
 
-// Logo data - shuffled differently for each page
-const logoPages = [
-  // Page 1
-  [
-    { name: "Rammstein", image: logoRammstein },
-    { name: "Taylor Swift - The Eras Tour", image: logoTaylorSwift },
-    { name: "Cisco Live!", image: logoCiscoLive },
-    { name: "Ironman", image: logoIronman },
-    { name: "TCS Amsterdam Marathon", image: logoTcsMarathon },
-    { name: "Mysteryland", image: logoMysteryland },
-    { name: "Graspop Metal Meeting", image: logoGraspop },
-    { name: "F1 Heineken Dutch Grand Prix", image: logoF1DutchGp },
-    { name: "Elrow", image: logoElrow },
-    { name: "De Amsterdamse Zomer", image: logoAmsterdamseZomer },
-    { name: "Tomorrowland", image: logoTomorrowland },
-    { name: "Verknipt", image: logoVerknipt },
-  ],
-  // Page 2 - shuffled order
-  [
-    { name: "Tomorrowland", image: logoTomorrowland },
-    { name: "Ironman", image: logoIronman },
-    { name: "Mysteryland", image: logoMysteryland },
-    { name: "Rammstein", image: logoRammstein },
-    { name: "Elrow", image: logoElrow },
-    { name: "Cisco Live!", image: logoCiscoLive },
-    { name: "Taylor Swift - The Eras Tour", image: logoTaylorSwift },
-    { name: "De Amsterdamse Zomer", image: logoAmsterdamseZomer },
-    { name: "F1 Heineken Dutch Grand Prix", image: logoF1DutchGp },
-    { name: "Verknipt", image: logoVerknipt },
-    { name: "TCS Amsterdam Marathon", image: logoTcsMarathon },
-    { name: "Graspop Metal Meeting", image: logoGraspop },
-  ],
-  // Page 3 - different shuffled order
-  [
-    { name: "F1 Heineken Dutch Grand Prix", image: logoF1DutchGp },
-    { name: "Verknipt", image: logoVerknipt },
-    { name: "Taylor Swift - The Eras Tour", image: logoTaylorSwift },
-    { name: "Tomorrowland", image: logoTomorrowland },
-    { name: "Cisco Live!", image: logoCiscoLive },
-    { name: "Graspop Metal Meeting", image: logoGraspop },
-    { name: "De Amsterdamse Zomer", image: logoAmsterdamseZomer },
-    { name: "Ironman", image: logoIronman },
-    { name: "Rammstein", image: logoRammstein },
-    { name: "TCS Amsterdam Marathon", image: logoTcsMarathon },
-    { name: "Mysteryland", image: logoMysteryland },
-    { name: "Elrow", image: logoElrow },
-  ],
+const stats = [
+  {
+    value: "100+",
+    numericValue: 100,
+    suffix: "+",
+    label: "Crewleden",
+    sublabel: "Klaar voor inzet",
+  },
+  {
+    value: "1200+",
+    numericValue: 1200,
+    suffix: "+",
+    label: "Projecten",
+    sublabel: "Succesvol ondersteund",
+  },
+  {
+    value: "5+",
+    numericValue: 5,
+    suffix: "+",
+    label: "Jaar ervaring",
+    sublabel: "Actief in de eventsector",
+  },
 ];
 
 const Sectors = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [visibleLogos, setVisibleLogos] = useState<number[]>([]);
+  const [countedValues, setCountedValues] = useState<number[]>([0, 0, 0]);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
 
-  // Animate logos appearing one by one
   useEffect(() => {
-    setVisibleLogos([]);
+    if (hasAnimated) return;
 
-    const logoCount = logoPages[currentPage].length;
-    const delays: NodeJS.Timeout[] = [];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            
+            // Animate each stat
+            stats.forEach((stat, index) => {
+              const duration = 2000; // 2 seconds
+              const steps = 60;
+              const increment = stat.numericValue / steps;
+              const stepDuration = duration / steps;
+              
+              let currentStep = 0;
+              const timer = setInterval(() => {
+                currentStep++;
+                setCountedValues((prev) => {
+                  const newValues = [...prev];
+                  const newValue = Math.min(
+                    Math.floor(increment * currentStep),
+                    stat.numericValue
+                  );
+                  newValues[index] = newValue;
+                  return newValues;
+                });
+                
+                if (currentStep >= steps) {
+                  clearInterval(timer);
+                  setCountedValues((prev) => {
+                    const newValues = [...prev];
+                    newValues[index] = stat.numericValue;
+                    return newValues;
+                  });
+                }
+              }, stepDuration);
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
 
-    // Fade in logos one by one with staggered delay
-    for (let i = 0; i < logoCount; i++) {
-      const timeout = setTimeout(() => {
-        setVisibleLogos((prev) => [...prev, i]);
-      }, i * 100);
-      delays.push(timeout);
+    const currentRef = statsRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [hasAnimated]);
+
+  // Animate steps appearing one by one from top to bottom
+  useEffect(() => {
+    setVisibleSteps([]);
+    let delays: NodeJS.Timeout[] = [];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const stepCount = 3;
+
+            // Fade in steps one by one with staggered delay
+            for (let i = 0; i < stepCount; i++) {
+              const timeout = setTimeout(() => {
+                setVisibleSteps((prev) => [...prev, i]);
+              }, i * 400);
+              delays.push(timeout);
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const currentStepsRef = stepsRef.current;
+    if (currentStepsRef) {
+      observer.observe(currentStepsRef);
+    }
+
+    return () => {
+      if (currentStepsRef) {
+        observer.unobserve(currentStepsRef);
+      }
       delays.forEach(clearTimeout);
     };
-  }, [currentPage]);
-
-  // Auto-advance pages
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPage((prev) => (prev + 1) % logoPages.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
-  const currentLogos = logoPages[currentPage];
-
   return (
+    <>
     <section id="sectoren" className="section-padding bg-secondary">
       <div className="container-custom px-4 lg:px-8">
         {/* Type Evenementen Section */}
@@ -149,12 +186,11 @@ const Sectors = () => {
             <span className="text-accent text-xl">•</span>
             <span className="text-accent">Ons werk</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold leading-tight text-foreground mb-4">
+          <h2 className="text-4xl md:text-5xl font-black leading-tight text-foreground mb-4">
             Waar je ons kunt vinden
           </h2>
           <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-            Van grote festivals tot intieme corporate events: wij hebben ervaring met 
-            alle soorten evenementen en weten precies wat er nodig is voor een vlekkeloze uitvoering.
+Van grote festivals tot intieme corporate events: we zijn thuis in verschillende soorten evenementen en begrijpen wat elk type vraagt in de uitvoering.
           </p>
         </div>
 
@@ -166,7 +202,7 @@ const Sectors = () => {
               <div
                 key={sector.title}
                 onMouseEnter={() => setActiveIndex(index)}
-                className="relative overflow-hidden rounded-2xl w-[280px] h-[380px] cursor-pointer border-4 border-white"
+                className="relative overflow-hidden rounded-2xl w-[280px] h-[380px] cursor-default border-4 border-white"
                 style={{ 
                   marginLeft: index === 0 ? '0' : '-30px',
                   transform: `scale(${isActive ? 1.1 : 1})`,
@@ -174,7 +210,7 @@ const Sectors = () => {
                   boxShadow: isActive 
                     ? '0 25px 50px -12px rgba(0, 0, 0, 0.4)' 
                     : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                  transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transition: 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s, box-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s',
                 }}
               >
                 {/* Background Image */}
@@ -184,12 +220,12 @@ const Sectors = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{
                     transform: `scale(${isActive ? 1.05 : 1})`,
-                    transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transition: 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s',
                   }}
                 />
                 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/80 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/80 transition-opacity duration-500" />
                 
                 {/* Content - Vertical Text */}
                 <div className="absolute left-4 bottom-6 origin-bottom-left">
@@ -209,77 +245,12 @@ const Sectors = () => {
           })}
         </div>
 
-        {/* Projects Section */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start py-16 md:py-24">
-          {/* Left side - Text content */}
-          <div className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-              Projecten
-            </h2>
-            <p className="text-lg text-foreground/70 mb-8 leading-relaxed">
-              In 2025 was onze crew actief bij talloze toffe evenementen 
-              in binnen- en buitenland. We werkten mee aan festivals 
-              als Lowlands, Adele in Munich, Decibel Outdoor, 
-              Mysteryland en nog veel meer. Ook waren we betrokken bij 
-              bijna alle grote concerten in locaties als de Ziggo Dome, 
-              Johan Cruijff Arena en AFAS Live.
-              <br /><br />
-              Benieuwd naar al onze projecten?
-            </p>
-            <Button variant="hero" size="xl" className="px-6 hover:-translate-y-2 transition-all duration-300">
-              Bekijk alle projecten
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Right side - Logo grid with animation */}
-          <div className="relative">
-            <div className="grid grid-cols-3 gap-x-8 gap-y-6">
-              {currentLogos.map((logo, index) => (
-                <div
-                  key={`${currentPage}-${index}`}
-                  className="flex items-center justify-center p-3 md:p-4 h-16 md:h-20 transition-all duration-500"
-                  style={{
-                    opacity: visibleLogos.includes(index) ? 1 : 0,
-                    transform: visibleLogos.includes(index) 
-                      ? 'translateY(0) scale(1)' 
-                      : 'translateY(10px) scale(0.95)',
-                  }}
-                >
-                  <img
-                    src={logo.image}
-                    alt={logo.name}
-                    className="max-h-full max-w-full object-contain"
-                    title={logo.name}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Page indicators */}
-            <div className="flex justify-center gap-2 mt-8">
-              {logoPages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentPage(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    currentPage === index
-                      ? 'bg-accent w-8'
-                      : 'bg-foreground/30 hover:bg-foreground/50'
-                  }`}
-                  aria-label={`Ga naar pagina ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Landelijk Actief Section */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mt-32">
           {/* Left side - Text content */}
           <div className="max-w-xl">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
-              Actief in Nederland en daarbuiten
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-foreground mb-6">
+              Actief in Nederland<br />en daarbuiten
             </h2>
             <p className="text-lg text-foreground/70 leading-relaxed">
               Onze kern ligt in Nederland, maar we zijn ook actief in België en Duitsland. 
@@ -298,8 +269,130 @@ const Sectors = () => {
             />
           </div>
         </div>
+
       </div>
     </section>
+
+    {/* Plan van aanpak Section */}
+    <section className="section-padding bg-muted/30">
+      <div className="container-custom px-4 lg:px-8">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase mb-4">
+            <span className="text-accent text-xl">•</span>
+            <span className="text-accent">hoe we werken</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-foreground mb-6">
+            Plan van aanpak
+          </h2>
+          <p className="text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto">
+            Onze werkwijze is gericht op duidelijkheid en korte lijnen. We zorgen voor heldere afspraken en een overzichtelijk proces, zodat de samenwerking soepel verloopt.
+          </p>
+        </div>
+
+        {/* Stats with Image Section */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16 lg:items-stretch mt-24">
+          {/* Left side - Image aligned: top with heading top, bottom with stats bottom */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="w-full max-w-xl lg:relative lg:h-full">
+              {/* Spacer matching span mb-4 to align image top with h2 top */}
+              <div className="hidden lg:block" style={{ height: 'calc(1rem + 1.5rem)' }}></div>
+              {/* Image container positioned from h2 top to stats bottom */}
+              <div className="lg:absolute lg:left-0 lg:right-0 relative rounded-xl overflow-visible flex justify-center" style={{ top: 'calc(1rem + 1.5rem)', bottom: 0 }}>
+                <div className="relative rounded-xl overflow-visible h-full" style={{ width: '85%', maxWidth: '85%' }}>
+                  <img
+                    src={crewTechniekImg}
+                    alt="Crewstars team aan het werk"
+                    className="rounded-xl shadow-xl object-cover w-full h-full"
+                  />
+                  {/* Brand purple overlay */}
+                  <div className="absolute inset-0 rounded-xl z-10" style={{ backgroundColor: 'hsl(var(--primary))' }}></div>
+                  {/* Crew team image - fills purple box */}
+                  <img
+                    src={crewTeamImg}
+                    alt="Crewstars team"
+                    className="absolute inset-0 rounded-xl z-30 hidden lg:block w-full h-full object-cover"
+                    style={{ 
+                      transform: 'rotate(-5deg)',
+                      objectPosition: 'center 30%'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right side - Steps vertical */}
+          <div ref={stepsRef} className="max-w-xl flex flex-col gap-6">
+            <div 
+              className="bg-background rounded-2xl p-6 shadow-lg border border-border/50 relative transition-all duration-700"
+              style={{
+                opacity: visibleSteps.includes(0) ? 1 : 0,
+                transform: visibleSteps.includes(0) ? 'translateY(0)' : 'translateY(-20px)',
+              }}
+            >
+              <div className="absolute -top-3 -left-3">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-foreground text-sm font-black shadow-lg">
+                  1
+                </span>
+              </div>
+              <h4 className="text-xl font-bold text-foreground mb-2">
+                Bekijk ons aanbod
+              </h4>
+              <p className="text-sm text-foreground/60">
+                Ontdek wat we voor jou kunnen betekenen
+              </p>
+            </div>
+            <div 
+              className="bg-background rounded-2xl p-6 shadow-lg border border-border/50 relative transition-all duration-700"
+              style={{
+                opacity: visibleSteps.includes(1) ? 1 : 0,
+                transform: visibleSteps.includes(1) ? 'translateY(0)' : 'translateY(-20px)',
+              }}
+            >
+              <div className="absolute -top-3 -left-3">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-foreground text-sm font-black shadow-lg">
+                  2
+                </span>
+              </div>
+              <h4 className="text-xl font-bold text-foreground mb-2">
+                Neem contact op
+              </h4>
+              <p className="text-sm text-foreground/60">
+                We bespreken graag jouw wensen en mogelijkheden
+              </p>
+            </div>
+            <div 
+              className="bg-background rounded-2xl p-6 shadow-lg border border-border/50 relative transition-all duration-700"
+              style={{
+                opacity: visibleSteps.includes(2) ? 1 : 0,
+                transform: visibleSteps.includes(2) ? 'translateY(0)' : 'translateY(-20px)',
+              }}
+            >
+              <div className="absolute -top-3 -left-3">
+                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-accent-foreground text-sm font-black shadow-lg">
+                  3
+                </span>
+              </div>
+              <h4 className="text-lg font-bold text-foreground mb-2">
+                Wij komen je ondersteunen
+              </h4>
+              <p className="text-sm text-foreground/60">
+                Onze crew voert met volle inzet de besproken opdracht uit.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Button */}
+        <div className="flex justify-center mt-24">
+          <Button variant="accent-bottom" size="xl" className="px-6 hover:-translate-y-2 transition-all duration-300">
+            Vraag offerte aan
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </section>
+    </>
   );
 };
 

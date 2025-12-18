@@ -41,7 +41,7 @@ const Hero = () => {
         <div className="max-w-3xl">
           <div className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase mb-4 animate-fade-up">
             <span className="text-white text-xl">—</span>
-            <span className="text-white">Flexibel personeel in de evenementen</span>
+            <span className="text-white">Flexibel personeel voor evenementen</span>
           </div>
           <h1 className="text-primary-foreground mb-6 animate-fade-up delay-100 text-[80px] font-extrabold leading-none" style={{ lineHeight: '1.0' }}>
             De schakel tussen<br />

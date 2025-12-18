@@ -15,8 +15,10 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent/10 hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        accent: "bg-accent text-accent-foreground hover:bg-orange-hover shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105",
-        "accent-bottom": "bg-accent text-accent-foreground hover:bg-orange-hover shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105 border-b-4 border-b-[#6565ff] font-bold",
+        accent:
+          "bg-[#8c8cff] text-white hover:bg-[#464646] hover:text-accent shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105",
+        "accent-bottom":
+          "bg-[#8c8cff] text-white hover:bg-[#464646] hover:text-accent hover:border-b-[#2f2f2f] shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105 border-b-4 border-b-[#6565ff] font-bold",
         hero: "bg-[#8c8cff] text-white hover:bg-[#7b7bff] hover:scale-105 hover:border-transparent border-0 border-b-4 border-b-[#6565ff] font-bold",
         "hero-outline": "border border-white/50 border-b-[3px] border-b-white/60 bg-transparent backdrop-blur-none text-white hover:bg-[#464646]/30 hover:text-accent hover:border-white/70",
       },

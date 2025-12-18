@@ -34,8 +34,16 @@ const Services = () => {
   const parallaxOffset = Math.min(150, scrollProgress * 0.3);
 
   return (
-    <section id="over-ons" className="section-padding bg-background overflow-hidden">
-      <div className="container-custom px-4 lg:px-8">
+    <section id="over-ons" className="relative section-padding bg-background overflow-hidden">
+      {/* Diagonale divider bovenaan, overlappend over de hero, in de kleur van deze sectie */}
+      <div
+        className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-background z-20"
+        style={{
+          // Start als punt links, loopt schuin omhoog naar rechts
+          clipPath: "polygon(0 100%, 100% 0, 100% 100%)",
+        }}
+      />
+      <div className="container-custom px-4 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image Side - Overlapping Photos */}
           <div className="relative order-2 lg:order-1 h-[500px] flex items-center justify-center">
@@ -73,7 +81,7 @@ const Services = () => {
               <span className="text-accent text-xl">•</span>
               <span className="text-accent">Wat we doen</span>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-foreground mb-6">
               Ondersteuning in<br />de evenementen
             </h2>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
@@ -95,7 +103,7 @@ const Services = () => {
               ))}
             </div>
 
-            <Button variant="hero" size="xl" className="px-6 hover:-translate-y-2 transition-all duration-300">
+            <Button variant="accent-bottom" size="xl" className="px-6 hover:-translate-y-2 transition-all duration-300">
               Meer over onze diensten
               <ArrowRight className="w-4 h-4" />
             </Button>

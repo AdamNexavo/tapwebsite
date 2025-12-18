@@ -1,38 +1,43 @@
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ctaLogo from "@/assets/cta-logo.svg";
 
 const CTA = () => {
   return (
-    <section id="contact" className="section-padding bg-background">
+    <section id="contact" className="section-padding bg-secondary">
       <div className="container-custom px-4 lg:px-8">
-        <div className="relative bg-card rounded-3xl overflow-hidden border border-border">
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
-          </div>
-
-          <div className="relative p-8 md:p-16 text-center">
-            <div className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase mb-4">
-              <span className="text-accent text-xl">•</span>
-              <span className="text-accent">Contact</span>
+        <div className="relative overflow-hidden rounded-[48px] rounded-tr-none bg-primary text-white">
+          <div className="relative grid lg:grid-cols-[1.3fr,1fr] gap-8 items-center px-8 py-10 md:px-16 md:py-14 max-w-5xl mx-auto">
+            {/* Tekst links */}
+            <div className="space-y-6 max-w-2xl lg:max-w-3xl -ml-4 md:-ml-8 lg:-ml-14">
+              <h2 className="text-3xl md:text-5xl lg:text-5xl font-black leading-tight md:whitespace-nowrap">
+                Klaar om te starten?
+              </h2>
+              <p className="text-lg md:text-xl text-white/80 max-w-xl">
+                We helpen je graag verder. Je kunt bij ons terecht voor ondersteuning óf om zelf deel uit te maken van
+                ons team. Kennis maken?
+              </p>
+              <div className="mt-12 md:mt-16">
+                <Button
+                  variant="accent-bottom"
+                  size="xl"
+                  className="bg-[#464646] hover:bg-[#5a5a5a] border-b-[#2f2f2f] text-white px-8"
+                >
+                  Neem contact op
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </div>
             </div>
-            <h2 className="heading-lg text-foreground mb-4 max-w-2xl mx-auto">
-              Heeft u personeel nodig voor op- of afbouw?
-            </h2>
-            <p className="text-body max-w-xl mx-auto mb-8">
-              Neem contact met ons op en wij regelen ervaren crewleden voor uw evenement. 
-              Flexibel, betrouwbaar en altijd op tijd. Vraag vandaag nog een offerte aan.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent-bottom" size="xl">
-                Vraag personeel aan
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-              <Button variant="outline" size="xl">
-                <Phone className="w-5 h-5" />
-                +31 (0)20 123 4567
-              </Button>
+
+            {/* Afbeelding / logo rechts */}
+            <div className="relative flex justify-center lg:justify-end">
+              <div className="relative h-[260px] md:h-[320px] lg:h-[360px] aspect-[4/5] lg:aspect-[3/4] flex items-center justify-center">
+                <img
+                  src={ctaLogo}
+                  alt="Crewstars logo"
+                  className="h-auto w-full max-w-[780px] origin-center scale-[2.5] md:scale-[2.75] lg:scale-[3] rotate-12 translate-x-12 md:translate-x-24 lg:translate-x-32 -translate-y-2 md:-translate-y-4 lg:-translate-y-6 grayscale brightness-75"
+                />
+              </div>
             </div>
           </div>
         </div>
