@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoZwart from "@/assets/logo-crewstars-zwart.svg";
@@ -10,6 +10,8 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isProjectenOpen, setIsProjectenOpen] = useState(false);
   const [isOpdrachtgeversOpen, setIsOpdrachtgeversOpen] = useState(false);
+  const location = useLocation();
+  const isDienstenPage = location.pathname === "/diensten";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,11 +35,22 @@ const Header = () => {
   ];
 
   return (
-    <header className={`fixed z-[100] rounded-2xl transition-all duration-300 ${
-      isScrolled 
-        ? "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[85%] bg-background backdrop-blur-md border border-border/50 shadow-lg" 
-        : "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[95%] bg-transparent backdrop-blur-none border-transparent shadow-none"
-    }`}>
+    <>
+      {isDienstenPage && !isScrolled && (
+        <div
+          className="fixed top-0 left-0 right-0 h-24 bg-[#333333] z-[90]"
+          aria-hidden="true"
+        />
+      )}
+      <header
+        className={`fixed z-[100] rounded-2xl transition-all duration-300 ${
+          isScrolled
+            ? "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[85%] bg-background backdrop-blur-md border border-border/50 shadow-lg"
+            : isDienstenPage
+            ? "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[95%] bg-[#333333] backdrop-blur-none border-transparent shadow-none"
+            : "top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[95%] bg-transparent backdrop-blur-none border-transparent shadow-none"
+        }`}
+      >
       <div className={`flex items-center justify-between h-16 py-2 w-full ${
         isScrolled ? "px-6 lg:px-8" : "px-6 lg:px-8"
       }`}>
@@ -80,12 +93,12 @@ const Header = () => {
                         onMouseLeave={() => setIsOpdrachtgeversOpen(false)}
                       >
                         <div className="bg-background border border-border/50 rounded-lg shadow-xl backdrop-blur-md overflow-hidden">
-                          <a
-                            href="#diensten"
+                          <Link
+                            to="/diensten"
                             className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-accent transition-colors duration-150"
                           >
                             Diensten
-                          </a>
+                          </Link>
                           <a
                             href="#offerte-aanvragen"
                             className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-accent transition-colors duration-150"
@@ -215,13 +228,13 @@ const Header = () => {
                         {item.name}
                       </a>
                       <div className="pl-4 pb-2 flex flex-col">
-                        <a
-                          href="#diensten"
+                        <Link
+                          to="/diensten"
                           className="py-2 text-foreground/60 hover:text-primary text-sm"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           Diensten
-                        </a>
+                        </Link>
                         <a
                           href="#offerte-aanvragen"
                           className="py-2 text-foreground/60 hover:text-primary text-sm"
@@ -306,6 +319,7 @@ const Header = () => {
           </div>
         )}
     </header>
+    </>
   );
 };
 

@@ -75,12 +75,14 @@ const stats = [
 ];
 
 const Sectors = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [countedValues, setCountedValues] = useState<number[]>([0, 0, 0]);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
   const statsRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
+  const [mapOpacity, setMapOpacity] = useState(0);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapAnimationStartedRef = useRef(false);
 
   useEffect(() => {
     if (hasAnimated) return;
@@ -176,6 +178,45 @@ const Sectors = () => {
     };
   }, []);
 
+  // Fade-in animation for Netherlands map when it enters the viewport (manual JS animation)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !mapAnimationStartedRef.current) {
+            mapAnimationStartedRef.current = true;
+
+            const duration = 1000; // 1 second for a smooth fade
+            const start = performance.now();
+
+            const step = (now: number) => {
+              const progress = Math.min((now - start) / duration, 1);
+              setMapOpacity(progress);
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              }
+            };
+
+            // Start animation
+            requestAnimationFrame(step);
+          }
+        });
+      },
+      { threshold: 0.6, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    const currentMapRef = mapRef.current;
+    if (currentMapRef) {
+      observer.observe(currentMapRef);
+    }
+
+    return () => {
+      if (currentMapRef) {
+        observer.unobserve(currentMapRef);
+      }
+    };
+  }, []);
+
   return (
     <>
     <section id="sectoren" className="section-padding bg-secondary">
@@ -197,31 +238,20 @@ Van grote festivals tot intieme corporate events: we zijn thuis in verschillende
         {/* Sectors Grid */}
         <div className="flex justify-center items-center mb-24">
           {sectors.map((sector, index) => {
-            const isActive = activeIndex === index;
             return (
               <div
                 key={sector.title}
-                onMouseEnter={() => setActiveIndex(index)}
-                className="relative overflow-hidden rounded-2xl w-[280px] h-[380px] cursor-default border-4 border-white"
+                className="relative overflow-hidden rounded-2xl w-[280px] h-[380px] cursor-default border-4 border-white shadow-lg transition-transform duration-500 ease-out hover:scale-[1.1] hover:shadow-2xl group"
                 style={{ 
                   marginLeft: index === 0 ? '0' : '-30px',
-                  transform: `scale(${isActive ? 1.1 : 1})`,
-                  zIndex: isActive ? 50 : 10,
-                  boxShadow: isActive 
-                    ? '0 25px 50px -12px rgba(0, 0, 0, 0.4)' 
-                    : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-                  transition: 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s, box-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s',
+                  zIndex: 10,
                 }}
               >
                 {/* Background Image */}
                 <img
                   src={sector.image}
                   alt={sector.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{
-                    transform: `scale(${isActive ? 1.05 : 1})`,
-                    transition: 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) 0.1s',
-                  }}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.05]"
                 />
                 
                 {/* Overlay */}
@@ -261,7 +291,11 @@ Van grote festivals tot intieme corporate events: we zijn thuis in verschillende
           </div>
 
           {/* Right side - Netherlands Map */}
-          <div className="flex justify-center lg:justify-end">
+          <div
+            ref={mapRef}
+            className="flex justify-center lg:justify-end"
+            style={{ opacity: mapOpacity }}
+          >
             <img
               src={nederlandHubsImg}
               alt="Kaart van Nederland met hubs in Groningen, Utrecht en Rotterdam"
