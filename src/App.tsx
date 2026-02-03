@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Diensten from "./pages/Diensten";
@@ -47,6 +47,10 @@ const App = () => (
             <Route path="/vacatures/specialisten" element={<SpecialistenVacature />} />
             <Route path="/privacyverklaring" element={<Privacyverklaring />} />
             <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
+            {/* Redirects voor oude URLs */}
+            <Route path="/vacatures-evenementenbouwer" element={<Navigate to="/vacatures/op-en-afbouw" replace />} />
+            <Route path="/vacatures-avtechnican" element={<Navigate to="/vacatures/av-technician" replace />} />
+            <Route path="/vacatures" element={<Navigate to="/werken-bij" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
