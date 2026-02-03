@@ -18,7 +18,8 @@ const Header = () => {
   const isWerkenBijPage = location.pathname === "/werken-bij";
   const isVacaturePage = location.pathname.startsWith("/vacatures/");
   const isPrivacyPage = location.pathname === "/privacyverklaring";
-  const isSpecialPage = isDienstenPage || isOffertePage || isContactPage || isProjectenPage || isWerkenBijPage || isVacaturePage || isPrivacyPage;
+  const isAlgemeneVoorwaardenPage = location.pathname === "/algemene-voorwaarden";
+  const isSpecialPage = isDienstenPage || isOffertePage || isContactPage || isProjectenPage || isWerkenBijPage || isVacaturePage || isPrivacyPage || isAlgemeneVoorwaardenPage;
 
   useEffect(() => {
     const handleScroll = () => {

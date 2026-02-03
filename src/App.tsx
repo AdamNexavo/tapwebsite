@@ -15,6 +15,7 @@ import OpEnAfbouwVacature from "./pages/vacatures/OpEnAfbouwVacature";
 import AvTechnicianVacature from "./pages/vacatures/AvTechnicianVacature";
 import SpecialistenVacature from "./pages/vacatures/SpecialistenVacature";
 import Privacyverklaring from "./pages/Privacyverklaring";
+import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/vacatures/av-technician" element={<AvTechnicianVacature />} />
             <Route path="/vacatures/specialisten" element={<SpecialistenVacature />} />
             <Route path="/privacyverklaring" element={<Privacyverklaring />} />
+            <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

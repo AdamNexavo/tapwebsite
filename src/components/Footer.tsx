@@ -135,12 +135,12 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <a
-                    href="/algemene-voorwaarden"
+                  <Link
+                    to="/algemene-voorwaarden"
                     className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
                   >
                     Algemene voorwaarden
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
