@@ -6,6 +6,11 @@
       "permanent": true
     },
     {
+      "source": "/nl/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/vacatures",
       "destination": "/werken-bij",
       "permanent": true
