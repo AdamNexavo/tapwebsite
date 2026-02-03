@@ -19,7 +19,8 @@ const Header = () => {
   const isVacaturePage = location.pathname.startsWith("/vacatures/");
   const isPrivacyPage = location.pathname === "/privacyverklaring";
   const isAlgemeneVoorwaardenPage = location.pathname === "/algemene-voorwaarden";
-  const isSpecialPage = isDienstenPage || isOffertePage || isContactPage || isProjectenPage || isWerkenBijPage || isVacaturePage || isPrivacyPage || isAlgemeneVoorwaardenPage;
+  // Alle pagina's behalve de homepage krijgen grijze header bij stilstand (inclusief 404 pagina)
+  const isSpecialPage = location.pathname !== "/";
 
   useEffect(() => {
     const handleScroll = () => {
