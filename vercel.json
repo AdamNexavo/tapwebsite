@@ -1,0 +1,30 @@
+{
+  "redirects": [
+    {
+      "source": "/nl",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures",
+      "destination": "/werken-bij",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures-evenementenbouwer",
+      "destination": "/vacatures/op-en-afbouw",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures-avtechnician",
+      "destination": "/vacatures/av-technician",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
