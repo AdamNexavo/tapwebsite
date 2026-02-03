@@ -24,6 +24,11 @@
       "source": "/vacatures-avtechnician",
       "destination": "/vacatures/av-technician",
       "permanent": true
+    },
+    {
+      "source": "/roundcube",
+      "destination": "https://mail.zxcs.nl",
+      "permanent": true
     }
   ],
   "rewrites": [
