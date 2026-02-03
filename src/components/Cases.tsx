@@ -50,12 +50,14 @@ const Cases = () => {
           </Button>
         </div>
 
-        {/* Cases Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        {/* Cases Grid - Laptop: flex met overlap, Desktop: grid */}
+        <div className="flex flex-col sm:flex-row lg:flex lg:justify-center lg:overflow-visible lg:max-w-[50%] lg:mx-auto gap-8 lg:gap-0 2xl:max-w-full 2xl:grid 2xl:grid-cols-3 2xl:gap-8">
           {cases.map((caseItem, index) => (
             <article
               key={caseItem.title}
-              className="group bg-card rounded-2xl overflow-hidden border border-border hover:border-accent/50 hover:shadow-xl transition-all duration-300"
+              className={`group bg-card rounded-2xl overflow-hidden border border-border hover:border-accent/50 hover:shadow-xl transition-all duration-300 lg:max-w-[240px] lg:flex-shrink-0 2xl:max-w-none ${
+                index > 0 ? 'lg:-ml-[200px] 2xl:ml-0' : ''
+              }`}
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Image */}

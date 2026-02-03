@@ -9,15 +9,20 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       <Header />
-      <main>
+      <main className="w-full max-w-full overflow-x-hidden">
         <Hero />
         <Services />
         <Stats />
         <Sectors />
         <About />
-        <CTA />
+        <CTA 
+          title="Samenwerken?"
+          description="Of je nu op zoek bent naar ondersteuning voor je evenement of een uitdagende baan, bij Crewstars ben je aan het juiste adres."
+          buttonText="Neem contact op"
+          buttonLink="/contact"
+        />
       </main>
       <Footer />
     </div>

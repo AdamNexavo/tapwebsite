@@ -30,48 +30,48 @@ const Footer = () => {
   return (
     <footer className="text-white" style={{ backgroundColor: "#2f2f2f" }}>
       {/* Main Footer */}
-      <div className="container-custom px-4 lg:pl-4 lg:pr-12 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+      <div className="container-custom px-4 sm:px-6 lg:pl-4 lg:pr-8 xl:pr-12 py-10 sm:py-12 md:py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2 lg:-ml-4">
-            <Link to="/" className="flex items-center mb-6">
+            <Link to="/" className="flex items-center mb-4 sm:mb-6">
               <img 
                 src={logoZwart} 
                 alt="Crewstars" 
-                className="h-14 w-auto"
+                className="h-10 sm:h-12 md:h-14 w-auto"
               />
             </Link>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-white/70">
-                <Phone className="w-5 h-5" />
+            <div className="space-y-2 sm:space-y-3">
+              <div className="flex items-center gap-2 sm:gap-3 text-white/70 text-sm sm:text-base">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                 <a
                   href="tel:+31850712685"
-                  className="font-semibold hover:text-accent transition-colors"
+                  className="font-semibold hover:text-accent transition-colors break-all"
                 >
                   (+31) 85 071 2685
                 </a>
               </div>
 
-              <div className="flex items-start gap-3 text-white/70">
-                <Mail className="w-5 h-5 mt-1" />
+              <div className="flex items-start gap-2 sm:gap-3 text-white/70 text-sm sm:text-base">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 mt-1 flex-shrink-0" />
                 <div className="space-y-1">
                   <a
                     href="mailto:info@crewstars.nl"
-                    className="font-semibold hover:text-accent transition-colors block"
+                    className="font-semibold hover:text-accent transition-colors block break-all"
                   >
                     info@crewstars.nl
                   </a>
                   <a
                     href="mailto:planning@crewstars.nl"
-                    className="font-semibold hover:text-accent transition-colors block"
+                    className="font-semibold hover:text-accent transition-colors block break-all"
                   >
                     planning@crewstars.nl
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 text-white/70">
-                <MapPin className="w-5 h-5" />
+              <div className="flex items-start gap-2 sm:gap-3 text-white/70 text-sm sm:text-base">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mt-1 flex-shrink-0" />
                 <a
                   href="https://www.google.com/maps?q=Bierbrouwersweg+29,+3449HW+Woerden"
                   target="_blank"
@@ -86,42 +86,37 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-[1.3fr,1fr,1fr,1.7fr] gap-12 lg:col-span-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-[1.3fr,1fr,1fr,1.7fr] gap-8 sm:gap-10 md:gap-12 lg:gap-8 xl:gap-12 lg:col-span-3">
             <div className="lg:-ml-2">
-              <h4 className="font-bold text-xl mb-4 text-accent">Menu</h4>
-              <ul className="space-y-1.5 -mt-3">
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Menu</h4>
+              <ul className="space-y-1 sm:space-y-1.5 -mt-2 sm:-mt-3">
                 <li>
-                  <Link to="/" className="text-white/70 hover:text-accent transition-colors">
+                  <Link to="/" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <a href="#werken-bij" className="text-white/70 hover:text-accent transition-colors">
+                  <a href="#werken-bij" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Werken bij
                   </a>
                 </li>
                 <li>
-                  <a href="#diensten" className="text-white/70 hover:text-accent transition-colors">
+                  <a href="#diensten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Diensten
                   </a>
                 </li>
                 <li>
-                  <a href="#offerte-aanvragen" className="text-white/70 hover:text-accent transition-colors">
+                  <a href="#offerte-aanvragen" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Offerte aanvragen
                   </a>
                 </li>
                 <li>
-                  <a href="#over-ons" className="text-white/70 hover:text-accent transition-colors">
-                    Over ons
-                  </a>
-                </li>
-                <li>
-                  <a href="#projecten" className="text-white/70 hover:text-accent transition-colors">
+                  <a href="#projecten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Projecten
                   </a>
                 </li>
                 <li>
-                  <a href="#contact" className="text-white/70 hover:text-accent transition-colors">
+                  <a href="#contact" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Contact
                   </a>
                 </li>
@@ -129,20 +124,20 @@ const Footer = () => {
             </div>
 
             <div>
-              <h4 className="font-bold text-xl mb-4 text-accent">Informatie</h4>
-              <ul className="space-y-1.5 -mt-3">
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Informatie</h4>
+              <ul className="space-y-1 sm:space-y-1.5 -mt-2 sm:-mt-3">
                 <li>
-                  <a
-                    href="/privacyverklaring"
-                    className="text-white/70 hover:text-accent transition-colors"
+                  <Link
+                    to="/privacyverklaring"
+                    className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
                   >
                     Privacyverklaring
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
                     href="/algemene-voorwaarden"
-                    className="text-white/70 hover:text-accent transition-colors"
+                    className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
                   >
                     Algemene voorwaarden
                   </a>
@@ -151,30 +146,32 @@ const Footer = () => {
             </div>
 
             <div className="lg:ml-2">
-              <h4 className="font-bold text-xl mb-4 text-accent">Socials</h4>
-              <div className="flex items-center gap-4 -mt-2 ml-1">
-                <a href="#" className="text-white/70 hover:text-accent transition-colors" aria-label="LinkedIn">
-                  <Linkedin className="w-5 h-5" />
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Socials</h4>
+              <div className="flex items-center gap-3 sm:gap-4 -mt-2 ml-0 sm:ml-1">
+                <a href="https://www.linkedin.com/company/crewstars/" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="LinkedIn">
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
-                <a href="#" className="text-white/70 hover:text-accent transition-colors" aria-label="Instagram">
-                  <Instagram className="w-5 h-5" />
+                <a href="https://www.instagram.com/crewstars/" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="Instagram">
+                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
               </div>
             </div>
 
             <div>
-              <h4 className="font-bold text-xl mb-4 text-accent">Join our crew</h4>
-              <p className="text-white/70 leading-relaxed -mt-2">
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Join our crew</h4>
+              <p className="text-white/70 leading-relaxed -mt-2 text-sm sm:text-base">
                 Sluit je aan bij onze crew en werk mee aan de leukste projecten.
               </p>
-              <div className="mt-4">
-                <Button
-                  variant="accent-bottom"
-                  size="xl"
-                  className="px-6 hover:-translate-y-2 transition-all duration-300 bg-[#8c8cff] hover:bg-[#8c8cff] text-white hover:text-white shadow-none hover:shadow-none"
-                >
-                  Aanmelden
-                </Button>
+              <div className="mt-3 sm:mt-4">
+                <Link to="/werken-bij">
+                  <Button
+                    variant="accent-bottom"
+                    size="xl"
+                    className="w-full sm:w-auto px-4 sm:px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300 bg-[#8c8cff] hover:bg-[#8c8cff] text-white hover:text-white shadow-none hover:shadow-none"
+                  >
+                    Aanmelden
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -183,12 +180,12 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="w-full px-4 lg:px-8 py-6">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="relative flex flex-col items-center gap-2 md:block">
-            <p className="text-white/60 text-sm text-center">
+            <p className="text-white/60 text-xs sm:text-sm text-center">
               © 2026 Crewstars B.V. Alle rechten voorbehouden. · KvK 96320680 · BTW NL867561580B01
             </p>
-            <p className="text-white/50 text-xs md:text-sm absolute right-0 top-1/2 -translate-y-1/2 text-right">
+            <p className="text-white/50 text-[10px] sm:text-xs md:text-sm md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 md:text-right mt-2 md:mt-0 nexavo-text-mobile">
               Website verzorgd door Nexavo
             </p>
           </div>

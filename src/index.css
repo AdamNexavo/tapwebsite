@@ -84,6 +84,68 @@
   }
 }
 
+@media (min-width: 1024px) {
+  /* Diensten pagina: Parent container positionering voor scroll track indicator */
+  section.section-padding.bg-secondary div.max-w-xl.relative {
+    position: relative !important; /* Voor pseudo-element positionering */
+  }
+
+  /* Diensten pagina: Visuele scroll track die altijd zichtbaar is op parent container */
+  section.section-padding.bg-secondary div.max-w-xl.relative::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important; /* Track op exacte scrollbar positie */
+    width: 10px !important; /* Zelfde breedte als mobiel */
+    height: var(--track-height, 400px) !important; /* Dynamische hoogte via JavaScript */
+    background: #d5d5d5 !important; /* Lichtgrijze track - ALTIJD zichtbaar */
+    border-radius: 5px !important;
+    pointer-events: none !important; /* Klik-through zodat scrollen werkt */
+    z-index: 1 !important; /* Achter scrollbar thumb maar boven content */
+  }
+
+  /* Visuele thumb die altijd zichtbaar is - overlay bovenop native scrollbar */
+  section.section-padding.bg-secondary div.max-w-xl.relative::before {
+    content: '' !important;
+    position: absolute !important;
+    top: var(--thumb-top, 0px) !important; /* Dynamische positie via JavaScript */
+    right: 0 !important;
+    width: 10px !important;
+    height: var(--thumb-height, 100px) !important; /* Dynamische hoogte via JavaScript */
+    background: #666666 !important; /* Donkergrijs thumb - ALTIJD zichtbaar */
+    border-radius: 4px !important;
+    pointer-events: none !important; /* Klik-through zodat scrollen werkt */
+    z-index: 3 !important; /* Boven alles - altijd zichtbaar */
+    opacity: 1 !important; /* Volledig zichtbaar */
+    will-change: top, height !important; /* Optimalisatie voor smooth beweging */
+  }
+
+  /* Diensten pagina: Maak timeline scrollbar mooi met thumb IN de track op desktop/laptop */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full {
+    scrollbar-width: none !important; /* Verberg scrollbar voor Firefox - gebruik alleen visuele thumb */
+    -ms-overflow-style: none !important; /* Verberg scrollbar voor IE/Edge */
+    overflow-y: scroll !important; /* Scroll functionaliteit behouden */
+    position: relative !important;
+    z-index: 2 !important; /* Boven visuele track */
+    padding-right: 26px !important; /* Extra ruimte tussen box en scrollbar */
+  }
+
+  /* Webkit browsers (Chrome, Safari, Edge) - verberg native scrollbar volledig */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar {
+    width: 0px !important; /* Verberg scrollbar volledig */
+    display: none !important;
+    -webkit-appearance: none !important;
+  }
+
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar-track {
+    display: none !important; /* Verberg track */
+  }
+
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar-thumb {
+    display: none !important; /* Verberg thumb */
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -91,10 +153,654 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    margin: 0;
+    padding: 0;
+  }
+  
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+  
+  /* Mobile-only: Zorg dat alle tekstkolommen exact dezelfde breedte hebben */
+  @media (max-width: 639px) {
+    /* Vergroot alle teksten op mobile (maar niet headers) */
+    body {
+      font-size: 1.1875rem; /* 19px base, was 18px */
+    }
+    
+    /* Headers NIET aanpassen - zet terug naar originele grootte */
+    h1, h2, h3, h4 {
+      font-size: revert !important;
+    }
+    
+    /* Vergroot paragrafen */
+    p { font-size: 1.2em !important; }
+    
+    /* Vergroot specifieke text size classes (maar niet text-2xl en groter die voor headers zijn) */
+    .text-xs { font-size: 0.9375rem !important; } /* 15px, was 14px */
+    .text-sm { font-size: 1.0625rem !important; } /* 17px, was 16px */
+    .text-base { font-size: 1.1875rem !important; } /* 19px, was 18px */
+    .text-lg { font-size: 1.3125rem !important; } /* 21px, was 20px */
+    .text-xl { font-size: 1.5625rem !important; } /* 25px, was 24px */
+    /* text-2xl, text-3xl, text-4xl, text-5xl blijven ongewijzigd (meestal voor headers) */
+    
+    /* Forceer dat alle tekstkolommen in grid layouts exact dezelfde breedte hebben */
+    section#sectoren .grid > div:first-child,
+    section#sectoren .grid > div.max-w-xl {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    
+  /* 1) Kies 1 canonieke breedte voor mobile tekstkolommen */
+  :root {
+    --mobile-text-max: 456px;   /* pas aan als je referentie anders is */
+    --mobile-text-pad: 1rem;    /* meestal px-4 */
+  }
+
+  /* 2) Stats: zet de tekstkolom exact op die breedte */
+  section#stats .stats-text-column,
+  section#stats .w-full.sm\\:max-w-xl.order-2 {
+    width: 100% !important;
+    max-width: var(--mobile-text-max) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--mobile-text-pad) !important;
+    padding-right: var(--mobile-text-pad) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3) Alles wat de breedte "verstoort" onder de tekst zetten */
+  section#stats .stats-badges-container,
+  section#stats .w-full.sm\\:max-w-xl.order-2 > .flex.flex-wrap.gap-2 {
+    width: 100% !important;
+    max-width: var(--mobile-text-max) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--mobile-text-pad) !important;
+    padding-right: var(--mobile-text-pad) !important;
+    box-sizing: border-box !important;
+    margin-top: 1.5rem !important;
+  }
+    
+    /* Overschrijf alle max-w classes op mobile */
+    .grid [class*="max-w"],
+    .grid [class*="sm:max-w"],
+    .grid [class*="md:max-w"] {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+    
+    /* Vergroot teksten in stats boxen op mobile (box zelf blijftzelfde grootte) */
+    section#stats .bg-background.rounded-lg span {
+      font-size: 1.375rem !important; /* 22px, was 20px */
+    }
+    
+    section#stats .bg-background.rounded-lg p.font-semibold {
+      font-size: 0.6875rem !important; /* 11px, was 10px */
+    }
+    
+    section#stats .bg-background.rounded-lg p.text-muted-foreground {
+      font-size: 0.625rem !important; /* 10px, was 9px */
+    }
+    
+    /* Maak foto's op paarse boxen zichtbaar op mobile */
+    section#stats img[alt="Crewstars team member"],
+    section#sectoren img[alt="Crewstars team"] {
+      display: block !important;
+    }
+    
+    /* Plaats foto in stats sectie hoger op mobile */
+    section#stats .order-1 {
+      margin-top: -4rem !important;
+      margin-bottom: 4rem !important;
+    }
+    
+    /* Meer padding boven statistiek boxen op mobile */
+    section#stats .flex.flex-wrap.gap-2 {
+      margin-top: 2rem !important;
+      margin-bottom: 0.5rem !important; /* Verlaag padding onder boxen */
+    }
+    
+    /* Vergroot logo's in carrousel op mobile */
+    section#stats .flex.items-center.justify-center.p-3 {
+      height: 4.5rem !important; /* was 4rem */
+      width: 8rem !important; /* was 7rem */
+      padding: 1.25rem !important; /* was 1rem */
+    }
+    
+    /* Links uitlijnen tekst in Sectors sectie op mobile */
+    section#sectoren .text-center {
+      text-align: left !important;
+    }
+    
+    section#sectoren .text-center .max-w-3xl {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+    
+    /* Uitlijnen header met tekst eronder op mobile */
+    section#sectoren .text-center > div,
+    section#sectoren .text-center > h2 {
+      padding-left: 0.5rem !important; /* px-2 = 0.5rem */
+    }
+    
+    /* Header tekst niet gecentreerd op mobile - Plan van aanpak sectie */
+    section#plan-van-aanpak .sectors-header-text,
+    section#sectoren .sectors-header-text {
+      text-align: left !important;
+    }
+    
+    section#plan-van-aanpak .sectors-header-text .max-w-3xl,
+    section#sectoren .sectors-header-text .max-w-3xl {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+    }
+    
+    /* Alle child elementen links uitlijnen */
+    section#plan-van-aanpak .sectors-header-text > * {
+      text-align: left !important;
+    }
+    
+    section#plan-van-aanpak .sectors-header-text .inline-flex {
+      justify-content: flex-start !important;
+    }
+    
+    /* Header en tekst perfect inline - zelfde padding/margin */
+    section#plan-van-aanpak .sectors-header-text .inline-flex,
+    section#plan-van-aanpak .sectors-header-text h2,
+    section#plan-van-aanpak .sectors-header-text p {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
+    }
+    
+    /* Paragraph max-width en margin aanpassen voor inline uitlijning - overschrijf px-2 */
+    section#plan-van-aanpak .sectors-header-text p.max-w-3xl {
+      margin-left: 0 !important;
+      margin-right: auto !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    
+    /* Overschrijf alle padding classes voor perfecte inline uitlijning */
+    section#plan-van-aanpak .sectors-header-text p.px-2 {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    
+    /* Meer ruimte onder foto om overlap met blocks eronder te voorkomen */
+    section#plan-van-aanpak .plan-van-aanpak-image-container {
+      margin-bottom: 5rem !important;
+      margin-top: -2rem !important; /* Minder ruimte boven de foto */
+    }
+    
+    /* Tekst in stappen blocks meer naar rechts, cijfers blijven op plek */
+    section#plan-van-aanpak .plan-van-aanpak-steps > div > h4,
+    section#plan-van-aanpak .plan-van-aanpak-steps > div > p {
+      padding-left: 1.5rem !important; /* Tekst meer naar rechts */
+    }
+    
+    /* Meer ruimte onder tekst sectie op mobile om overlap te voorkomen */
+    section#sectoren .text-center.mb-10 {
+      margin-bottom: 3rem !important; /* Meer ruimte tussen tekst en cards */
+      padding-bottom: 1rem !important; /* Extra padding onder tekst */
+    }
+    
+    /* Sector cards - simple stacked layout with negative margins */
+    section#sectoren {
+      overflow: visible !important;
+      position: relative !important;
+    }
+    
+    /* Cards container - centered */
+    section#sectoren .flex.flex-col {
+      gap: 0 !important;
+      overflow: visible !important;
+      position: relative !important;
+      justify-content: center !important;
+      align-items: center !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    
+    /* Sector card base styles - centered */
+    section#sectoren .sector-card {
+      position: relative !important;
+      width: 100% !important;
+      max-width: 456px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      margin-bottom: 0 !important;
+      transition: margin-bottom 0.3s ease-out !important;
+    }
+    
+    /* Open card: push cards below down via margin-bottom */
+    section#sectoren .sector-card[open] {
+      margin-bottom: var(--push, 0px) !important;
+    }
+    
+    /* Cards overlap each other when closed - negative margin-top */
+    section#sectoren .sector-card:not(:first-child) {
+      margin-top: -250px !important;
+    }
+    
+    /* Remove default details marker */
+    section#sectoren .sector-card summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    section#sectoren .sector-card summary::marker {
+      display: none;
+    }
+    
+    /* Card header (summary) - fixed height when closed */
+    section#sectoren .sector-card-header {
+      position: relative !important;
+      height: 350px !important;
+      overflow: hidden !important;
+    }
+    
+    
+    /* Desktop: horizontal layout with overlap */
+    @media (min-width: 640px) {
+      section#sectoren .sector-card {
+        width: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+      
+      section#sectoren .sector-card:not(:first-child) {
+        margin-top: 0 !important;
+        margin-left: -20px !important;
+      }
+      
+      section#sectoren .sector-card-header {
+        height: auto !important;
+      }
+    }
+    
+    /* Tekst horizontaal op mobile */
+    section#sectoren .mobile-horizontal-text {
+      writing-mode: horizontal-tb !important;
+      text-orientation: mixed !important;
+      transform: none !important;
+    }
+    
+    /* Op desktop/laptop: sectors horizontaal houden en originele tekst styling */
+    @media (min-width: 640px) {
+      section#sectoren .mobile-horizontal-text {
+        writing-mode: vertical-rl !important;
+        text-orientation: mixed !important;
+        transform: rotate(180deg) !important;
+      }
+    }
+    
+    /* Stats section: darker background on mobile only */
+    @media (max-width: 639px) {
+      section#stats {
+        background-color: hsl(0 0% 92% / 0.4) !important; /* Donkerder dan bg-muted/30 */
+      }
+    }
+    
+    
+    
+    /* Hero buttons: same width as "Meer over onze diensten" button on mobile only */
+    @media (max-width: 639px) {
+      /* Hero buttons container - match Services container padding for button width */
+      section.relative.min-h-screen .hero-buttons-container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-left: 1rem !important; /* px-4 = 1rem to match Services */
+        padding-right: 1rem !important; /* px-4 = 1rem to match Services */
+        width: 95% !important; /* Make buttons slightly narrower than full width */
+        max-width: 95% !important; /* Make buttons slightly narrower than full width */
+      }
+      
+      /* Hero buttons - match exact width of "Meer over onze diensten" button */
+      section.relative.min-h-screen .hero-button-mobile {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        transition: all 0.3s ease !important;
+      }
+      
+      /* Hero buttons hover effect - same as "Meer over onze diensten" button */
+      section.relative.min-h-screen .hero-button-mobile:hover,
+      section.relative.min-h-screen a[href="/diensten"] .hero-button-mobile:hover {
+        transform: translateY(-8px) !important; /* -translate-y-2 = -8px */
+      }
+      
+      /* "Voor opdrachtgevers" button hover colors - same as "Meer over onze diensten" button */
+      section.relative.min-h-screen a[href="/diensten"] .hero-button-mobile:hover {
+        background-color: #464646 !important; /* hover:bg-[#464646] */
+        color: hsl(var(--accent)) !important; /* hover:text-accent - paarse letters */
+        border-color: #2f2f2f !important; /* hover:border-b-[#2f2f2f] */
+      }
+    }
+    
+    /* Hero titel verkleinen op mobile */
+    section.relative.min-h-screen h1 {
+      font-size: 2.375rem !important; /* 38px, was 36px */
+    }
+    
+    /* Services sectie foto's - centreren en iets groter maken op mobile */
+    section#over-ons .relative.order-1 {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      overflow: visible !important;
+    }
+    
+    /* Background foto - gecentreerd en groter */
+    section#over-ons .relative.order-1 > div:first-child {
+      left: 50% !important;
+      width: 180px !important;
+      height: 260px !important;
+    }
+    
+    /* Foreground foto - gecentreerd en groter */
+    section#over-ons .relative.order-1 > div:last-child {
+      left: 50% !important;
+      width: 180px !important;
+      height: 260px !important;
+    }
+    /* Terug-in-de-tijd sectie: centreren foto's op mobile met parallax animatie */
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      margin-bottom: 2rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    /* Terug-in-de-tijd: zet reviews direct onder de tekst op mobile */
+    section#terug-in-de-tijd > div.container-custom {
+      display: flex !important;
+      flex-direction: column !important;
+      padding-left: 0.5rem !important; /* Minder padding voor bredere review kolom */
+      padding-right: 0.5rem !important;
+    }
+
+    section#terug-in-de-tijd > div.container-custom > div.grid {
+      display: contents !important;
+    }
+
+    section#terug-in-de-tijd > div.container-custom > div.grid > div.flex.justify-center {
+      order: 1 !important;
+    }
+
+    section#terug-in-de-tijd > div.container-custom > div.grid > div.max-w-xl {
+      order: 2 !important;
+    }
+
+    section#terug-in-de-tijd > div.container-custom > div.max-w-5xl {
+      order: 3 !important;
+    }
+
+    /* Terug-in-de-tijd: reviews gebruiksvriendelijker op mobile */
+    section#terug-in-de-tijd > div.container-custom > div.max-w-5xl {
+      margin-top: 1.5rem !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+
+    section#terug-in-de-tijd h3.text-xl.sm\:text-2xl.md\:text-3xl.lg\:text-2xl.xl\:text-3xl.font-black.text-foreground {
+      font-size: 1.875rem !important; /* h2 grootte (text-3xl = 1.875rem) op mobile */
+      line-height: 1.4 !important; /* Tighter line-height voor h2 */
+      margin-bottom: 0.75rem !important;
+      margin-top: 3rem !important; /* Nog meer ruimte boven de h3 op mobile */
+      padding-left: 0 !important; /* Geen padding om uit te lijnen met andere headers */
+      margin-left: 0 !important; /* Reset margin */
+    }
+    
+    .diensten-duplicated-reviews-mobile h3.text-xl.sm\:text-2xl.md\:text-3xl.lg\:text-2xl.xl\:text-3xl.font-black.text-foreground {
+      font-size: 1.875rem !important; /* h2 grootte (text-3xl = 1.875rem) op mobile */
+      line-height: 1.4 !important; /* Tighter line-height voor h2 */
+      margin-bottom: 0.75rem !important;
+      margin-top: 3rem !important; /* Nog meer ruimte boven de h3 op mobile */
+    }
+    
+    /* Diensten pagina: h3 header uitlijning met andere headers - iets meer naar rechts */
+    .diensten-duplicated-reviews-mobile h3.text-xl.sm\:text-2xl.md\:text-3xl.lg\:text-2xl.xl\:text-3xl.font-black.text-foreground {
+      padding-left: 1rem !important; /* Meer padding om uit te lijnen met andere headers */
+      margin-left: 0 !important; /* Reset margin */
+      font-size: 1.875rem !important; /* h2 grootte (text-3xl = 1.875rem) op mobile */
+      line-height: 1.4 !important; /* Tighter line-height voor h2 */
+    }
+
+    section#terug-in-de-tijd .relative.overflow-x-hidden.overflow-y-visible.pt-2.pb-10,
+    .diensten-duplicated-reviews-mobile .relative.overflow-x-hidden.overflow-y-visible.pt-2.pb-10 {
+      padding-top: 0.5rem !important;
+      padding-bottom: 1.5rem !important;
+    }
+
+    /* Terug-in-de-tijd: Review container smaller maken op mobile - volledig binnen scherm */
+    .diensten-duplicated-reviews-mobile {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+    
+    /* Homepage: Review container breder maken op mobile */
+    section#terug-in-de-tijd > div.container-custom > div.max-w-5xl {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+    }
+
+    /* Terug-in-de-tijd: Review wrapper smaller maken op mobile */
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: visible !important;
+      box-sizing: border-box !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    /* Homepage: Review wrapper breder maken op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: visible !important;
+      box-sizing: border-box !important;
+      padding-left: 0.5rem !important; /* Minder padding voor bredere cards */
+      padding-right: 0.5rem !important;
+    }
+
+    /* Terug-in-de-tijd: Review cards container smaller maken op mobile */
+    section#terug-in-de-tijd .relative.overflow-x-hidden.overflow-y-visible.pt-2.pb-10,
+    .diensten-duplicated-reviews-mobile .relative.overflow-x-hidden.overflow-y-visible.pt-2.pb-10 {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Terug-in-de-tijd: Flex container smaller maken op mobile */
+    section#terug-in-de-tijd .flex.transition-transform,
+    .diensten-duplicated-reviews-mobile .flex.transition-transform {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Terug-in-de-tijd: Zorg dat review card niet buiten scherm valt - padding voor ruimte tussen boxes */
+    .diensten-duplicated-reviews-mobile .min-w-full {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      padding-left: 0.75rem !important; /* Ruimte links tussen boxes */
+      padding-right: 0.75rem !important; /* Ruimte rechts tussen boxes */
+    }
+    
+    /* Homepage: Minder padding voor bredere review cards */
+    section#terug-in-de-tijd .min-w-full {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+      padding-left: 0.25rem !important; /* Minder ruimte voor bredere cards */
+      padding-right: 0.25rem !important;
+    }
+
+    /* Terug-in-de-tijd: Review card breder maken op mobile - volledig zichtbaar binnen scherm */
+    section#terug-in-de-tijd .min-w-full > div.bg-background,
+    section#terug-in-de-tijd .review-card {
+      max-width: 100% !important; /* Volledige breedte binnen wrapper */
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 1rem !important;
+      box-sizing: border-box !important;
+    }
+    
+    /* Diensten pagina: Review cards blijven op 100% */
+    .diensten-duplicated-reviews-mobile .min-w-full > div.bg-background,
+    .diensten-duplicated-reviews-mobile .review-card {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding: 1rem !important;
+      box-sizing: border-box !important;
+    }
+
+    section#terug-in-de-tijd .min-w-full > div.bg-background p,
+    .diensten-duplicated-reviews-mobile .min-w-full > div.bg-background p {
+      font-size: 0.95rem !important;
+      line-height: 1.6 !important;
+    }
+
+    /* Terug-in-de-tijd: reviews wrapper extra padding en betere mobile UX */
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper {
+      padding-left: 0 !important; /* Geen padding links om uit te lijnen met andere headers */
+      padding-right: 1rem !important;
+    }
+    
+    /* Diensten pagina: Gedupliceerde review wrapper - uitlijning met andere headers */
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper {
+      padding-left: 1rem !important; /* Zelfde als container-custom px-4 voor uitlijning met andere headers */
+      padding-right: 1rem !important;
+    }
+
+    /* Homepage: Review cards volledige breedte op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .review-card {
+      max-width: 100% !important; /* Volledige breedte binnen wrapper */
+    }
+    
+    /* Diensten pagina: Review cards blijven op 100% */
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper .review-card {
+      max-width: 100% !important;
+    }
+
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .review-card p,
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper .review-card p {
+      font-size: 1rem !important;
+      line-height: 1.6 !important;
+    }
+
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .review-nav-button,
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper .review-nav-button {
+      display: none !important;
+    }
+
+    section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .review-dots,
+    .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper .review-dots {
+      margin-top: 0.5rem !important;
+    }
+    
+    /* Vergroot foto's op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:first-child,
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:nth-child(2),
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:nth-child(3) {
+      width: 140px !important;
+      height: 224px !important;
+    }
+    
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:first-child {
+      left: 50% !important;
+      transform: translateX(calc(-50% - 100px)) translateY(calc(-50% - 40px - var(--parallax-offset-1, 0px))) !important;
+      transition: transform 0.3s ease-out !important;
+    }
+    
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:nth-child(2) {
+      left: 50% !important;
+      transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + var(--parallax-offset-2, 0px))) !important;
+      transition: transform 0.3s ease-out !important;
+    }
+    
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div:nth-child(3) {
+      left: 50% !important;
+      transform: translateX(calc(-50% + 100px)) translateY(calc(-50% + 40px + var(--parallax-offset-3, 0px))) !important;
+      transition: transform 0.3s ease-out !important;
+    }
+    
+    /* Terug-in-de-tijd: Maak buitenkant kader iets ronder op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div {
+      border-radius: 0.875rem !important; /* Iets ronder dan rounded-xl (0.75rem) */
+    }
+    
+    /* Terug-in-de-tijd: Maak border-radius binnenkant gelijk aan buitenkant op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div img {
+      border-radius: 0.875rem !important; /* Gelijk aan buitenkant */
+    }
+    
+    /* Terug-in-de-tijd: Maak kaders donkergrijs (huisstijl) op mobile */
+    section#terug-in-de-tijd .terug-in-de-tijd-photos-container > div {
+      background-color: #2f2f2f !important; /* Donkergrijs huisstijl */
+    }
+    
+    /* Plan van aanpak: Fade-in animatie voor 3 blocks op mobile */
+    /* De animatie wordt gecontroleerd via inline styles in de component */
+    /* Hier zorgen we dat de transition smooth is op mobile */
+    section#plan-van-aanpak .plan-van-aanpak-steps > div {
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out !important;
+    }
+    
+  }
+
+}
+
+/* Desktop/Tablet: Plan van aanpak blocks - animatie toegestaan */
+@media (min-width: 640px) {
+  section#plan-van-aanpak .plan-van-aanpak-steps > div {
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out !important;
   }
 }
 
@@ -104,7 +810,9 @@
   }
 
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    max-width: 80rem; /* max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .heading-xl {
@@ -113,6 +821,32 @@
 
   .heading-lg {
     @apply text-3xl md:text-4xl font-black leading-tight;
+  }
+
+  /* Terug-in-de-tijd: verberg scrollbar in de sectie op alle resoluties */
+  section#terug-in-de-tijd,
+  section#terug-in-de-tijd .container-custom {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  section#terug-in-de-tijd::-webkit-scrollbar,
+  section#terug-in-de-tijd .container-custom::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
+  /* Terug-in-de-tijd: verwijder visuele scroll-track die globaal wordt toegevoegd */
+  section#terug-in-de-tijd div.max-w-xl.relative {
+    overflow: visible !important;
+    padding-right: 0 !important;
+  }
+
+  section#terug-in-de-tijd div.max-w-xl.relative::before,
+  section#terug-in-de-tijd div.max-w-xl.relative::after {
+    content: none !important;
+    display: none !important;
   }
 
   .heading-md {
@@ -136,6 +870,16 @@
   .animate-fade-up {
     animation: fadeUp 0.6s ease-out forwards;
   }
+  
+  @media (max-width: 639px) {
+    .animate-fade-up {
+      opacity: 0;
+      animation: fadeUp 0.1s ease-out forwards;
+    }
+    
+    .delay-100 { animation-delay: 5ms; }
+    .delay-200 { animation-delay: 10ms; }
+  }
 
   .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
@@ -155,6 +899,17 @@
 
   .animate-scroll-left {
     animation: scrollLeft 30s linear infinite;
+  }
+  
+  /* Snellere animatie voor Stats sectie op mobile - 2x zo snel */
+  @media (max-width: 639px) {
+    section#stats .animate-scroll-right {
+      animation: scrollRight 10s linear infinite !important;
+    }
+    
+    section#stats .animate-scroll-left {
+      animation: scrollLeft 10s linear infinite !important;
+    }
   }
 
   .delay-100 { animation-delay: 100ms; }
@@ -251,3 +1006,1054 @@
   clip-path: ellipse(55% 100% at 50% 0%);
   z-index: 1;
 }
+
+/* Mobile fix: Forceer exacte container breedte voor stats tekstkolom */
+@media (max-width: 639px) {
+  section#stats .stats-text-col {
+    width: 100% !important;
+    max-width: 456px !important;     /* gebruik dezelfde waarde als mijn sector cards max-width */
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;   /* match met mijn site (px-4) */
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Stap 4: Overflow safety */
+@media (max-width: 639px) {
+  section#stats {
+    overflow-x: clip !important;
+  }
+}
+
+/* Hero: Maak subtitle en title net zo breed als buttons op mobile */
+@media (max-width: 639px) {
+  /* Parent container centreren op mobile */
+  section.relative.min-h-screen > div.relative.w-full.h-full {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  /* Container centreren en breedte verlagen op mobile */
+  section.relative.min-h-screen .hero-content-container {
+    max-width: 90% !important;
+    width: 90% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 1.5rem !important; /* Inhoud ietsjes lager */
+    box-sizing: border-box !important;
+  }
+  
+  /* Subtitle en title krijgen dezelfde breedte als buttons container */
+  section.relative.min-h-screen .hero-subtitle-mobile,
+  section.relative.min-h-screen .hero-title-mobile {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* H1 font-size aanpassen zodat het precies in 2 regels past */
+  section.relative.min-h-screen .hero-title-mobile {
+    font-size: 2rem !important; /* 32px - 1px kleiner */
+    line-height: 1.1 !important;
+  }
+  
+  /* Watermark zichtbaar en gepositioneerd links op mobile */
+  section.relative.min-h-screen .hero-watermark-mobile {
+    top: 20% !important;
+    left: 55% !important; /* Nog veel meer naar rechts verplaatst */
+    opacity: 0.3 !important;
+    z-index: 35 !important;
+    transform: scale(1.2) scaleX(-1) rotate(-15deg) translateZ(0) !important; /* Horizontaal gespiegeld */
+  }
+  
+  /* CTA: Maak langer op mobile en toon watermark */
+  section#contact > div > div.relative.overflow-hidden {
+    min-height: 600px !important; /* Maak CTA langer op mobile */
+  }
+  
+  section#contact .relative.grid {
+    padding-top: 2rem !important; /* Content bovenaan */
+    padding-bottom: 3rem !important; /* Meer ruimte onderaan */
+    min-height: 580px !important; /* Langere CTA */
+    align-items: flex-start !important; /* Content bovenaan uitlijnen */
+  }
+  
+  /* CTA tekst onder header: iets groter en meer regelafstand */
+  section#contact .relative.grid p.text-sm {
+    font-size: 1rem !important; /* 16px, was 14px (text-sm) - 2px groter */
+    line-height: 1.6 !important; /* Iets meer ruimte tussen regels */
+  }
+  
+  /* CTA knop: kleiner en links gepositioneerd op mobile */
+  section#contact .relative.grid > div > div button,
+  section#contact .relative.grid > div > div a button {
+    width: auto !important; /* Niet full width */
+    max-width: fit-content !important;
+    padding-left: 1rem !important; /* px-4 = 1rem, kleiner dan px-6 */
+    padding-right: 1rem !important;
+    padding-top: 0.625rem !important; /* py-2.5, kleiner */
+    padding-bottom: 0.625rem !important;
+    font-size: 1rem !important; /* Groter: 16px */
+    margin-left: 0 !important; /* Links uitlijnen */
+    margin-right: auto !important;
+  }
+  
+  /* CTA knop pijltje verbergen op mobile */
+  section#contact .relative.grid > div > div button svg,
+  section#contact .relative.grid > div > div a button svg {
+    display: none !important;
+  }
+  
+  section#contact .relative.grid > div > div {
+    display: flex !important;
+    justify-content: flex-start !important; /* Links uitlijnen */
+    align-items: flex-start !important;
+  }
+  
+  /* CTA Watermark: zichtbaar en gepositioneerd op mobile met zelfde kleur als laptop */
+  section#contact .cta-watermark-mobile {
+    display: block !important;
+    right: -20px !important;
+    bottom: -100px !important; /* Lager gepositioneerd - verder naar beneden */
+    opacity: 1 !important; /* Geen transparantie voor donkergrijs effect */
+    z-index: 5 !important;
+    transform: scale(1.7) rotate(15deg) translateX(40px) translateY(50px) translateZ(0) !important; /* Klein tikje meer naar rechts */
+    filter: grayscale(100%) brightness(0.75) !important; /* Zelfde donkergrijs als laptop versie */
+  }
+  
+  /* Verklein "Website verzorgd door Nexavo" tekst op mobile */
+  .nexavo-text-mobile {
+    font-size: 0.5rem !important; /* 8px, was 10px */
+  }
+  
+  /* WerkenBij pagina: Fix paarse overlay positie op mobile zodat foto zichtbaar is */
+  section.bg-secondary .relative.rounded-lg.overflow-visible > .absolute.inset-0.rounded-lg.z-10 {
+    left: 0 !important;
+    top: 0 !important;
+  }
+  
+  /* WerkenBij pagina: Maak foto op paarse overlay zichtbaar op mobile */
+  section.bg-secondary img[alt="Crewstars team member"].hidden.lg\:block {
+    display: block !important;
+  }
+  
+  /* WerkenBij pagina: Verklein foto container met paarse overlay op mobile */
+  section.bg-secondary .flex.justify-center > .relative.w-full.max-w-sm {
+    max-width: 280px !important;
+    width: 100% !important;
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Donkerdere overlay op foto links op mobile - alleen voor secties met diagonale scheiding */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-secondary .absolute.inset-0.bg-black\/30 {
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Donkerder: 60% in plaats van 30% */
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Header gecentreerd in het midden op mobile */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .container-custom .grid {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .text-center {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .text-center h1 {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Paarse schuine scheiding schuiner maken maar 50/50 verdeling behouden op mobile - alleen voor secties met diagonale scheiding */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-\[#6366f1\] {
+    clip-path: polygon(40% 100%, 100% 100%, 100% 0, 60% 0) !important; /* Schuiner: 40%/60% (was 45%/55%), maar nog steeds 50/50 verdeling */
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Aanpassen linkerhelft clipPath om overeen te komen met schuinere scheiding maar 50/50 verdeling op mobile - alleen voor secties met diagonale scheiding */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-secondary {
+    clip-path: polygon(0 0, 0 100%, 40% 100%, 60% 0) !important; /* Schuiner: 40%/60% (was 45%/55%), maar nog steeds 50/50 verdeling */
+  }
+  
+  /* WerkenBij pagina: Maak hele eerste sectie paars vanaf bovenaan met foto als achtergrond op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary),
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) {
+    background-color: transparent !important; /* Transparant, paarse overlay komt via ::after */
+    min-height: 50vh !important; /* Langere sectie op mobile */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-top: 0 !important; /* Start vanaf de top */
+    padding-bottom: 3rem !important; /* Meer padding onderaan voor langere sectie */
+    border-bottom-left-radius: 1.5rem !important; /* Border radius onderkant links */
+    border-bottom-right-radius: 1.5rem !important; /* Border radius onderkant rechts */
+    overflow: visible !important; /* Zorg dat foto naar boven kan uitsteken */
+    position: relative !important;
+  }
+  
+  /* WerkenBij pagina: Maak diagonale scheiding container zichtbaar voor foto op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0,
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 {
+    display: block !important; /* Maak container zichtbaar voor foto */
+    clip-path: none !important; /* Geen clipPath beperkingen */
+  }
+  
+  /* WerkenBij pagina: Verwijder clipPath van ALLE child elementen in z-0 container op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 *,
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 * {
+    clip-path: none !important;
+  }
+  
+  /* WerkenBij pagina: Verberg specifiek de paarse div door alle mogelijke selectors op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+    clip-path: none !important;
+  }
+  
+  /* WerkenBij pagina: Maak grijze achtergrond transparant, maar behoud foto container zichtbaar op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary {
+    background-color: transparent !important; /* Transparant in plaats van verbergen */
+    clip-path: none !important; /* Geen clipPath beperkingen */
+  }
+  
+  /* WerkenBij pagina: Verberg paarse clipPath deel volledig op mobile - overschrijf inline styles - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div.absolute.inset-0.bg-\[#6366f1\] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    pointer-events: none !important;
+    background-color: transparent !important;
+    clip-path: none !important;
+  }
+  
+  /* WerkenBij pagina: Verwijder clipPath van alle elementen met inline style clip-path op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div[style*="clip-path"] {
+    clip-path: none !important;
+    background-color: transparent !important;
+  }
+  
+  /* WerkenBij pagina: Specifiek target de paarse div met clip-path polygon op mobile - overschrijf inline style - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div[style*="polygon(45% 100%"],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div[style*="polygon(40% 100%"],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div[style*="polygon(35% 100%"],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div[data-cursor-element-id][style*="clip-path"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    clip-path: none !important;
+    background-color: transparent !important;
+  }
+  
+  /* WerkenBij pagina: Foto container over hele sectie op mobile (zonder clipPath beperkingen) - bedekt hele sectie inclusief waar paars was - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary > div.absolute {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    clip-path: none !important; /* Geen clipPath beperkingen, over hele sectie */
+    border-bottom-left-radius: 1.5rem !important; /* Border radius onderkant links */
+    border-bottom-right-radius: 1.5rem !important; /* Border radius onderkant rechts */
+    overflow: hidden !important; /* Zorg dat border radius werkt */
+    z-index: 0 !important; /* Achter overlay maar boven verborgen paarse div */
+  }
+  
+  /* WerkenBij pagina: Zorg dat sectie container ook boven sectie uitsteekt (in header gebied) op mobile */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) {
+    margin-top: -6rem !important; /* Strek sectie naar boven (header hoogte = 6rem) */
+    padding-top: calc(6rem + 1.5rem) !important; /* Compenseer voor negatieve margin */
+  }
+  
+  /* WerkenBij pagina: Zorg dat foto container ook boven sectie uitsteekt (in header gebied) op mobile */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 {
+    top: -6rem !important; /* Strek container naar boven (header hoogte = 6rem) */
+    height: calc(100% + 6rem) !important; /* Voeg header hoogte toe aan hoogte */
+  }
+  
+  /* WerkenBij pagina: Foto als achtergrond over hele sectie EN header gebied op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) img[alt="Festival vibe"] {
+    display: block !important; /* Maak foto zichtbaar */
+    position: absolute !important;
+    top: -6rem !important; /* Start vanaf boven sectie (in header gebied) */
+    left: 50% !important; /* Centreer horizontaal */
+    right: auto !important;
+    bottom: 0 !important;
+    width: 150% !important; /* Maak foto breder voor uitzoomeffect */
+    height: calc(100% + 6rem) !important; /* Voeg header hoogte toe aan hoogte */
+    object-fit: cover !important;
+    object-position: center !important; /* Centreer foto */
+    transform: translateX(-50%) !important; /* Centreer de bredere foto */
+    z-index: 0 !important; /* Achter het paarse overlay en header */
+    clip-path: none !important; /* Geen clipPath, over hele sectie */
+    opacity: 1 !important; /* Zorg dat foto volledig zichtbaar is */
+    border-bottom-left-radius: 1.5rem !important; /* Border radius onderkant links */
+    border-bottom-right-radius: 1.5rem !important; /* Border radius onderkant rechts */
+  }
+  
+  /* WerkenBij pagina: Verberg zwarte overlay op foto op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-black\/30 {
+    display: none !important; /* Verberg zwarte overlay */
+  }
+  
+  /* WerkenBij pagina: Paarse overlay boven foto op mobile - alleen voor secties met diagonale scheiding - ook in header gebied */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary)::after {
+    content: '' !important;
+    position: absolute !important;
+    top: -6rem !important; /* Start vanaf boven sectie (in header gebied) */
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: calc(100% + 6rem) !important; /* Voeg header hoogte toe aan hoogte */
+    background-color: #6366f1 !important; /* Paarse overlay */
+    opacity: 0.85 !important; /* 85% opacity zodat foto er licht doorheen schijnt */
+    z-index: 1 !important; /* Boven foto */
+    pointer-events: none !important;
+    border-bottom-left-radius: 1.5rem !important; /* Border radius onderkant links */
+    border-bottom-right-radius: 1.5rem !important; /* Border radius onderkant rechts */
+  }
+  
+  /* WerkenBij pagina: Maak grijze achtergrond (::before) paars op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary)::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 6rem !important; /* h-24 = 6rem */
+    background-color: #6366f1 !important; /* Paars in plaats van grijs */
+    z-index: 1 !important;
+    pointer-events: none !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+  }
+  
+  /* WerkenBij pagina: Centreer titel perfect in het midden op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .container-custom {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    padding: 0 !important;
+    position: relative !important;
+    z-index: 2 !important; /* Boven foto en paarse overlay */
+  }
+  
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .container-custom > div {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .container-custom .grid {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .text-center {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) h1 {
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Maak header achtergrond transparant op mobile zodat foto erdoorheen schijnt */
+  div.fixed.top-0.left-0.right-0.h-24.bg-\[#333333\].z-\[90\][aria-hidden="true"],
+  div.fixed.top-0.left-0.right-0.h-24.bg-\[#333333\],
+  div[class*="fixed"][class*="top-0"][class*="bg-\[#333333\]"],
+  div.fixed.top-0.left-0.right-0.h-24.z-\[90\],
+  div[class*="bg-\[#333333\]"] {
+    background-color: transparent !important; /* Transparant zodat achtergrondfoto zichtbaar is */
+    background: transparent !important; /* Overschrijf ook background shorthand */
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Overschrijf inline styles voor grijze achtergrond op mobile - transparant maken */
+  div.fixed.top-0.left-0.right-0.h-24[style*="background"],
+  div.fixed.top-0.left-0.right-0.h-24[style] {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Universele selector voor alle divs met bg-[#333333] class op mobile - transparant maken */
+  div[class*="bg-\[#333333\]"] {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Eerste sectie heeft grijze achtergrond bovenaan en content begint eronder op mobile - alleen voor secties met diagonale scheiding */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary),
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) {
+    position: relative !important;
+    padding-top: calc(6rem + 1.5rem) !important; /* h-24 (6rem) + extra padding (1.5rem) zodat content onder grijze gedeelte begint */
+    margin-top: 0 !important;
+    overflow: visible !important; /* Zorg dat grijze gedeelte zichtbaar blijft */
+  }
+  
+  /* WerkenBij, Diensten, Offerte, Projecten, Contact: Verwijder grijze achtergrond pseudo-element op mobile zodat foto zichtbaar is */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary)::before,
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\])::before {
+    display: none !important; /* Verberg grijze achtergrond zodat foto zichtbaar is */
+  }
+  
+  /* WerkenBij pagina: Maak sectie langer door absolute container naar beneden uit te rekken op mobile */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 {
+    top: -96px !important; /* Strek sectie naar beneden */
+  }
+  
+  /* WerkenBij pagina: Verhoog hoogte van intro sectie op mobile van 300px naar 330px */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) {
+    height: 330px !important; /* Verhoog van 300px naar 330px op mobile */
+  }
+  
+  /* WerkenBij pagina: Plaats titels veel lager op mobile */
+  /* H1 "Werken bij" in intro sectie */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) h1 {
+    margin-top: 4rem !important; /* Plaats titel veel lager */
+    padding-top: 2rem !important;
+  }
+  
+  /* WerkenBij pagina: Verminder ruimte boven tekstkolom op mobile */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) ~ section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2.gap-8.sm\:gap-12.lg\:gap-16.items-center > div:last-child {
+    margin-top: 2rem !important; /* Verminder ruimte boven tekstkolom op mobile */
+  }
+  
+  /* WerkenBij pagina: Meer ruimte boven "Werken bij Crewstars" label op mobile */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) ~ section.bg-secondary.section-padding span.inline-flex.items-center.gap-2.text-xs.sm\:text-sm.font-semibold.tracking-wide.uppercase.text-accent {
+    margin-top: 0 !important; /* Reset margin-top, ruimte komt nu van parent div */
+    margin-bottom: 0.5rem !important; /* Verklein van mb-3 (12px) naar 0.5rem (8px) op mobile */
+  }
+  
+  /* H2 "Word onderdeel van ons team" in tweede sectie - alleen WerkenBij pagina (sectie direct na eerste sectie met diagonale scheiding) */
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) ~ section.bg-secondary.section-padding h2 {
+    margin-top: 0 !important; /* Haal ruimte boven header weg op mobile */
+    padding-top: 0 !important;
+  }
+  
+  /* WerkenBij pagina: Verklein ruimte tussen "Openstaande vacatures" label en "Kom jij ons team versterken?" header op mobile */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding span.inline-flex.items-center.gap-2.text-xs.sm\:text-sm.font-semibold.tracking-wide.uppercase.text-accent {
+    margin-bottom: 0.5rem !important; /* Verklein van mb-3 (12px) naar 0.5rem (8px) op mobile */
+  }
+  
+  /* WerkenBij pagina: Links uitlijnen tekst in vacatures sectie header op mobile */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.text-center.mb-8.sm\:mb-12.md\:mb-16 {
+    text-align: left !important; /* Links uitlijnen in plaats van centreren op mobile */
+  }
+  
+  /* WerkenBij pagina: Header en alinea inline uitlijnen op mobile */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.text-center.mb-8.sm\:mb-12.md\:mb-16 > h2 {
+    text-align: left !important; /* Links uitlijnen header */
+    margin-left: 0 !important; /* Geen auto margin */
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.text-center.mb-8.sm\:mb-12.md\:mb-16 > p {
+    text-align: left !important; /* Links uitlijnen alinea */
+    margin-left: 0 !important; /* Geen auto margin (overschrijf mx-auto) */
+    margin-right: auto !important;
+    padding-left: 0 !important; /* Overschrijf px-2 */
+    padding-right: 0 !important;
+    max-width: 100% !important; /* Overschrijf max-w-3xl */
+  }
+  
+  /* H2 "Kom jij ons team versterken?" in vacatures sectie - alleen WerkenBij pagina (sectie met bg-background na bg-secondary) */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding h2 {
+    margin-top: 0 !important; /* Haal ruimte boven header weg op mobile */
+    padding-top: 0 !important;
+  }
+  
+  /* WerkenBij pagina: Maak "Solliciteer direct" knop even groot als CTA knop op mobile */
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div:last-child > div.sm\:hidden button,
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div:last-child > div.sm\:hidden a button {
+    width: auto !important; /* Niet full width, zoals CTA knop */
+    max-width: fit-content !important;
+    padding-left: 1rem !important; /* px-4 = 1rem, zoals CTA knop */
+    padding-right: 1rem !important;
+    padding-top: 0.625rem !important; /* py-2.5, zoals CTA knop */
+    padding-bottom: 0.625rem !important;
+    font-size: 1rem !important; /* 16px, zoals CTA knop */
+    margin-left: 0 !important; /* Links uitlijnen */
+    margin-right: auto !important;
+  }
+  
+  /* WerkenBij pagina: Verberg pijltje in "Solliciteer direct" knop op mobile */
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div:last-child > div.sm\:hidden button svg,
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div:last-child > div.sm\:hidden a button svg {
+    display: none !important; /* Verberg pijltje op mobile */
+  }
+  
+  /* WerkenBij pagina: Meer ruimte tussen vacature blocks op mobile */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.md\:grid-cols-2.lg\:grid-cols-3.gap-4.sm\:gap-6.lg\:gap-8 {
+    gap: 1.5rem !important; /* Verhoog gap van gap-4 (1rem) naar 1.5rem op mobile */
+  }
+  
+  /* WerkenBij pagina: Per block animatie op mobile - elk block met eigen delay */
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.md\:grid-cols-2.lg\:grid-cols-3.gap-4.sm\:gap-6.lg\:gap-8 > div:nth-child(1) {
+    transition-delay: 0ms !important; /* Eerste block start direct */
+  }
+  
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.md\:grid-cols-2.lg\:grid-cols-3.gap-4.sm\:gap-6.lg\:gap-8 > div:nth-child(2) {
+    transition-delay: 300ms !important; /* Tweede block start na 300ms */
+  }
+  
+  main > section.bg-secondary.section-padding ~ section.bg-background.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.md\:grid-cols-2.lg\:grid-cols-3.gap-4.sm\:gap-6.lg\:gap-8 > div:nth-child(3) {
+    transition-delay: 600ms !important; /* Derde block start na 600ms */
+  }
+  
+  /* WerkenBij pagina: Maak foto container rechthoekiger op mobile */
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-start > div.relative.w-full.max-w-sm {
+    aspect-ratio: 4 / 3 !important; /* Rechthoekiger aspect ratio op mobile */
+    max-width: 100% !important;
+  }
+  
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-start > div.relative.w-full.max-w-sm > div.relative.rounded-lg.sm\:rounded-xl {
+    aspect-ratio: 4 / 3 !important; /* Rechthoekiger aspect ratio voor paarse overlay op mobile */
+    height: auto !important;
+  }
+  
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-start > div.relative.w-full.max-w-sm > div.relative.rounded-lg.sm\:rounded-xl > img:first-child {
+    aspect-ratio: 4 / 3 !important; /* Rechthoekiger aspect ratio voor achtergrond foto op mobile */
+    object-fit: cover !important;
+  }
+  
+  main > section.bg-secondary.section-padding > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-start > div.relative.w-full.max-w-sm > div.relative.rounded-lg.sm\:rounded-xl > img.absolute.inset-0 {
+    aspect-ratio: 4 / 3 !important; /* Rechthoekiger aspect ratio voor overlay foto op mobile */
+    object-fit: cover !important;
+  }
+  
+  /* Vacaturepagina's: Minder ruimte tussen h1 "Vacature" en p op mobile */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) h1.text-5xl {
+    margin-bottom: 0 !important; /* Geen ruimte tussen h1 en p */
+  }
+  
+  /* Vacaturepagina's: Verlaag hele sectie met "Vacature" en subtitle lager op mobile */
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .text-center.lg\:flex {
+    padding-top: 3rem !important; /* Verhoog padding-top om sectie nog lager te plaatsen */
+  }
+  
+  /* Vacaturepagina's: Alle headers en teksten gebruiken standaard groottes zoals rest van website op mobile */
+  /* Geen custom font-size overrides - gebruik standaard CSS regels van de website */
+  
+  /* Vacaturepagina's: Links uitlijnen intro tekst sectie (max-w-4xl) op mobile */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.text-center > div.max-w-4xl {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: var(--mobile-text-max) !important;
+    padding-left: var(--mobile-text-pad) !important;
+    padding-right: var(--mobile-text-pad) !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Vacaturepagina's: Links uitlijnen tekst binnen intro sectie op mobile */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.text-center > div.max-w-4xl > * {
+    text-align: left !important;
+  }
+  
+  /* Vacaturepagina's: Vergroot header "De kracht achter elk succesvol evenement" naar 27px op mobile */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.text-center > div.max-w-4xl > p.text-3xl {
+    font-size: 27px !important;
+  }
+  
+  /* Vacaturepagina's: Maak overlay foto's zichtbaar op mobile (bij paarse overlay) */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative > div.relative > img.absolute.inset-0.hidden.lg\:block {
+    display: block !important; /* Maak foto zichtbaar op mobile */
+  }
+  
+  /* Vacaturepagina's: Verklein foto container inclusief paarse overlay op mobile en maak vierkantig */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative.w-full.max-w-sm {
+    max-width: 280px !important; /* Verklein van max-w-sm (384px) naar 280px */
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important; /* Maak vierkantig */
+  }
+  
+  /* Vacaturepagina's: Zorg dat alle foto's en overlay ook vierkantig zijn */
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative.w-full.max-w-sm > div.relative.rounded-xl {
+    aspect-ratio: 1 / 1 !important; /* Maak container vierkantig */
+    height: auto !important;
+  }
+  
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative.w-full.max-w-sm > div.relative.rounded-xl > img:first-child,
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative.w-full.max-w-sm > div.relative.rounded-xl > div.absolute.inset-0,
+  section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div.flex > div.relative.w-full.max-w-sm > div.relative.rounded-xl > img.absolute.inset-0 {
+    aspect-ratio: 1 / 1 !important; /* Maak alle foto's en overlay vierkantig */
+    object-fit: cover !important;
+  }
+  
+  /* Header: Fix hoekige onderkant van burger menu op mobile - voeg rounded bottom corners toe */
+  header.fixed > div.lg\:hidden.bg-background.border-t {
+    border-bottom-left-radius: 0.75rem !important; /* rounded-xl = 0.75rem */
+    border-bottom-right-radius: 0.75rem !important; /* rounded-xl = 0.75rem */
+    overflow: hidden !important; /* Zorg dat border radius werkt */
+  }
+  
+  /* Diensten pagina: Plaats "WAAROM CREWSTARS?" label linksboven op mobile in plaats van gecentreerd */
+  section.section-padding.bg-background > div.container-custom > div.max-w-6xl.mx-auto > div.flex.justify-center.items-center.gap-2.text-xs {
+    justify-content: flex-start !important; /* Links uitlijnen in plaats van centreren */
+    align-items: center !important; /* Center vertical alignment voor inline met stip */
+    margin-top: 0 !important; /* Geen ruimte tussen label en header */
+    margin-bottom: 1.5rem !important; /* Behoud ruimte onder label */
+  }
+  
+  /* Diensten pagina: Zorg dat stip en tekst inline zijn op mobile - behoud originele grootte zoals andere stipjes */
+  section.section-padding.bg-background > div.container-custom > div.max-w-6xl.mx-auto > div.flex.justify-center.items-center.gap-2.text-xs > span.text-accent.text-lg {
+    font-size: 1.125rem !important; /* text-lg = 1.125rem, zelfde als andere stipjes op pagina */
+    line-height: 1.5rem !important; /* Zelfde line-height als tekst */
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+  }
+  
+  /* Diensten pagina: Zorg dat tekst span ook inline is */
+  section.section-padding.bg-background > div.container-custom > div.max-w-6xl.mx-auto > div.flex.justify-center.items-center.gap-2.text-xs > span.text-accent:not(.text-lg) {
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 1.5rem !important;
+    vertical-align: middle !important;
+  }
+  
+  /* Diensten pagina: Maak pluspunten widget blocks iets donkerder grijs op mobile */
+  section.section-padding.bg-background > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-\[1fr\,1fr\] > div.flex.flex-col > div.bg-muted\/60 {
+    background-color: hsl(0 0% 90% / 0.75) !important; /* Iets donkerder grijs dan bg-muted/60, maar niet te donker */
+  }
+  
+  /* Diensten pagina: Minder ruimte boven "Betrouwbare partner voor jouw event" header op mobile */
+  section.section-padding.bg-background > div.container-custom > div.max-w-6xl.mx-auto > div.grid.lg\:grid-cols-\[1fr\,1fr\] > div.space-y-4 > h2.text-2xl {
+    margin-top: -0.5rem !important; /* Minder ruimte boven header */
+  }
+  
+  /* Diensten pagina: Maak alle foto kaders huisstijl donkergrijs op mobile */
+  /* Target alle absolute divs in foto containers (die hebben bg-[#333333]) */
+  section.section-padding.bg-secondary div.relative.h-\[280px\] div.absolute,
+  section.bg-muted\/50 div.relative.h-\[280px\] div.absolute,
+  section.py-12.bg-background div.relative.h-\[280px\] div.absolute {
+    background-color: #2f2f2f !important; /* Huisstijl donkergrijs */
+    background: #2f2f2f !important; /* Overschrijf ook background shorthand */
+  }
+  
+  /* Fallback: target alle divs met bg-[#333333] class */
+  div.bg-\[#333333\],
+  div[class*="bg-\[#333333\]"],
+  div[class*="333333"] {
+    background-color: #2f2f2f !important;
+    background: #2f2f2f !important;
+  }
+  
+  /* Diensten pagina: Maak foto containers groter en centreer met gelijke ruimte op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.max-w-5xl.mx-auto > div.grid > div.flex.justify-center,
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid > div.flex.justify-center,
+  section.py-12.bg-background > div.container-custom > div.max-w-5xl.mx-auto.grid > div.flex.justify-center {
+    width: 100% !important;
+    padding-left: 1rem !important; /* Gelijke ruimte links */
+    padding-right: 1rem !important; /* Gelijke ruimte rechts */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  /* Diensten pagina: Maak foto container groter op mobile */
+  section.section-padding.bg-secondary div.relative.h-\[280px\],
+  section.bg-muted\/50 div.relative.h-\[280px\],
+  section.py-12.bg-background div.relative.h-\[280px\] {
+    height: 320px !important; /* Hoger voor grotere foto's */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Diensten pagina: Maak individuele foto's groter op mobile */
+  section.section-padding.bg-secondary div.relative.h-\[280px\] div.absolute[class*="w-\[140px\]"],
+  section.bg-muted\/50 div.relative.h-\[280px\] div.absolute[class*="w-\[140px\]"],
+  section.py-12.bg-background div.relative.h-\[280px\] div.absolute[class*="w-\[140px\]"] {
+    width: 180px !important; /* Groter dan 140px */
+    height: 260px !important; /* Groter dan 200px */
+  }
+  
+  /* Aanpassen left position voor grotere foto's - behoud overlap effect */
+  section.section-padding.bg-secondary div.relative.h-\[280px\] div.absolute[class*="left-\[90px\]"],
+  section.bg-muted\/50 div.relative.h-\[280px\] div.absolute[class*="left-\[90px\]"],
+  section.py-12.bg-background div.relative.h-\[280px\] div.absolute[class*="left-\[90px\]"] {
+    left: 120px !important; /* Aangepast voor grotere foto's */
+  }
+  
+  /* Diensten pagina: Parallax animatie is nu beperkt in JavaScript op mobile */
+  /* Geanimeerde foto (top-0 + z-10) moet iets uitsteken onder de statische foto */
+  section.section-padding.bg-secondary div.relative.h-\[280px\] div.absolute[class*="top-0"].z-10,
+  section.bg-muted\/50 div.relative.h-\[280px\] div.absolute[class*="top-0"].z-10,
+  section.py-12.bg-background div.relative.h-\[280px\] div.absolute[class*="top-0"].z-10 {
+    top: 15% !important; /* Start lager zodat foto iets uitsteekt onder de statische foto */
+  }
+  
+  /* Diensten pagina: Ruimte boven en onder foto containers op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.max-w-5xl.mx-auto > div.grid > div.flex.justify-center,
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid > div.flex.justify-center,
+  section.py-12.bg-background > div.container-custom > div.max-w-5xl.mx-auto.grid > div.flex.justify-center {
+    margin-top: 0.5rem !important; /* Minder ruimte boven foto's */
+    margin-bottom: 2rem !important; /* Behoud ruimte onder foto's */
+  }
+  
+  /* Diensten pagina: AV Support en Specialisten tekstkolommen zelfde breedte als Op-en afbouw */
+  section.bg-muted\/50 > div.container-custom,
+  section.py-12.bg-background > div.container-custom {
+    padding-left: 2rem !important; /* Zelfde padding als section-padding (px-4 = 1rem, maar hier 2rem voor consistentie) */
+    padding-right: 2rem !important;
+  }
+  
+  /* Tekstkolommen in AV Support en Specialisten zelfde breedte als Op-en afbouw */
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid > div:first-child,
+  section.py-12.bg-background > div.container-custom > div.max-w-5xl.mx-auto.grid > div:first-child {
+    max-width: 380px !important; /* Zelfde breedte als Op-en afbouw tekstkolom */
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+  
+  /* Diensten pagina: Accordion pijltje paars bij hover op mobile */
+  section.section-padding.bg-secondary div.w-full.rounded-2xl button:hover svg,
+  section.bg-muted\/50 div.w-full.rounded-2xl button:hover svg,
+  section.py-12.bg-background div.w-full.rounded-2xl button:hover svg {
+    color: hsl(var(--accent)) !important; /* Pijltje paars bij hover */
+  }
+  
+  /* Diensten pagina: Accordion pijltje paars bij open state op mobile */
+  section.section-padding.bg-secondary div.w-full.rounded-2xl button[data-state="open"] svg,
+  section.bg-muted\/50 div.w-full.rounded-2xl button[data-state="open"] svg,
+  section.py-12.bg-background div.w-full.rounded-2xl button[data-state="open"] svg {
+    color: hsl(var(--accent)) !important; /* Pijltje paars wanneer item open is */
+  }
+  
+  /* Diensten pagina: Plaats foto's boven "AV Support" header op mobile */
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid.lg\:grid-cols-2 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-end {
+    order: -1 !important; /* Plaats foto container boven tekst */
+  }
+  
+  section.bg-muted\/50 > div.container-custom > div.max-w-5xl.mx-auto.grid.lg\:grid-cols-2 > div:first-child {
+    order: 1 !important; /* Plaats eerste div (tekst met h2) onder foto */
+  }
+  
+  /* Diensten pagina: Maak crew team foto zichtbaar op paars gedeelte in "Onze werkwijze" sectie op mobile */
+  section.section-padding.bg-secondary img[alt="Crewstars team"].hidden.lg\:block {
+    display: block !important; /* Maak foto zichtbaar op mobile */
+  }
+
+  /* Diensten pagina: Plaats foto met paarse overlay hoger op mobile om overlap te voorkomen */
+  section.section-padding.bg-secondary > div.container-custom > div.grid > div.flex.justify-center > div.w-full.max-w-xl > div.lg\:absolute {
+    top: 0 !important; /* Start bovenaan in plaats van calc(2.5rem) */
+    height: 200px !important; /* Lagere hoogte voor rechthoekiger aspect ratio */
+    bottom: auto !important; /* Geen bottom stretching op mobiel */
+  }
+  
+  /* Diensten pagina: Maak inner container ook rechthoekiger op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.grid > div.flex.justify-center > div.w-full.max-w-xl > div.lg\:absolute > div.relative {
+    width: 92% !important; /* Iets breder voor rechthoekiger vorm */
+    max-width: 92% !important;
+  }
+
+  /* Diensten pagina: Laat "Onze werkwijze" sectie tekst links uitlijnen op mobile in plaats van gecentreerd */
+  section.section-padding.bg-secondary > div.container-custom > div.text-center.mb-8 {
+    text-align: left !important; /* Links uitlijnen in plaats van centreren */
+  }
+
+  /* Diensten pagina: Label "HOE WE WERKEN" ook links uitlijnen op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.text-center.mb-8 > div.inline-flex {
+    display: flex !important; /* Verander van inline-flex naar flex */
+    justify-content: flex-start !important; /* Links uitlijnen */
+  }
+
+  /* Diensten pagina: Paragraaf ook links uitlijnen en max-width aanpassen op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.text-center.mb-8 > p {
+    text-align: left !important; /* Links uitlijnen */
+    margin-left: 0 !important; /* Geen auto margin */
+    margin-right: 0 !important;
+    padding-left: 0 !important; /* Verwijder padding links voor inline alignment */
+    padding-right: 0 !important;
+  }
+
+  /* Diensten pagina: Plaats foto bovenaan sectie (boven "HOE WE WERKEN") op mobile */
+  section.section-padding.bg-secondary > div.container-custom {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Diensten pagina: Grid "flatten" zodat children direct in flexbox komen */
+  section.section-padding.bg-secondary > div.container-custom > div.grid {
+    display: contents !important; /* Grid verdwijnt, children worden direct children van flexbox */
+  }
+
+  /* Diensten pagina: Foto als allereerste op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.grid > div.flex.justify-center {
+    order: 1 !important; /* Foto bovenaan */
+    margin-bottom: 2rem !important; /* Ruimte onder foto */
+  }
+
+  /* Diensten pagina: Text container na foto */
+  section.section-padding.bg-secondary > div.container-custom > div.text-center {
+    order: 2 !important; /* Tekst na foto */
+    margin-bottom: 2rem !important; /* Ruimte onder tekst */
+    margin-top: 0 !important; /* Geen extra ruimte boven */
+  }
+
+  /* Diensten pagina: Timeline als laatste op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.grid > div.max-w-xl.relative {
+    order: 3 !important; /* Timeline onder tekst */
+  }
+
+  /* Diensten pagina: CTA button helemaal onderaan plaatsen op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.flex.justify-center.mt-12 {
+    order: 4 !important; /* Button als allerlaatste */
+  }
+
+  /* Diensten pagina: Timeline lijn perfect centreren op mobiel */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative > div.absolute.top-0.bottom-0 {
+    left: 16px !important; /* Lijn positie op mobiel (center van 32px rondje) */
+    transform: none !important; /* Geen transform, direct op positie */
+  }
+
+  /* Diensten pagina: Timeline rondjes perfect op lijn uitlijnen op mobiel */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative > div > div > div.absolute.top-1\/2 {
+    left: 16px !important; /* Rondje center op 16px (center van 32px rondje) */
+  }
+
+  /* Diensten pagina: Verschuif witte boxes iets naar links op mobiel */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full > div.flex.flex-col > div.relative.pl-14 {
+    padding-left: 2.5rem !important; /* 40px in plaats van 56px (pl-14) - verschuift boxes meer naar links */
+  }
+
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full > div.flex.flex-col > div.relative.pl-14 > div.bg-background {
+    margin-left: -16px !important; /* Alleen positie aanpassen, geen grootte */
+  }
+
+  /* Diensten pagina: Parent container positionering voor scroll track indicator */
+  section.section-padding.bg-secondary div.max-w-xl.relative {
+    position: relative !important; /* Voor pseudo-element positionering */
+  }
+
+  /* Diensten pagina: Visuele scroll track die altijd zichtbaar is op parent container */
+  section.section-padding.bg-secondary div.max-w-xl.relative::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important; /* Track op exacte scrollbar positie */
+    width: 10px !important; /* Smallere track */
+    height: var(--track-height, 400px) !important; /* Dynamische hoogte via JavaScript */
+    background: #d5d5d5 !important; /* Lichtgrijze track - ALTIJD zichtbaar */
+    border-radius: 5px !important;
+    pointer-events: none !important; /* Klik-through zodat scrollen werkt */
+    z-index: 1 !important; /* Achter scrollbar thumb maar boven content */
+  }
+
+  /* Visuele thumb die altijd zichtbaar is - overlay bovenop native scrollbar */
+  section.section-padding.bg-secondary div.max-w-xl.relative::before {
+    content: '' !important;
+    position: absolute !important;
+    top: var(--thumb-top, 0px) !important; /* Dynamische positie via JavaScript */
+    right: 0 !important;
+    width: 10px !important;
+    height: var(--thumb-height, 100px) !important; /* Dynamische hoogte via JavaScript */
+    background: #666666 !important; /* Donkergrijs thumb - ALTIJD zichtbaar */
+    border-radius: 4px !important;
+    pointer-events: none !important; /* Klik-through zodat scrollen werkt */
+    z-index: 3 !important; /* Boven alles - altijd zichtbaar */
+    opacity: 1 !important; /* Volledig zichtbaar */
+    will-change: top, height !important; /* Optimalisatie voor smooth beweging */
+  }
+
+  /* Diensten pagina: Maak timeline scrollbar mooi met thumb IN de track op mobiel */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full {
+    scrollbar-width: none !important; /* Verberg scrollbar voor Firefox - gebruik alleen visuele thumb */
+    -ms-overflow-style: none !important; /* Verberg scrollbar voor IE/Edge */
+    overflow-y: scroll !important; /* Scroll functionaliteit behouden */
+    -webkit-overflow-scrolling: touch !important; /* Smooth scrolling op iOS */
+    position: relative !important;
+    z-index: 2 !important; /* Boven visuele track */
+    padding-right: 18px !important; /* Extra ruimte tussen box en scrollbar */
+  }
+
+  /* Webkit browsers (Chrome, Safari, Edge) - verberg native scrollbar volledig */
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar {
+    width: 0px !important; /* Verberg scrollbar volledig */
+    display: none !important;
+    -webkit-appearance: none !important;
+  }
+
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar-track {
+    display: none !important; /* Verberg track */
+  }
+
+  section.section-padding.bg-secondary div.max-w-xl.relative > div.relative.h-full::-webkit-scrollbar-thumb {
+    display: none !important; /* Verberg thumb */
+  }
+  
+  /* Diensten pagina: Gedupliceerde review sectie alleen zichtbaar op mobile */
+  .diensten-duplicated-reviews-mobile {
+    display: block !important;
+    background-color: hsl(var(--secondary)) !important; /* Zelfde grijze achtergrond als bg-secondary sectie */
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important; /* Meer padding-bottom om witte ruimte onderaan te voorkomen */
+    margin-top: 0 !important; /* Geen margin-top om witte ruimte te voorkomen */
+    margin-bottom: 0 !important; /* Geen margin-bottom om witte ruimte te voorkomen */
+    position: relative !important;
+    overflow: visible !important; /* Zorg dat achtergrondkleur zichtbaar blijft */
+  }
+  
+  /* Diensten pagina: Wrapper ook achtergrondkleur geven */
+  .diensten-duplicated-reviews-mobile .terug-in-de-tijd-reviews-wrapper {
+    background-color: hsl(var(--secondary)) !important; /* Zelfde grijze achtergrond */
+    padding-bottom: 1rem !important; /* Extra padding onderaan wrapper */
+  }
+  
+  /* Diensten pagina: Uitbreiden achtergrondkleur naar volledige breedte met pseudo-element */
+  .diensten-duplicated-reviews-mobile::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    bottom: -2rem !important; /* Uitbreiden onder de container */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    height: calc(100% + 2rem) !important; /* Extra hoogte om witte ruimte te bedekken */
+    background-color: hsl(var(--secondary)) !important;
+    z-index: -1 !important;
+  }
+  
+  /* Diensten pagina: Extra achtergrondkleur onderaan met ::after voor volledige dekking */
+  .diensten-duplicated-reviews-mobile::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -3rem !important; /* Uitbreiden verder onder de container */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    height: 3rem !important; /* Extra hoogte om witte ruimte te bedekken */
+    background-color: hsl(var(--secondary)) !important;
+    z-index: -1 !important;
+  }
+  
+  /* Diensten pagina: Verberg originele review sectie op mobile */
+  section.diensten-original-reviews {
+    display: none !important;
+  }
+  
+  /* Diensten pagina: Meer ruimte boven CTA sectie op mobile - zelfde achtergrondkleur als bg-secondary */
+  .diensten-duplicated-reviews-mobile ~ section#contact {
+    margin-top: 0 !important; /* Geen margin-top om witte ruimte te voorkomen */
+    padding-top: 2rem !important; /* Extra padding-top voor meer ruimte */
+    background-color: hsl(var(--secondary)) !important; /* Zelfde grijze achtergrond als bg-secondary sectie */
+    position: relative !important;
+  }
+  
+  /* Diensten pagina: Uitbreiden achtergrondkleur CTA sectie naar boven met pseudo-element */
+  .diensten-duplicated-reviews-mobile ~ section#contact::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -2rem !important; /* Uitbreiden boven de sectie */
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100vw !important;
+    height: calc(100% + 2rem) !important; /* Extra hoogte om witte ruimte te bedekken */
+    background-color: hsl(var(--secondary)) !important;
+    z-index: -1 !important;
+  }
+  
+  /* Diensten pagina: Meer ruimte boven "HOE WE WERKEN" label op mobile */
+  section.section-padding.bg-secondary > div.container-custom > div.text-center.mb-8.sm\:mb-12 > div.inline-flex.items-center.gap-2.text-xs.sm\:text-sm.font-semibold.tracking-wide.uppercase.mb-3.sm\:mb-4 {
+    margin-top: 2rem !important; /* Meer ruimte boven het label op mobile */
+  }
+  
+  /* Sectors pagina: ALLEEN tekstkolom boven sector cards op mobile - NIETS ANDERS */
+  section#sectoren > div.container-custom {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Sectors pagina: ALLEEN deze tekstkolom eerst op mobile */
+  section#sectoren > div.container-custom > div.text-center.mb-6.sm\:mb-8.md\:mb-10 {
+    order: -1 !important; /* ALLEEN deze tekstkolom bovenaan */
+  }
+  
+  /* Sectors pagina: Sector cards container - geen order, blijft op originele positie */
+  section#sectoren > div.container-custom > div.lg\:flex.lg\:justify-center.lg\:px-8 {
+    order: 0 !important; /* Blijft op originele positie */
+  }
+  
+  /* Sectors pagina: "Landelijk Actief" sectie - geen order, blijft op originele positie */
+  section#sectoren > div.container-custom > div.grid.lg\:grid-cols-2 {
+    order: 0 !important; /* Blijft op originele positie */
+  }
+  
+  /* Sectors pagina: Meer ruimte boven "Actief in Nederland en daarbuiten" h2 op mobile */
+  section#sectoren > div.container-custom > div.grid.lg\:grid-cols-2 > div.max-w-xl > h2.text-2xl.sm\:text-3xl.md\:text-4xl.lg\:text-4xl.xl\:text-5xl.font-black.leading-tight.text-foreground.mb-4.sm\:mb-6 {
+    margin-top: 4rem !important; /* 2x zoveel ruimte boven de h2 op mobile */
+  }
+  
+  /* Sectors pagina: Meer ruimte boven kaart van Nederland foto op mobile */
+  section#sectoren > div.container-custom > div.grid.lg\:grid-cols-2 > div.flex.justify-center.lg\:justify-end > img.max-w-full.h-auto.max-h-\[650px\].object-contain {
+    margin-top: 2rem !important; /* Meer ruimte boven de foto op mobile */
+  }
+}
+
+/* Desktop/Laptop/Tablet: Verberg gedupliceerde review sectie */
+@media (min-width: 640px) {
+  .diensten-duplicated-reviews-mobile {
+    display: none !important;
+  }
+}
+
+/* Vacaturepagina's: Maak functielabels dezelfde style als "• WERKZAAMHEDEN" label op alle resoluties */
+section.bg-background.section-padding > div.container-custom > div.max-w-6xl > div.grid.lg\:grid-cols-2 > div > div.mb-6 > span.inline-flex.items-center.gap-2.text-sm.font-medium.text-primary {
+  text-transform: uppercase !important;
+  font-weight: 600 !important; /* font-semibold */
+  letter-spacing: 0.05em !important; /* tracking-wide */
+  color: hsl(var(--accent)) !important; /* text-accent */
+}
+
+/* Diensten pagina: Accordion pijltje paars bij hover op alle resoluties */
+section.section-padding.bg-secondary div.w-full.rounded-2xl button:hover svg,
+section.bg-muted\/50 div.w-full.rounded-2xl button:hover svg,
+section.py-12.bg-background div.w-full.rounded-2xl button:hover svg {
+  color: hsl(var(--accent)) !important; /* Pijltje paars bij hover */
+}
+
+/* Diensten pagina: Accordion pijltje paars bij open state op alle resoluties */
+section.section-padding.bg-secondary div.w-full.rounded-2xl button[data-state="open"] svg,
+section.bg-muted\/50 div.w-full.rounded-2xl button[data-state="open"] svg,
+section.py-12.bg-background div.w-full.rounded-2xl button[data-state="open"] svg {
+  color: hsl(var(--accent)) !important; /* Pijltje paars wanneer item open is */
+}
+
+/* Desktop/Laptop: Zorg dat eerste sectie WerkenBij exact hetzelfde blijft als origineel */

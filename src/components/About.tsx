@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import festivalCrowdImg from "@/assets/crew-barriers.png";
-import crewTechniekImg from "@/assets/crew-floor.png";
+import crewTechniekImg from "@/assets/crew-left-photo.jpeg";
 import crewStepsImg from "@/assets/crew-lighting.png";
+import crewMudBarriersImg from "@/assets/crew-mud-barriers.png";
 
 const reviews = [
   {
@@ -54,6 +55,7 @@ const About = () => {
   const [dragOffset, setDragOffset] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [sectionTop, setSectionTop] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement | null>(null);
   const dragStartX = useRef<number | null>(null);
   const dragDeltaX = useRef(0);
@@ -66,6 +68,16 @@ const About = () => {
     }, 5000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Scroll-based animatie voor de overlappende foto's rechts
@@ -109,81 +121,113 @@ const About = () => {
 
   return (
     <section
-      id="over-ons"
+      id="terug-in-de-tijd"
       ref={sectionRef}
-      className="section-padding bg-secondary"
+      className="section-padding bg-secondary overflow-visible w-full max-w-full"
     >
-      <div className="container-custom px-4 lg:px-8">
+      <style>{`
+        @media (max-width: 639px) {
+          /* Meer ruimte tussen review blocks op mobile - alleen About pagina */
+          section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .flex.transition-transform > div.min-w-full {
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+          }
+          section#terug-in-de-tijd .terug-in-de-tijd-reviews-wrapper .review-card {
+            margin-top: 1.5rem !important;
+            margin-bottom: 1.5rem !important;
+          }
+        }
+      `}</style>
+      <div className="container-custom px-4 sm:px-6 lg:px-6 xl:px-8">
         {/* About Section with Image Space */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-12 xl:gap-16 items-center mb-12 sm:mb-16 md:mb-20">
           {/* Left side - Text */}
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide uppercase mb-4">
-              <span className="text-accent text-xl">•</span>
+          <div className="max-w-xl order-2 sm:order-2 lg:order-1">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-3 sm:mb-4">
+              <span className="text-accent text-lg sm:text-xl">•</span>
               <span className="text-accent">Over ons</span>
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight text-foreground mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-black leading-tight text-foreground mb-4 sm:mb-6">
               Terug in de tijd
             </h2>
-            <p className="text-lg text-foreground/70 leading-relaxed mb-4">
+            <p className="text-sm sm:text-base lg:text-lg text-foreground/70 leading-relaxed mb-3 sm:mb-4">
               In 2021 begonnen we met een klein team in de evenementenbranche. Vanuit bestaande samenwerkingen ontstond de behoefte om dit goed en professioneel neer te zetten. De combinatie van events en de klik met de mensen op de vloer maakten de keuze vanzelfsprekend.
             </p>
-            <p className="text-lg text-foreground/70 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-foreground/70 leading-relaxed">
               Met verschillende achtergronden binnen het team, waaronder technische ervaring, groeiden we stap voor stap verder. Wat begon met een paar opdrachten ontwikkelde zich tot een bedrijf waar opdrachtgevers en crew elkaar weten te vinden en graag mee samenwerken.
             </p>
           </div>
 
           {/* Right side - zelfde beeld als in de Services sectie (overlappende foto's) */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative h-[500px] flex items-center justify-center w-full max-w-xl">
+          <div className="flex justify-center lg:justify-end overflow-visible order-1 sm:order-1 lg:order-2">
+            <div 
+              className="relative h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center w-full max-w-xl overflow-visible terug-in-de-tijd-photos-container"
+              style={{
+                '--parallax-offset-1': `${Math.max(0, parallaxOffset * 0.3)}px`,
+                '--parallax-offset-2': `${Math.max(0, parallaxOffset * 0.1)}px`,
+                '--parallax-offset-3': `${Math.max(0, parallaxOffset * 0.5)}px`,
+              } as React.CSSProperties}
+            >
               <div
-                className="absolute left-0 top-1/2 bg-[#333333] p-2 rounded-2xl shadow-2xl inline-flex items-center justify-center w-[320px] h-[346px]"
-                style={{
-                  transform: `translateY(calc(-50% - 60px - ${Math.max(
-                    0,
-                    parallaxOffset * 0.3
-                  )}px))`,
-                  transition: "transform 0.3s ease-out",
-                }}
-              >
-                <img
-                  src={crewStepsImg}
-                  alt="Crewstars crew in actie"
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-
-              <div
-                className="absolute left-[180px] top-1/2 bg-[#333333] p-2 rounded-2xl shadow-2xl z-10 inline-flex items-center justify-center w-[320px] h-[346px]"
-                style={{
-                  transform: `translateY(calc(-50% + ${Math.max(
-                    0,
-                    parallaxOffset * 0.1
-                  )}px))`,
-                  transition: "transform 0.3s ease-out",
-                }}
+                className="absolute left-0 top-1/2 bg-[#333333] p-2 rounded-xl sm:rounded-2xl shadow-2xl inline-flex items-center justify-center w-[100px] sm:w-[150px] md:w-[180px] lg:w-[220px] xl:w-[260px] h-[160px] sm:h-[240px] md:h-[280px] lg:h-[310px] xl:h-[346px]"
+                style={
+                  !isMobile
+                    ? {
+                        transform: `translateY(calc(-50% - 40px - ${Math.max(
+                          0,
+                          parallaxOffset * 0.3
+                        )}px))`,
+                        transition: "transform 0.3s ease-out",
+                      }
+                    : undefined
+                }
               >
                 <img
                   src={crewTechniekImg}
                   alt="Crewstars techniek team"
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-lg sm:rounded-xl"
                 />
               </div>
 
               <div
-                className="absolute left-[360px] top-1/2 bg-[#333333] p-2 rounded-2xl shadow-2xl z-20 inline-flex items-center justify-center w-[320px] h-[346px]"
-                style={{
-                  transform: `translateY(calc(-50% + 60px + ${Math.max(
-                    0,
-                    parallaxOffset * 0.5
-                  )}px))`,
-                  transition: "transform 0.3s ease-out",
-                }}
+                className="absolute left-[70px] sm:left-[100px] md:left-[120px] lg:left-[140px] xl:left-[160px] top-1/2 bg-[#333333] p-2 rounded-xl sm:rounded-2xl shadow-2xl z-10 inline-flex items-center justify-center w-[100px] sm:w-[150px] md:w-[180px] lg:w-[220px] xl:w-[260px] h-[160px] sm:h-[240px] md:h-[280px] lg:h-[310px] xl:h-[346px]"
+                style={
+                  !isMobile
+                    ? {
+                        transform: `translateY(calc(-50% + ${Math.max(
+                          0,
+                          parallaxOffset * 0.1
+                        )}px))`,
+                        transition: "transform 0.3s ease-out",
+                      }
+                    : undefined
+                }
               >
                 <img
                   src={festivalCrowdImg}
                   alt="Festival publiek"
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-lg sm:rounded-xl"
+                />
+              </div>
+
+              <div
+                className="absolute left-[140px] sm:left-[200px] md:left-[240px] lg:left-[280px] xl:left-[320px] top-1/2 bg-[#333333] p-2 rounded-xl sm:rounded-2xl shadow-2xl z-20 inline-flex items-center justify-center w-[100px] sm:w-[150px] md:w-[180px] lg:w-[220px] xl:w-[260px] h-[160px] sm:h-[240px] md:h-[280px] lg:h-[310px] xl:h-[346px]"
+                style={
+                  !isMobile
+                    ? {
+                        transform: `translateY(calc(-50% + 40px + ${Math.max(
+                          0,
+                          parallaxOffset * 0.5
+                        )}px))`,
+                        transition: "transform 0.3s ease-out",
+                      }
+                    : undefined
+                }
+              >
+                <img
+                  src={crewMudBarriersImg}
+                  alt="Crewstars crew aan het werk in modderige omstandigheden"
+                  className="w-full h-full object-cover rounded-lg sm:rounded-xl"
                 />
               </div>
             </div>
@@ -191,9 +235,9 @@ const About = () => {
         </div>
 
         {/* Reviews Section */}
-        <div className="max-w-5xl mx-auto mt-24 md:mt-32">
-          <div className="relative overflow-visible">
-            <h3 className="text-2xl md:text-3xl font-black text-foreground mb-4">
+        <div className="max-w-5xl mx-auto mt-12 sm:mt-16 md:mt-24 lg:mt-32">
+          <div className="relative overflow-visible terug-in-de-tijd-reviews-wrapper">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-black text-foreground mb-3 sm:mb-4">
               Ervaringen uit de praktijk
             </h3>
             {/* Review Cards */}
@@ -266,18 +310,18 @@ const About = () => {
                     key={index}
                     className="min-w-full"
                   >
-                    <div className="bg-background rounded-2xl p-8 shadow-xl border border-border/50 max-w-[90%] mx-auto my-4 cursor-pointer select-none">
-                      <div className="flex items-center gap-1 mb-4">
+                    <div className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 shadow-xl border border-border/50 max-w-[95%] sm:max-w-[90%] mx-auto my-3 sm:my-4 cursor-pointer select-none review-card">
+                      <div className="flex items-center gap-1 mb-3 sm:mb-4">
                         {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-accent text-accent" />
+                          <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-accent text-accent" />
                         ))}
                       </div>
-                      <p className="text-lg text-foreground/80 leading-relaxed mb-6">
+                      <p className="text-sm sm:text-base md:text-lg text-foreground/80 leading-relaxed mb-4 sm:mb-6">
                         "{review.text}"
                       </p>
                       <div>
-                        <p className="font-bold text-foreground">{review.name}</p>
-                        <p className="text-sm text-foreground/60">{review.company}</p>
+                        <p className="font-bold text-foreground text-sm sm:text-base">{review.name}</p>
+                        <p className="text-xs sm:text-sm text-foreground/60">{review.company}</p>
                       </div>
                     </div>
                   </div>
@@ -288,21 +332,21 @@ const About = () => {
             {/* Navigation Buttons */}
             <button
               onClick={prevReview}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background rounded-full p-2 shadow-lg border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 z-10"
+              className="absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 bg-background rounded-full p-1.5 sm:p-2 shadow-lg border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 z-10 review-nav-button"
               aria-label="Vorige review"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button
               onClick={nextReview}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background rounded-full p-2 shadow-lg border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 z-10"
+              className="absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 bg-background rounded-full p-1.5 sm:p-2 shadow-lg border border-border/50 hover:bg-accent hover:text-accent-foreground transition-all duration-300 z-10 review-nav-button"
               aria-label="Volgende review"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
 
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-0">
+            <div className="flex justify-center gap-2 mt-0 review-dots">
               {reviews.map((_, index) => (
                 <button
                   key={index}
@@ -324,3 +368,4 @@ const About = () => {
 };
 
 export default About;
+
