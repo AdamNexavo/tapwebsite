@@ -28,15 +28,24 @@ const Contact = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    // Map display names to state keys
+    const nameMap: Record<string, string> = {
+      "Naam": "naam",
+      "E-mailadres": "email",
+      "Telefoonnummer": "telefoon",
+      "Onderwerp": "onderwerp",
+      "Bericht": "bericht",
+    };
+    const stateKey = nameMap[name] || name;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [stateKey]: value,
     }));
     // Clear error when user starts typing
-    if (errors[name]) {
+    if (errors[stateKey]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
-        delete newErrors[name];
+        delete newErrors[stateKey];
         return newErrors;
       });
     }
@@ -251,7 +260,7 @@ const Contact = () => {
                             <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
                             <Input
                               id="naam"
-                              name="naam"
+                              name="Naam"
                               type="text"
                               value={formData.naam}
                               onChange={handleChange}
@@ -266,7 +275,7 @@ const Contact = () => {
                             <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#6366f1]">*</span></Label>
                             <Input
                               id="email"
-                              name="email"
+                              name="E-mailadres"
                               type="email"
                               value={formData.email}
                               onChange={handleChange}
@@ -284,7 +293,7 @@ const Contact = () => {
                             <Label htmlFor="telefoon" className="font-bold">Telefoonnummer</Label>
                             <Input
                               id="telefoon"
-                              name="telefoon"
+                              name="Telefoonnummer"
                               type="tel"
                               value={formData.telefoon}
                               onChange={handleChange}
@@ -295,7 +304,7 @@ const Contact = () => {
                             <Label htmlFor="onderwerp" className="font-bold">Onderwerp</Label>
                             <Input
                               id="onderwerp"
-                              name="onderwerp"
+                              name="Onderwerp"
                               type="text"
                               value={formData.onderwerp}
                               onChange={handleChange}
@@ -308,7 +317,7 @@ const Contact = () => {
                             <Label htmlFor="bericht" className="font-bold">Bericht <span className="text-[#6366f1]">*</span></Label>
                             <Textarea
                               id="bericht"
-                              name="bericht"
+                              name="Bericht"
                               rows={5}
                               value={formData.bericht}
                               onChange={handleChange}

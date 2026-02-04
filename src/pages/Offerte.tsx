@@ -47,15 +47,28 @@ const Offerte = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    // Map display names to state keys
+    const nameMap: Record<string, string> = {
+      "Naam": "naam",
+      "Bedrijf": "bedrijf",
+      "E-mailadres": "email",
+      "Telefoonnummer": "telefoon",
+      "Naam evenement": "naamEvenement",
+      "Locatie": "locatie",
+      "Aantal personen": "aantalPersonen",
+      "Type personeel": "typePersonnel",
+      "Bericht / extra informatie": "bericht",
+    };
+    const stateKey = nameMap[name] || name;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [stateKey]: value,
     }));
     // Clear error when user starts typing
-    if (errors[name]) {
+    if (errors[stateKey]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
-        delete newErrors[name];
+        delete newErrors[stateKey];
         return newErrors;
       });
     }
@@ -314,14 +327,14 @@ const Offerte = () => {
                 {!isSubmitted ? (
                   <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
                   <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
-                  <input type="hidden" name="datumVan" value={formData.datumVan} />
-                  <input type="hidden" name="datumTot" value={formData.datumTot} />
+                  <input type="hidden" name="Datum evenement (van)" value={formData.datumVan} />
+                  <input type="hidden" name="Datum evenement (tot)" value={formData.datumTot} />
                   <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div className="space-y-2">
                       <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
                       <Input
                         id="naam"
-                        name="naam"
+                        name="Naam"
                         type="text"
                         value={formData.naam}
                         onChange={handleChange}
@@ -336,7 +349,7 @@ const Offerte = () => {
                       <Label htmlFor="bedrijf" className="font-bold">Bedrijf <span className="text-[#6366f1]">*</span></Label>
                       <Input
                         id="bedrijf"
-                        name="bedrijf"
+                        name="Bedrijf"
                         type="text"
                         value={formData.bedrijf}
                         onChange={handleChange}
@@ -354,7 +367,7 @@ const Offerte = () => {
                       <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#6366f1]">*</span></Label>
                       <Input
                         id="email"
-                        name="email"
+                        name="E-mailadres"
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
@@ -369,7 +382,7 @@ const Offerte = () => {
                       <Label htmlFor="telefoon" className="font-bold">Telefoonnummer <span className="text-[#6366f1]">*</span></Label>
                       <Input
                         id="telefoon"
-                        name="telefoon"
+                        name="Telefoonnummer"
                         type="tel"
                         value={formData.telefoon}
                         onChange={handleChange}
@@ -387,7 +400,7 @@ const Offerte = () => {
                       <Label htmlFor="naamEvenement" className="font-bold text-sm sm:text-base">Naam evenement</Label>
                       <Input
                         id="naamEvenement"
-                        name="naamEvenement"
+                        name="Naam evenement"
                         type="text"
                         value={formData.naamEvenement}
                         onChange={handleChange}
@@ -399,7 +412,7 @@ const Offerte = () => {
                       <Label htmlFor="locatie" className="font-bold text-sm sm:text-base">Locatie</Label>
                       <Input
                         id="locatie"
-                        name="locatie"
+                        name="Locatie"
                         type="text"
                         value={formData.locatie}
                         onChange={handleChange}
@@ -508,7 +521,7 @@ const Offerte = () => {
                       <Label htmlFor="aantalPersonen" className="font-bold text-sm sm:text-base">Aantal personen</Label>
                       <Input
                         id="aantalPersonen"
-                        name="aantalPersonen"
+                        name="Aantal personen"
                         type="number"
                         min="1"
                         value={formData.aantalPersonen}
@@ -521,7 +534,7 @@ const Offerte = () => {
                       <Label htmlFor="typePersonnel" className="font-bold text-sm sm:text-base">Type personeel</Label>
                       <Input
                         id="typePersonnel"
-                        name="typePersonnel"
+                        name="Type personeel"
                         type="text"
                         value={formData.typePersonnel}
                         onChange={handleChange}
@@ -536,7 +549,7 @@ const Offerte = () => {
                       <Label htmlFor="bericht" className="font-bold text-sm sm:text-base">Bericht / Extra informatie</Label>
                       <Textarea
                         id="bericht"
-                        name="bericht"
+                        name="Bericht / extra informatie"
                         rows={3}
                         value={formData.bericht}
                         onChange={handleChange}
