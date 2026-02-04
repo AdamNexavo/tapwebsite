@@ -16,6 +16,7 @@ import AvTechnicianVacature from "./pages/vacatures/AvTechnicianVacature";
 import SpecialistenVacature from "./pages/vacatures/SpecialistenVacature";
 import Privacyverklaring from "./pages/Privacyverklaring";
 import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
+import Bedankt from "./pages/Bedankt";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/vacatures/specialisten" element={<SpecialistenVacature />} />
             <Route path="/privacyverklaring" element={<Privacyverklaring />} />
             <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
+            <Route path="/bedankt" element={<Bedankt />} />
             {/* Redirects voor oude URLs */}
             <Route path="/vacatures-evenementenbouwer" element={<Navigate to="/vacatures/op-en-afbouw" replace />} />
             <Route path="/vacatures-avtechnican" element={<Navigate to="/vacatures/av-technician" replace />} />
