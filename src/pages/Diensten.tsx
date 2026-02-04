@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -913,10 +914,12 @@ const Diensten = () => {
 
             {/* CTA Button */}
             <div className="flex justify-center mt-12 sm:mt-16 md:mt-20">
-              <Button variant="accent-bottom" size="xl" className="w-full sm:w-auto px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300">
-                Vraag offerte aan
-                <ArrowRight className="w-4 h-4" />
-              </Button>
+              <Link to="/offerte">
+                <Button variant="accent-bottom" size="xl" className="w-full sm:w-auto px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300">
+                  Vraag offerte aan
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
