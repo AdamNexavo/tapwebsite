@@ -118,12 +118,13 @@ const Contact = () => {
             box-sizing: border-box !important;
             overflow: hidden !important;
           }
-          /* Bevestigingsblok op mobiel - voorkom overflow en zorg voor gelijke ruimte links en rechts */
+          /* Bevestigingsblok op mobiel - smaller en gecentreerd */
           .contact-success-message {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+            width: calc(100% - 0.5rem) !important;
+            max-width: calc(100% - 0.5rem) !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding: 1.5rem !important;
             box-sizing: border-box !important;
             overflow: hidden !important;
           }
@@ -132,12 +133,16 @@ const Contact = () => {
             max-width: 100% !important;
             word-wrap: break-word !important;
           }
-          /* Verklein button tekst op mobiel */
-          .contact-success-message button {
-            font-size: 0.875rem !important; /* text-sm */
-            padding-left: 1.5rem !important; /* px-6 */
-            padding-right: 1.5rem !important; /* px-6 */
-            height: 2.75rem !important; /* h-11 */
+          /* Button tekst aanpassen op mobiel */
+          .contact-success-message button,
+          .contact-success-message a.inline-flex {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
+          }
+          /* Overschrijf text-lg class specifiek */
+          .contact-success-message .text-lg {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
           }
           /* Foto focus bovenkant op mobiel */
           section.relative.section-padding.pt-24 img[alt="Crewstars team aan het werk"] {
@@ -391,7 +396,7 @@ const Contact = () => {
                       }}
                       variant="accent-bottom"
                       size="xl"
-                      className="px-8"
+                      className="px-8 bg-[#464646] hover:bg-[#5a5a5a] border-b-[#2f2f2f] text-white"
                     >
                       Nieuw bericht versturen
                     </Button>

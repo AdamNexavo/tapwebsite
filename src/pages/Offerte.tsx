@@ -176,12 +176,13 @@ const Offerte = () => {
           section.relative.section-padding.pt-24 h1.text-3xl.sm\\:text-4xl {
             font-size: 2rem !important; /* 32px, 2px groter dan text-3xl (30px) */
           }
-          /* Bevestigingsblok op mobiel - voorkom overflow en zorg voor gelijke ruimte links en rechts */
+          /* Bevestigingsblok op mobiel - smaller en gecentreerd */
           .offerte-success-message {
-            width: 100% !important;
-            max-width: 100% !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+            width: calc(100% - 0.5rem) !important;
+            max-width: calc(100% - 0.5rem) !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding: 1.5rem !important;
             box-sizing: border-box !important;
             overflow: hidden !important;
           }
@@ -190,12 +191,16 @@ const Offerte = () => {
             max-width: 100% !important;
             word-wrap: break-word !important;
           }
-          /* Verklein button tekst op mobiel */
-          .offerte-success-message button {
-            font-size: 0.875rem !important; /* text-sm */
-            padding-left: 1.5rem !important; /* px-6 */
-            padding-right: 1.5rem !important; /* px-6 */
-            height: 2.75rem !important; /* h-11 */
+          /* Button tekst aanpassen op mobiel */
+          .offerte-success-message button,
+          .offerte-success-message a.inline-flex {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
+          }
+          /* Overschrijf text-lg class specifiek */
+          .offerte-success-message .text-lg {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
           }
         }
         @media (min-width: 1024px) {
@@ -628,7 +633,7 @@ const Offerte = () => {
                       }}
                       variant="accent-bottom"
                       size="xl"
-                      className="px-8"
+                      className="px-8 bg-[#464646] hover:bg-[#5a5a5a] border-b-[#2f2f2f] text-white"
                     >
                       Nieuwe aanvraag versturen
                     </Button>

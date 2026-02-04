@@ -1,13 +1,57 @@
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CTA from "@/components/CTA";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 
 const Bedankt = () => {
   return (
     <div className="min-h-screen">
+      <style>{`
+        /* Donkergrijze button style voor "Nog een bericht versturen" op alle resoluties */
+        section.section-padding.bg-secondary .bg-background.rounded-xl a.bg-\\[\\#464646\\] {
+          background-color: #464646 !important;
+          color: white !important;
+          border-bottom-color: #2f2f2f !important;
+        }
+        section.section-padding.bg-secondary .bg-background.rounded-xl a.bg-\\[\\#464646\\]:hover {
+          background-color: #5a5a5a !important;
+        }
+        @media (max-width: 639px) {
+          /* Bevestigingsblok op mobiel - smaller en gecentreerd */
+          section.section-padding.bg-secondary .max-w-2xl {
+            max-width: calc(100% - 1rem) !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+          }
+          section.section-padding.bg-secondary .bg-background.rounded-xl {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding: 1.5rem !important;
+            box-sizing: border-box !important;
+          }
+          /* Zorg dat interne content niet overflow veroorzaakt */
+          section.section-padding.bg-secondary .bg-background.rounded-xl * {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+          }
+          /* Button tekst aanpassen op mobiel */
+          section.section-padding.bg-secondary .bg-background.rounded-xl button,
+          section.section-padding.bg-secondary .bg-background.rounded-xl a.inline-flex {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
+          }
+          /* Overschrijf text-lg class specifiek */
+          section.section-padding.bg-secondary .bg-background.rounded-xl .text-lg {
+            font-size: 1rem !important; /* text-base */
+            line-height: 1.5rem !important;
+          }
+        }
+      `}</style>
       <Header />
       <main>
         {/* Bevestigings Section */}
@@ -35,9 +79,9 @@ const Bedankt = () => {
                   </Button>
                   <Button
                     asChild
-                    variant="outline"
+                    variant="accent-bottom"
                     size="xl"
-                    className="px-8"
+                    className="px-8 bg-[#464646] hover:bg-[#5a5a5a] border-b-[#2f2f2f] text-white"
                   >
                     <Link to="/contact">Nog een bericht versturen</Link>
                   </Button>
@@ -46,14 +90,6 @@ const Bedankt = () => {
             </div>
           </div>
         </section>
-
-        {/* CTA Section */}
-        <CTA 
-          title="Samenwerken?"
-          description="Of je nu op zoek bent naar ondersteuning voor je evenement of een uitdagende baan, bij Crewstars ben je aan het juiste adres."
-          buttonText="Contact opnemen"
-          buttonLink="/contact"
-        />
       </main>
       <Footer />
     </div>
