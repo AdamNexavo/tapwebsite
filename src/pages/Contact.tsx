@@ -75,6 +75,40 @@ const Contact = () => {
     <div className="min-h-screen">
       <style>{`
         @media (max-width: 639px) {
+          /* Formulier container op mobiel - voorkom overflow en zorg voor gelijke ruimte links en rechts */
+          section.section-padding.bg-secondary .bg-background.rounded-xl {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+          /* Bevestigingsblok op mobiel - voorkom overflow en zorg voor gelijke ruimte links en rechts */
+          .contact-success-message {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+          /* Zorg dat interne content niet overflow veroorzaakt */
+          .contact-success-message * {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+          }
+          /* Verklein button tekst op mobiel */
+          .contact-success-message button {
+            font-size: 0.875rem !important; /* text-sm */
+            padding-left: 1.5rem !important; /* px-6 */
+            padding-right: 1.5rem !important; /* px-6 */
+            height: 2.75rem !important; /* h-11 */
+          }
+          /* Foto focus bovenkant op mobiel */
+          section.relative.section-padding.pt-24 img[alt="Crewstars team aan het werk"] {
+            object-position: center top !important;
+          }
         }
         @media (min-width: 1024px) {
           /* Verwijder fixed height op laptop/desktop */
@@ -298,7 +332,7 @@ const Contact = () => {
                         </form>
                       </>
                     ) : (
-                      <div className="flex flex-col items-center justify-center py-16 px-8 text-center">
+                      <div className="contact-success-message flex flex-col items-center justify-center py-16 px-4 sm:px-8 text-center box-border">
                         <div className="mb-6">
                           <CheckCircle2 className="w-20 h-20 text-accent mx-auto" />
                         </div>

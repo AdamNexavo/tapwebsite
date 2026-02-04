@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Hammer, Monitor, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import festivalCrowd from "@/assets/festival-crowd.png";
-import crewTechniek from "@/assets/crew-techniek.png";
+import crewTechniek from "@/assets/crew-techniek-new.jpg";
 
 const diensten = [
   { icon: Hammer, title: "Op- en afbouw" },

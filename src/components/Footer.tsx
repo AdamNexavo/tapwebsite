@@ -96,29 +96,29 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <a href="#werken-bij" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <Link to="/werken-bij" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Werken bij
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#diensten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <Link to="/diensten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Diensten
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#offerte-aanvragen" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <Link to="/offerte" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Offerte aanvragen
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#projecten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <Link to="/projecten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Projecten
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#contact" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <Link to="/contact" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

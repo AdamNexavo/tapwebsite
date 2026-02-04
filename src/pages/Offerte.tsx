@@ -139,6 +139,27 @@ const Offerte = () => {
           section.relative.section-padding.pt-24 h1.text-3xl.sm\\:text-4xl {
             font-size: 2rem !important; /* 32px, 2px groter dan text-3xl (30px) */
           }
+          /* Bevestigingsblok op mobiel - voorkom overflow en zorg voor gelijke ruimte links en rechts */
+          .offerte-success-message {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+          }
+          /* Zorg dat interne content niet overflow veroorzaakt */
+          .offerte-success-message * {
+            max-width: 100% !important;
+            word-wrap: break-word !important;
+          }
+          /* Verklein button tekst op mobiel */
+          .offerte-success-message button {
+            font-size: 0.875rem !important; /* text-sm */
+            padding-left: 1.5rem !important; /* px-6 */
+            padding-right: 1.5rem !important; /* px-6 */
+            height: 2.75rem !important; /* h-11 */
+          }
         }
         @media (min-width: 1024px) {
           /* Verwijder fixed height op laptop/desktop */
@@ -535,7 +556,7 @@ const Offerte = () => {
                   </div>
                 </form>
                 ) : (
-                  <div className="bg-background rounded-2xl p-8 md:p-12 shadow-xl border border-border/50 flex flex-col items-center justify-center text-center min-h-[500px]">
+                  <div className="offerte-success-message bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50 flex flex-col items-center justify-center text-center min-h-[500px] box-border">
                     <div className="mb-6">
                       <CheckCircle2 className="w-20 h-20 text-accent mx-auto" />
                     </div>

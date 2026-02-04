@@ -7,6 +7,7 @@ import { Zap, Shield, Award, MapPin, Clock, Users, ArrowRight, Star, ChevronLeft
 import { Button } from "@/components/ui/button";
 import crewBarriers from "@/assets/crew-barriers.png";
 import crewTechniek from "@/assets/crew-techniek.png";
+import crewBarriersReplacement from "@/assets/crew-barriers-replacement.jpg";
 import avControl from "@/assets/av-control.png";
 import avCrewMember from "@/assets/av-crew-member.png";
 import specialistForklift from "@/assets/specialist-forklift.png";
@@ -317,6 +318,16 @@ const Diensten = () => {
           section.relative.section-padding.pt-24 img[alt="Crewstars team aan het werk op het podium"] {
             object-position: 20% top !important;
           }
+          /* Maak grijze blocks lichter op mobiel */
+          section.section-padding.bg-background div[class*="bg-muted"] {
+            background-color: hsl(var(--muted) / 0.15) !important;
+          }
+          section.py-12.bg-muted\\/50 div[class*="bg-muted"] {
+            background-color: hsl(var(--muted) / 0.15) !important;
+          }
+          section.py-12.bg-background div[class*="bg-muted"] {
+            background-color: hsl(var(--muted) / 0.15) !important;
+          }
         }
         @media (min-width: 1024px) {
           /* Verwijder fixed height op laptop/desktop */
@@ -462,8 +473,8 @@ const Diensten = () => {
                       style={{ transform: "translateY(-50%)" }}
                     >
                       <img
-                        src={crewBarriers}
-                        alt="Festivalpubliek"
+                        src={crewTechniek}
+                        alt="Crewstars techniek team"
                         className="w-full h-full object-cover rounded-lg sm:rounded-xl"
                       />
                     </div>
@@ -477,8 +488,8 @@ const Diensten = () => {
                       }}
                     >
                       <img
-                        src={crewTechniek}
-                        alt="Crewstars techniek team"
+                        src={crewBarriersReplacement}
+                        alt="Festivalpubliek"
                         className="w-full h-full object-cover rounded-lg sm:rounded-xl"
                       />
                     </div>
