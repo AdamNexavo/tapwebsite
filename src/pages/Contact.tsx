@@ -64,11 +64,11 @@ const Contact = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      console.log("Formulier ingediend:", formData);
-      setIsSubmitted(true);
+    if (!validateForm()) {
+      e.preventDefault();
+      return;
     }
+    // Form will submit normally to Basin endpoint
   };
 
   return (
@@ -244,7 +244,7 @@ const Contact = () => {
                           </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
+                        <form action="https://usebasin.com/f/d4e1aea6b9d0" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">
                             <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>

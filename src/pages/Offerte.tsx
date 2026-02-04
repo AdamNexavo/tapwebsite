@@ -118,12 +118,11 @@ const Offerte = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // Hier zou je de form data naar een API kunnen sturen
-      console.log("Formulier ingediend:", formData);
-      setIsSubmitted(true);
+    if (!validateForm()) {
+      e.preventDefault();
+      return;
     }
+    // Form will submit normally to Basin endpoint
   };
 
 
@@ -313,7 +312,9 @@ const Offerte = () => {
 
                 {/* Rechterkant - Formulier */}
                 {!isSubmitted ? (
-                  <form onSubmit={handleSubmit} noValidate className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
+                  <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
+                  <input type="hidden" name="datumVan" value={formData.datumVan} />
+                  <input type="hidden" name="datumTot" value={formData.datumTot} />
                   <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div className="space-y-2">
                       <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
