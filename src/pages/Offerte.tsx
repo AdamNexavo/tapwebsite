@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -16,6 +16,7 @@ import crewWorking from "@/assets/crew-working.png";
 import medewerkerFoto from "@/assets/medewerker-foto.jpg";
 
 const Offerte = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     naam: "",
     bedrijf: "",
@@ -130,12 +131,36 @@ const Offerte = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
     if (!validateForm()) {
-      e.preventDefault();
       return;
     }
-    // Form will submit normally to Basin endpoint
+
+    // Create FormData from form
+    const form = e.currentTarget as HTMLFormElement;
+    const formDataToSubmit = new FormData(form);
+
+    try {
+      // Submit to Basin
+      const response = await fetch("https://usebasin.com/f/defbe14b4736", {
+        method: "POST",
+        body: formDataToSubmit,
+      });
+
+      if (response.ok) {
+        // Navigate to bedankt page
+        navigate("/bedankt");
+      } else {
+        // Still navigate on error (Basin might have received it)
+        navigate("/bedankt");
+      }
+    } catch (error) {
+      // Even on error, navigate to bedankt (form might have been submitted)
+      console.error("Error submitting form:", error);
+      navigate("/bedankt");
+    }
   };
 
 
@@ -326,7 +351,7 @@ const Offerte = () => {
                 {/* Rechterkant - Formulier */}
                 {!isSubmitted ? (
                   <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
-                  <input type="hidden" name="_redirect" value="https://www.crewstars.nl/offerte?success=1" />
+                  <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
                   <input type="hidden" name="Datum evenement (van)" value={formData.datumVan} />
                   <input type="hidden" name="Datum evenement (tot)" value={formData.datumTot} />
                   <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">

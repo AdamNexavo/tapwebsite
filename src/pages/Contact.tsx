@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -11,6 +11,7 @@ import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 import contactIntro from "@/assets/contact-intro.jpg";
 
 const Contact = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     naam: "",
     email: "",
@@ -72,12 +73,36 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
     if (!validateForm()) {
-      e.preventDefault();
       return;
     }
-    // Form will submit normally to Basin endpoint
+
+    // Create FormData from form
+    const form = e.currentTarget as HTMLFormElement;
+    const formDataToSubmit = new FormData(form);
+
+    try {
+      // Submit to Basin
+      const response = await fetch("https://usebasin.com/f/d4e1aea6b9d0", {
+        method: "POST",
+        body: formDataToSubmit,
+      });
+
+      if (response.ok) {
+        // Navigate to bedankt page
+        navigate("/bedankt");
+      } else {
+        // Still navigate on error (Basin might have received it)
+        navigate("/bedankt");
+      }
+    } catch (error) {
+      // Even on error, navigate to bedankt (form might have been submitted)
+      console.error("Error submitting form:", error);
+      navigate("/bedankt");
+    }
   };
 
   return (
@@ -254,7 +279,7 @@ const Contact = () => {
                         </div>
 
                         <form action="https://usebasin.com/f/d4e1aea6b9d0" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
-                        <input type="hidden" name="_redirect" value="https://www.crewstars.nl/contact?success=1" />
+                        <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">
                             <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
