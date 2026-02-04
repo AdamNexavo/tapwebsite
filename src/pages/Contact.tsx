@@ -254,7 +254,7 @@ const Contact = () => {
                         </div>
 
                         <form action="https://usebasin.com/f/d4e1aea6b9d0" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
-                        <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
+                        <input type="hidden" name="_redirect" value="https://www.crewstars.nl/contact?success=1" />
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">
                             <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
