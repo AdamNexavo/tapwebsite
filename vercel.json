@@ -29,6 +29,36 @@
       "source": "/roundcube",
       "destination": "https://mail.zxcs.nl",
       "permanent": true
+    },
+    {
+      "source": "/en/vacatures/",
+      "destination": "/werken-bij",
+      "permanent": true
+    },
+    {
+      "source": "/nl/vacatures/",
+      "destination": "/werken-bij",
+      "permanent": true
+    },
+    {
+      "source": "/nl/contact/",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/nl/solliciteren/",
+      "destination": "/werken-bij",
+      "permanent": true
+    },
+    {
+      "source": "/nl/voor-opdrachtgevers/",
+      "destination": "/diensten",
+      "permanent": true
+    },
+    {
+      "source": "/nl/vacatures-avtechnican/",
+      "destination": "/vacatures/av-technician",
+      "permanent": true
     }
   ],
   "rewrites": [
