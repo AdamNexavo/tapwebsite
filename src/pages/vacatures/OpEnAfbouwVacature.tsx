@@ -13,7 +13,49 @@ import ctaLogo from "@/assets/cta-logo.svg";
 
 const OpEnAfbouwVacature = () => {
   const [visibleBlocks, setVisibleBlocks] = useState<Set<number>>(new Set());
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 639 : false);
   const blockRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const interesseHeaderRef = useRef<HTMLHeadingElement | null>(null);
+
+  useEffect(() => {
+    const updateHeader = () => {
+      if (!interesseHeaderRef.current) {
+        console.log('OpEnAfbouwVacature: interesseHeaderRef.current is null');
+        return;
+      }
+      
+      const isMobileSize = window.innerWidth <= 639;
+      console.log('OpEnAfbouwVacature: window.innerWidth =', window.innerWidth, 'isMobile =', isMobileSize);
+      setIsMobile(isMobileSize);
+      
+      if (isMobileSize) {
+        // Force 36px op mobiel - direct style
+        interesseHeaderRef.current.style.fontSize = '36px';
+        interesseHeaderRef.current.style.lineHeight = '1.2';
+        console.log('OpEnAfbouwVacature: Set font-size to 36px');
+        console.log('OpEnAfbouwVacature: Computed font-size =', window.getComputedStyle(interesseHeaderRef.current).fontSize);
+      } else {
+        // Reset op desktop
+        interesseHeaderRef.current.style.fontSize = '';
+        interesseHeaderRef.current.style.lineHeight = '';
+      }
+    };
+    
+    // Direct uitvoeren
+    updateHeader();
+    
+    // Meerdere keren proberen
+    const timeouts = [10, 50, 100, 300, 1000].map(delay => 
+      setTimeout(updateHeader, delay)
+    );
+    
+    window.addEventListener('resize', updateHeader);
+    
+    return () => {
+      window.removeEventListener('resize', updateHeader);
+      timeouts.forEach(clearTimeout);
+    };
+  }, []);
 
   useEffect(() => {
     // Only run on mobile
@@ -29,6 +71,14 @@ const OpEnAfbouwVacature = () => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               setVisibleBlocks((prev) => new Set(prev).add(index));
+              
+              // Als dit block 5 is (Interesse header), zet de font-size
+              if (index === 5 && interesseHeaderRef.current && window.innerWidth <= 639) {
+                interesseHeaderRef.current.style.fontSize = '36px';
+                interesseHeaderRef.current.style.lineHeight = '1.2';
+                console.log('OpEnAfbouwVacature: Set font-size to 36px via IntersectionObserver');
+              }
+              
               observer.unobserve(entry.target);
             }
           });
@@ -241,6 +291,23 @@ const OpEnAfbouwVacature = () => {
           }
           .werkzaamheden-block.visible:nth-child(6) {
             transition-delay: 500ms;
+          }
+          
+          /* Interesse header in paarse block - alleen mobiel, 36px - OpEnAfbouwVacature specifiek */
+          .bg-primary.rounded-2xl h3.interesse-op-afbouw,
+          .werkzaamheden-block.bg-primary h3.interesse-op-afbouw,
+          .bg-primary.rounded-2xl.werkzaamheden-block h3.interesse-op-afbouw,
+          .werkzaamheden-block.visible.bg-primary h3.interesse-op-afbouw,
+          .bg-primary.rounded-2xl.werkzaamheden-block.visible h3.interesse-op-afbouw,
+          h3.interesse-op-afbouw.text-2xl {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
+          }
+          
+          /* Extra specifiek voor zekerheid */
+          div.bg-primary.rounded-2xl.werkzaamheden-block.visible h3.text-2xl.interesse-op-afbouw {
+            font-size: 36px !important;
+            line-height: 1.2 !important;
           }
         }
       `}</style>
@@ -517,7 +584,10 @@ const OpEnAfbouwVacature = () => {
                     ref={(el) => (blockRefs.current[5] = el)}
                     className={`bg-primary rounded-2xl p-6 border border-primary/50 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-center items-center text-white werkzaamheden-block ${visibleBlocks.has(5) ? 'visible' : ''}`}
                   >
-                    <h3 className="text-2xl md:text-3xl font-black text-white mb-3 text-center">
+                    <h3 
+                      ref={interesseHeaderRef}
+                      className="text-2xl md:text-3xl font-black text-white mb-3 text-center interesse-op-afbouw"
+                    >
                       Interesse?
                     </h3>
                     <p className="text-white/80 text-sm leading-relaxed mb-6 text-center">

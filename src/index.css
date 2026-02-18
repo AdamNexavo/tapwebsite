@@ -894,21 +894,21 @@
   }
 
   .animate-scroll-right {
-    animation: scrollRight 30s linear infinite;
+    animation: scrollRight 60s linear infinite;
   }
 
   .animate-scroll-left {
-    animation: scrollLeft 30s linear infinite;
+    animation: scrollLeft 60s linear infinite;
   }
   
-  /* Snellere animatie voor Stats sectie op mobile - 2x zo snel */
+  /* Snellere animatie voor Stats sectie op mobile */
   @media (max-width: 639px) {
     section#stats .animate-scroll-right {
-      animation: scrollRight 10s linear infinite !important;
+      animation: scrollRight 30s linear infinite !important;
     }
     
     section#stats .animate-scroll-left {
-      animation: scrollLeft 10s linear infinite !important;
+      animation: scrollLeft 30s linear infinite !important;
     }
   }
 

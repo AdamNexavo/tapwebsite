@@ -198,7 +198,7 @@ const Stats = () => {
         </div>
         <div className="space-y-6 sm:space-y-8 overflow-hidden w-full">
           {/* Top row - scroll from left to right */}
-          <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max" style={{ maxWidth: '100%' }}>
+          <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max">
             {/* Duplicate logos for seamless loop */}
             {[...logos.slice(0, 6), ...logos.slice(0, 6)].map((logo, index) => (
               <div
@@ -215,7 +215,7 @@ const Stats = () => {
             ))}
           </div>
           {/* Bottom row - scroll from right to left */}
-          <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max" style={{ maxWidth: '100%' }}>
+          <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max">
             {/* Duplicate logos for seamless loop */}
             {[...logos.slice(6), ...logos.slice(6)].map((logo, index) => (
               <div

@@ -414,6 +414,10 @@ const Projecten = () => {
       "Motorbeurs",
     ],
     2026: [
+      "Carnaval 's-Hertogenbosch",
+      "Carnaval Venlo",
+      "MOTORbeurs",
+      "Dave \"The Boy Who Played The Harp Tour\"",
       "Cirque de Soleil",
       "Autosalon Brussel",
       "Inzamelingsactie Stichtse Vecht",
@@ -905,7 +909,7 @@ const Projecten = () => {
                 <div className="mb-6 projecten-carousel-desktop">
                   <div className="space-y-6 sm:space-y-8 overflow-hidden w-full">
                     {/* Top row - scroll from left to right */}
-                    <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max" style={{ maxWidth: '100%' }}>
+                    <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max">
                       {/* Duplicate logos for seamless loop */}
                       {[...logos.slice(0, 6), ...logos.slice(0, 6)].map((logo, index) => (
                         <div
@@ -922,7 +926,7 @@ const Projecten = () => {
                       ))}
                     </div>
                     {/* Bottom row - scroll from right to left */}
-                    <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max" style={{ maxWidth: '100%' }}>
+                    <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max">
                       {/* Duplicate logos for seamless loop */}
                       {[...logos.slice(6), ...logos.slice(6)].map((logo, index) => (
                         <div
@@ -976,7 +980,7 @@ const Projecten = () => {
             <div className="projecten-carousel-mobile">
               <div className="space-y-6 sm:space-y-8 overflow-hidden w-full">
                 {/* Top row - scroll from left to right */}
-                <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max" style={{ maxWidth: '100%' }}>
+                <div className="flex gap-4 sm:gap-8 animate-scroll-right w-max">
                   {/* Duplicate logos for seamless loop */}
                   {[...logos.slice(0, 6), ...logos.slice(0, 6)].map((logo, index) => (
                     <div
@@ -993,7 +997,7 @@ const Projecten = () => {
                   ))}
                 </div>
                 {/* Bottom row - scroll from right to left */}
-                <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max" style={{ maxWidth: '100%' }}>
+                <div className="flex gap-4 sm:gap-8 animate-scroll-left w-max">
                   {/* Duplicate logos for seamless loop */}
                   {[...logos.slice(6), ...logos.slice(6)].map((logo, index) => (
                     <div
