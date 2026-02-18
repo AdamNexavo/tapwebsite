@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -15,16 +16,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 20%;
 
-    --primary: 246 90% 70%;
+    --primary: 252 78% 70%; /* #7A6DF7 - TAP Crew paars */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 95%;
+    --secondary: 0 0% 95%; /* #F5F5F5 - lichtgrijs */
     --secondary-foreground: 0 0% 20%;
 
-    --muted: 0 0% 96%;
+    --muted: 0 0% 96%; /* #F8F8FF - zeer lichtgrijs */
     --muted-foreground: 0 0% 57%;
 
-    --accent: 246 90% 70%;
+    --accent: 252 78% 70%; /* #7A6DF7 - TAP Crew paars */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -36,12 +37,12 @@
 
     --radius: 1rem;
 
-    /* Custom design tokens - using brand colors */
-    --teal-dark: 246 90% 60%;
-    --teal-medium: 246 90% 70%;
-    --teal-light: 0 0% 97%;
-    --orange-primary: 246 90% 70%;
-    --orange-hover: 246 90% 65%;
+    /* Custom design tokens - TAP Crew colors */
+    --tap-purple: 252 78% 70%; /* #7A6DF7 */
+    --tap-purple-dark: 252 78% 60%;
+    --tap-purple-light: 252 78% 80%;
+    --tap-gray-dark: 0 0% 18%; /* #2F2F2F */
+    --tap-gray-light: 0 0% 95%; /* #F5F5F5 */
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -63,7 +64,7 @@
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 246 90% 70%;
+    --primary: 252 78% 70%; /* #7A6DF7 - TAP Crew paars */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 15%;
@@ -72,7 +73,7 @@
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 246 90% 70%;
+    --accent: 252 78% 70%; /* #7A6DF7 - TAP Crew paars */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -1063,15 +1064,6 @@
   section.relative.min-h-screen .hero-title-mobile {
     font-size: 2rem !important; /* 32px - 1px kleiner */
     line-height: 1.1 !important;
-  }
-  
-  /* Watermark zichtbaar en gepositioneerd links op mobile */
-  section.relative.min-h-screen .hero-watermark-mobile {
-    top: 20% !important;
-    left: 55% !important; /* Nog veel meer naar rechts verplaatst */
-    opacity: 0.3 !important;
-    z-index: 35 !important;
-    transform: scale(1.2) scaleX(-1) rotate(-15deg) translateZ(0) !important; /* Horizontaal gespiegeld */
   }
   
   /* CTA: Maak langer op mobile en toon watermark */

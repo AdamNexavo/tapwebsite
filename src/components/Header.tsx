@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoZwart from "@/assets/logo-crewstars-zwart.svg";
-import logoWit from "@/assets/logo-crewstars-wit-horizontaal.png";
+import logoHeroStilstand from "@/assets/logo-hero-stilstand.png";
+import logoHeaderScrolled from "@/assets/logo-header-scrolled.png";
 import logoZwartScherp from "@/assets/logo-horizontaal-zwart-scherp.png";
 
 const Header = () => {
@@ -11,6 +11,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpdrachtgeversOpen, setIsOpdrachtgeversOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const isDienstenPage = location.pathname === "/diensten";
   const isOffertePage = location.pathname === "/offerte";
   const isContactPage = location.pathname === "/contact";
@@ -37,9 +38,9 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { name: "Werken bij", href: "/werken-bij", isLink: true },
-    { name: "Voor opdrachtgevers", href: "#voor-opdrachtgevers" },
-    { name: "Projecten", href: "/projecten", isLink: true },
+    { name: "Werken bij TAP", href: "/aanmelden", isLink: true },
+    { name: "Voor opdrachtgevers", href: "/voor-opdrachtgevers", isLink: true },
+    { name: "FAQ", href: "/#faq", isLink: false },
   ];
 
   return (
@@ -66,16 +67,16 @@ const Header = () => {
           <Link to="/" className="flex items-center">
             {/* Desktop logo - changes based on scroll */}
             <img 
-              src={isScrolled ? logoZwart : logoWit}
-              alt="Crewstars" 
+              src={isScrolled ? logoHeaderScrolled : logoHeroStilstand}
+              alt="TAP Crew" 
               className={`hidden md:block w-auto transition-all duration-300 ${
-                isScrolled ? "h-8 sm:h-10" : "h-10 sm:h-14"
+                isScrolled ? "h-10 sm:h-12 md:h-14" : "h-14 sm:h-18 md:h-20"
               }`}
             />
             {/* Mobile logo - always black */}
             <img 
               src={logoZwartScherp}
-              alt="Crewstars" 
+              alt="TAP Crew" 
               className="md:hidden w-auto transition-all duration-300 h-10"
             />
           </Link>
@@ -91,8 +92,9 @@ const Header = () => {
                     onMouseEnter={() => setIsOpdrachtgeversOpen(true)}
                     onMouseLeave={() => setIsOpdrachtgeversOpen(false)}
                   >
-                    <button
-                      className={`flex items-center gap-1.5 font-bold transition-all duration-200 outline-none ${
+                    <Link
+                      to={item.href}
+                      className={`flex items-center gap-1.5 font-bold transition-all duration-200 ${
                         isScrolled 
                           ? isOpdrachtgeversOpen ? "text-primary" : "text-foreground/80 hover:text-primary"
                           : isOpdrachtgeversOpen ? "text-accent" : "text-white hover:text-accent hover:-translate-y-1"
@@ -100,25 +102,31 @@ const Header = () => {
                     >
                       {item.name}
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpdrachtgeversOpen ? 'rotate-180' : ''}`} />
-                    </button>
+                    </Link>
                     {isOpdrachtgeversOpen && (
                       <div 
-                        className="absolute top-full left-0 pt-1 w-48 z-50"
+                        className="absolute top-full left-0 pt-1 w-56 z-50"
                         onMouseEnter={() => setIsOpdrachtgeversOpen(true)}
                         onMouseLeave={() => setIsOpdrachtgeversOpen(false)}
                       >
                         <div className="bg-background border border-border/50 rounded-lg shadow-xl backdrop-blur-md overflow-hidden">
                           <Link
-                            to="/diensten"
+                            to="/horeca-crew"
                             className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-accent transition-colors duration-150"
                           >
-                            Diensten
+                            Horeca Crew
                           </Link>
                           <Link
-                            to="/offerte"
+                            to="/hospitality-crew"
                             className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-accent transition-colors duration-150"
                           >
-                            Offerte aanvragen
+                            Hospitality Crew
+                          </Link>
+                          <Link
+                            to="/service-crew"
+                            className="block px-4 py-2.5 text-sm font-medium text-foreground hover:bg-accent/10 hover:text-accent transition-colors duration-150"
+                          >
+                            Service Crew
                           </Link>
                         </div>
                       </div>
@@ -141,6 +149,39 @@ const Header = () => {
                   </Link>
                 );
               }
+              // Handle FAQ link - navigate to homepage then scroll
+              if (item.name === "FAQ") {
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (location.pathname !== "/") {
+                        navigate("/");
+                        setTimeout(() => {
+                          const faqElement = document.getElementById("faq");
+                          if (faqElement) {
+                            faqElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }, 100);
+                      } else {
+                        const faqElement = document.getElementById("faq");
+                        if (faqElement) {
+                          faqElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }
+                    }}
+                    className={`flex items-center gap-1 font-bold transition-all duration-200 ${
+                      isScrolled 
+                        ? "text-foreground/80 hover:text-primary" 
+                        : "text-white hover:text-accent hover:-translate-y-1"
+                    }`}
+                  >
+                    {item.name}
+                  </a>
+                );
+              }
               return (
                 <a
                   key={item.name}
@@ -159,20 +200,13 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link to="/contact" className={`font-bold transition-all duration-200 ${
-              isScrolled 
-                ? "text-foreground/80 hover:text-primary" 
-                : "text-white hover:text-accent hover:-translate-y-1"
-            }`}>
-              Contact
-            </Link>
-            <Link to="/offerte">
+            <Link to="/contact">
               <Button
                 variant="accent-bottom"
                 size="default"
                 className="rounded-sm border-b-[2px] shadow-none hover:shadow-none"
               >
-                Personeel aanvragen
+                Contact
               </Button>
             </Link>
           </div>
@@ -197,27 +231,34 @@ const Header = () => {
                 if (item.name === "Voor opdrachtgevers") {
                   return (
                     <div key={item.name} className="border-b border-border/50">
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className="py-3 text-foreground/80 hover:text-primary font-medium block"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                       <div className="pl-4 pb-2 flex flex-col">
                         <Link
-                          to="/diensten"
+                          to="/horeca-crew"
                           className="py-2 text-foreground/60 hover:text-primary text-sm"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Diensten
+                          Horeca Crew
                         </Link>
                         <Link
-                          to="/offerte"
+                          to="/hospitality-crew"
                           className="py-2 text-foreground/60 hover:text-primary text-sm"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Offerte aanvragen
+                          Hospitality Crew
+                        </Link>
+                        <Link
+                          to="/service-crew"
+                          className="py-2 text-foreground/60 hover:text-primary text-sm"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Service Crew
                         </Link>
                       </div>
                     </div>
@@ -246,20 +287,37 @@ const Header = () => {
                   </a>
                 );
               })}
-              <Link
-                to="/contact"
+              <a
+                href="/#faq"
                 className="py-3 text-foreground/80 hover:text-primary font-medium border-b border-border/50"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMenuOpen(false);
+                  if (location.pathname !== "/") {
+                    navigate("/");
+                    setTimeout(() => {
+                      const faqElement = document.getElementById("faq");
+                      if (faqElement) {
+                        faqElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }
+                    }, 100);
+                  } else {
+                    const faqElement = document.getElementById("faq");
+                    if (faqElement) {
+                      faqElement.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                  }
+                }}
               >
-                Contact
-              </Link>
+                FAQ
+              </a>
               <div className="pt-4">
-                <Link to="/offerte">
+                <Link to="/contact">
                   <Button
                     variant="accent-bottom"
                     className="w-full rounded-sm border-b-[2px] shadow-none hover:shadow-none"
                   >
-                    Personeel aanvragen
+                    Contact
                   </Button>
                 </Link>
               </div>

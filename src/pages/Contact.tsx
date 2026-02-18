@@ -238,8 +238,8 @@ const Contact = () => {
                       <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-accent flex-shrink-0" />
                       <div className="flex flex-col -space-y-1">
                         <h3 className="font-semibold text-foreground text-sm sm:text-base">E-mail</h3>
-                        <a href="mailto:info@crewstars.nl" className="text-xs sm:text-sm text-foreground/70 hover:text-accent transition-colors break-all">
-                          info@crewstars.nl
+                        <a href="mailto:info@tapcrew.nl" className="text-xs sm:text-sm text-foreground/70 hover:text-accent transition-colors break-all">
+                          info@tapcrew.nl
                         </a>
                       </div>
                     </div>
@@ -257,7 +257,7 @@ const Contact = () => {
                       <div className="flex flex-col -space-y-1">
                         <h3 className="font-semibold text-foreground text-sm sm:text-base">Adres</h3>
                         <span className="text-xs sm:text-sm text-foreground/70">
-                          Bierbrouwersweg 29, Woerden
+                          Pelmolenlaan 18, 3447GW, Woerden
                         </span>
                       </div>
                     </div>
@@ -284,7 +284,7 @@ const Contact = () => {
                         </div>
 
                         <form action="https://usebasin.com/f/d4e1aea6b9d0" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
-                        <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
+                        <input type="hidden" name="_redirect" value="https://www.tapcrew.nl/bedankt" />
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">
                             <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
@@ -420,7 +420,7 @@ const Contact = () => {
                     </div>
                     <div className="rounded-lg sm:rounded-xl overflow-hidden shadow-lg border border-border/50 flex-1">
                       <iframe
-                        src="https://www.google.com/maps?q=Bierbrouwersweg+29,+Woerden,+Nederland&output=embed"
+                        src="https://www.google.com/maps?q=Pelmolenlaan+18,+3447GW+Woerden,+Nederland&output=embed"
                         width="100%"
                         height="100%"
                         style={{ border: 0, minHeight: '300px' }}
@@ -428,7 +428,7 @@ const Contact = () => {
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         className="w-full"
-                        title="Crewstars locatie - Bierbrouwersweg 29, Woerden"
+                        title="TAP Crew locatie - Pelmolenlaan 18, 3447GW, Woerden"
                       />
                     </div>
                   </div>

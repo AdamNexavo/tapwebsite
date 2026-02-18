@@ -6,17 +6,13 @@ import { ThemeProvider } from "next-themes";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
-import Diensten from "./pages/Diensten";
-import Offerte from "./pages/Offerte";
+import Aanmelden from "./pages/Aanmelden";
+import VoorOpdrachtgevers from "./pages/VoorOpdrachtgevers";
+import HorecaCrew from "./pages/HorecaCrew";
+import HospitalityCrew from "./pages/HospitalityCrew";
+import ServiceCrew from "./pages/ServiceCrew";
 import Contact from "./pages/Contact";
-import Projecten from "./pages/Projecten";
-import WerkenBij from "./pages/WerkenBij";
-import OpEnAfbouwVacature from "./pages/vacatures/OpEnAfbouwVacature";
-import AvTechnicianVacature from "./pages/vacatures/AvTechnicianVacature";
-import SpecialistenVacature from "./pages/vacatures/SpecialistenVacature";
 import Privacyverklaring from "./pages/Privacyverklaring";
-import AlgemeneVoorwaarden from "./pages/AlgemeneVoorwaarden";
-import Bedankt from "./pages/Bedankt";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
@@ -38,21 +34,24 @@ const App = () => (
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/diensten" element={<Diensten />} />
-            <Route path="/offerte" element={<Offerte />} />
+            <Route path="/aanmelden" element={<Aanmelden />} />
+            <Route path="/voor-opdrachtgevers" element={<VoorOpdrachtgevers />} />
+            <Route path="/horeca-crew" element={<HorecaCrew />} />
+            <Route path="/hospitality-crew" element={<HospitalityCrew />} />
+            <Route path="/service-crew" element={<ServiceCrew />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/projecten" element={<Projecten />} />
-            <Route path="/werken-bij" element={<WerkenBij />} />
-            <Route path="/vacatures/op-en-afbouw" element={<OpEnAfbouwVacature />} />
-            <Route path="/vacatures/av-technician" element={<AvTechnicianVacature />} />
-            <Route path="/vacatures/specialisten" element={<SpecialistenVacature />} />
-            <Route path="/privacyverklaring" element={<Privacyverklaring />} />
-            <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
-            <Route path="/bedankt" element={<Bedankt />} />
+            <Route path="/privacy-verklaring" element={<Privacyverklaring />} />
             {/* Redirects voor oude URLs */}
-            <Route path="/vacatures-evenementenbouwer" element={<Navigate to="/vacatures/op-en-afbouw" replace />} />
-            <Route path="/vacatures-avtechnican" element={<Navigate to="/vacatures/av-technician" replace />} />
-            <Route path="/vacatures" element={<Navigate to="/werken-bij" replace />} />
+            <Route path="/diensten" element={<Navigate to="/voor-opdrachtgevers" replace />} />
+            <Route path="/offerte" element={<Navigate to="/voor-opdrachtgevers" replace />} />
+            <Route path="/projecten" element={<Navigate to="/" replace />} />
+            <Route path="/werken-bij" element={<Navigate to="/aanmelden" replace />} />
+            <Route path="/vacatures/op-en-afbouw" element={<Navigate to="/aanmelden" replace />} />
+            <Route path="/vacatures/av-technician" element={<Navigate to="/aanmelden" replace />} />
+            <Route path="/vacatures/specialisten" element={<Navigate to="/aanmelden" replace />} />
+            <Route path="/privacyverklaring" element={<Navigate to="/privacy-verklaring" replace />} />
+            <Route path="/algemene-voorwaarden" element={<Navigate to="/privacy-verklaring" replace />} />
+            <Route path="/bedankt" element={<Navigate to="/" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

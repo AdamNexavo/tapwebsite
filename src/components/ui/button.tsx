@@ -19,6 +19,8 @@ const buttonVariants = cva(
           "bg-[#8c8cff] text-white hover:bg-[#464646] hover:text-accent shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105",
         "accent-bottom":
           "bg-[#8c8cff] text-white hover:bg-[#464646] hover:text-accent hover:border-b-[#2f2f2f] shadow-lg shadow-accent/30 hover:shadow-accent/40 hover:scale-105 border-b-4 border-b-[#6565ff] font-bold",
+        "orange-bottom":
+          "bg-[#FF6B35] text-white hover:bg-[#E55A2B] hover:border-b-[#CC4A1F] shadow-lg shadow-orange-500/30 hover:shadow-orange-500/40 hover:scale-105 border-b-4 border-b-[#FF8C42] font-bold",
         hero: "bg-[#8c8cff] text-white hover:bg-[#7b7bff] hover:scale-105 hover:border-transparent border-0 border-b-4 border-b-[#6565ff] font-bold",
         "hero-outline": "border border-white/50 border-b-[3px] border-b-white/60 bg-transparent backdrop-blur-none text-white hover:bg-[#464646]/30 hover:text-accent hover:border-white/70",
       },

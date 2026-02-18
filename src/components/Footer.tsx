@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoZwart from "@/assets/logo-crewstars-wit-horizontaal.png";
+import logoFooter from "@/assets/logo-footer.png";
 
 const WhatsAppIcon = () => (
   <svg
@@ -36,9 +36,9 @@ const Footer = () => {
           <div className="lg:col-span-2 lg:-ml-4">
             <Link to="/" className="flex items-center mb-4 sm:mb-6">
               <img 
-                src={logoZwart} 
-                alt="Crewstars" 
-                className="h-10 sm:h-12 md:h-14 w-auto"
+                src={logoFooter} 
+                alt="TAP Crew" 
+                className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto"
               />
             </Link>
             <div className="space-y-2 sm:space-y-3">
@@ -56,16 +56,16 @@ const Footer = () => {
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 mt-1 flex-shrink-0" />
                 <div className="space-y-1">
                   <a
-                    href="mailto:info@crewstars.nl"
+                    href="mailto:info@tapcrew.nl"
                     className="font-semibold hover:text-accent transition-colors block break-all"
                   >
-                    info@crewstars.nl
+                    info@tapcrew.nl
                   </a>
                   <a
-                    href="mailto:planning@crewstars.nl"
+                    href="mailto:planning@tapcrew.nl"
                     className="font-semibold hover:text-accent transition-colors block break-all"
                   >
-                    planning@crewstars.nl
+                    planning@tapcrew.nl
                   </a>
                 </div>
               </div>
@@ -78,7 +78,7 @@ const Footer = () => {
                   rel="noreferrer"
                   className="font-semibold hover:text-accent transition-colors"
                 >
-                  Bierbrouwersweg 29, 3449HW Woerden
+                  Bierbrouwersweg 29, 3449HW, Woerden
                 </a>
               </div>
 
@@ -96,23 +96,13 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/werken-bij" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
-                    Werken bij
+                  <Link to="/aanmelden" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                    Werken bij TAP
                   </Link>
                 </li>
                 <li>
-                  <Link to="/diensten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
-                    Diensten
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/offerte" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
-                    Offerte aanvragen
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/projecten" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
-                    Projecten
+                  <Link to="/voor-opdrachtgevers" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                    Voor opdrachtgevers
                   </Link>
                 </li>
                 <li>
@@ -128,18 +118,10 @@ const Footer = () => {
               <ul className="space-y-1 sm:space-y-1.5 -mt-2 sm:-mt-3">
                 <li>
                   <Link
-                    to="/privacyverklaring"
+                    to="/privacy-verklaring"
                     className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
                   >
                     Privacyverklaring
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/algemene-voorwaarden"
-                    className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
-                  >
-                    Algemene voorwaarden
                   </Link>
                 </li>
               </ul>
@@ -158,21 +140,14 @@ const Footer = () => {
             </div>
 
             <div>
-              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Join our crew</h4>
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Personeel inhuren?</h4>
               <p className="text-white/70 leading-relaxed -mt-2 text-sm sm:text-base">
-                Sluit je aan bij onze crew en werk mee aan de leukste projecten.
+                planning@tapcrew.nl
               </p>
-              <div className="mt-3 sm:mt-4">
-                <Link to="/werken-bij">
-                  <Button
-                    variant="accent-bottom"
-                    size="xl"
-                    className="w-full sm:w-auto px-4 sm:px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300 bg-[#8c8cff] hover:bg-[#8c8cff] text-white hover:text-white shadow-none hover:shadow-none"
-                  >
-                    Aanmelden
-                  </Button>
-                </Link>
-              </div>
+              <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent mt-6">Technisch personeel nodig?</h4>
+              <p className="text-white/70 leading-relaxed -mt-2 text-sm sm:text-base">
+                Bekijk ons aanbod op www.crewstars.nl
+              </p>
             </div>
           </div>
         </div>
@@ -183,7 +158,10 @@ const Footer = () => {
         <div className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
           <div className="relative flex flex-col items-center gap-2 md:block">
             <p className="text-white/60 text-xs sm:text-sm text-center">
-              © 2026 Crewstars B.V. Alle rechten voorbehouden. · KvK 96320680 · BTW NL867561580B01
+              TAP Crew © 2026. Alle rechten voorbehouden.
+            </p>
+            <p className="text-white/60 text-xs sm:text-sm text-center mt-2">
+              TAP Crew is een handelsnaam van Crewstars B.V. · KvK 96320680 · BTW NL867561580B01
             </p>
             <p className="text-white/50 text-[10px] sm:text-xs md:text-sm md:absolute md:right-0 md:top-1/2 md:-translate-y-1/2 md:text-right mt-2 md:mt-0 nexavo-text-mobile">
               Website verzorgd door Nexavo

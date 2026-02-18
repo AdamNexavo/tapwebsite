@@ -1,8 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import heroBg from "@/assets/hero-bg-overlay-techniek.png";
-import iconCs from "@/assets/icon-cs.svg";
+import heroBg from "@/assets/hero-bg-ontwerp-zonder-titel.png";
 
 const Hero = () => {
   return (
@@ -136,28 +135,6 @@ const Hero = () => {
             display: block !important;
           }
           
-          /* Plaats paarse watermerk lager op mobile - alleen verticale positie */
-          img.hero-watermark-mobile.absolute.left-0 {
-            top: auto !important;
-            bottom: -8rem !important;
-            left: 8rem !important;
-            transform: scale(1.7) rotate(-15deg) translateZ(0) !important;
-          }
-          
-          section.relative.min-h-screen img.hero-watermark-mobile {
-            top: auto !important;
-            bottom: -8rem !important;
-            left: 8rem !important;
-            transform: scale(1.7) rotate(-15deg) translateZ(0) !important;
-          }
-          
-          .hero-watermark-mobile {
-            top: auto !important;
-            bottom: -8rem !important;
-            left: 8rem !important;
-            transform: scale(1.7) rotate(-15deg) translateZ(0) !important;
-          }
-          
           /* Maak hero knoppen kleiner en minder breed op mobile */
           /* Uitlijnen met header links */
           .hero-buttons-container {
@@ -236,60 +213,26 @@ const Hero = () => {
       {/* Header Overlay Gradient */}
       <div className="absolute top-0 left-0 right-0 bottom-0 min-h-screen bg-gradient-to-b from-black/50 via-black/30 to-transparent z-30 pointer-events-none" />
 
-      {/* Watermark - Desktop */}
-      <img
-        src={iconCs}
-        alt="Crewstars icon"
-        className="absolute right-0 bottom-[-170px] pointer-events-none opacity-40 z-40 origin-bottom-right hidden lg:block"
-        style={{
-          width: 'auto',
-          height: 'auto',
-          maxWidth: '30rem',
-          imageRendering: '-webkit-optimize-contrast',
-          transform: 'scale(1.3) rotate(15deg) translateZ(0)',
-          transformOrigin: 'bottom right',
-          backfaceVisibility: 'hidden',
-          willChange: 'transform'
-        }}
-      />
-      
-      {/* Watermark - Mobile (links) */}
-      <img
-        src={iconCs}
-        alt="Crewstars icon"
-        className="hero-watermark-mobile absolute left-0 pointer-events-none opacity-40 z-40 origin-bottom-left lg:hidden"
-        style={{
-          width: 'auto',
-          height: 'auto',
-          maxWidth: '20rem',
-          imageRendering: '-webkit-optimize-contrast',
-          transform: 'scale(1.2) rotate(-15deg) translateZ(0)',
-          transformOrigin: 'bottom left',
-          backfaceVisibility: 'hidden',
-          willChange: 'transform'
-        }}
-      />
-
       {/* Content */}
       <div className="relative w-full h-full flex items-start sm:items-center pt-52 sm:pt-0 pl-4 sm:pl-6 md:pl-8 lg:pl-16 xl:pl-32 2xl:pl-48 pr-4 sm:pr-6 lg:pr-8 z-50">
-        <div className="hero-content-container max-w-3xl w-full">
+        <div className="hero-content-container max-w-4xl lg:max-w-5xl w-full">
           <div className="hero-subtitle-mobile inline-flex items-center gap-2 text-[11px] sm:text-sm font-semibold tracking-wide uppercase mb-4 animate-fade-up">
             <span className="text-white text-sm sm:text-xl">—</span>
-            <span className="text-white">Flexibel personeel voor evenementen</span>
+            <span className="text-white">Horeca & Hospitality crew</span>
           </div>
-          <h1 className="hero-title-mobile text-primary-foreground mb-10 sm:mb-6 animate-fade-up delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[80px] font-extrabold leading-none" style={{ lineHeight: '1.0' }}>
-            De schakel tussen<br />
-            crew en resultaat<span className="text-accent">.</span>
+          <h1 className="hero-title-mobile text-primary-foreground mb-10 sm:mb-6 animate-fade-up delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-[64px] font-extrabold leading-none" style={{ lineHeight: '1.0' }}>
+            Wij zijn de schakel tussen<br />
+            topcrew en topbeleving<span className="text-accent">.</span>
           </h1>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 animate-fade-up delay-200 hero-buttons-container">
-            <Link to="/werken-bij" className="w-full sm:w-auto">
+            <Link to="/aanmelden" className="w-full sm:w-auto">
               <Button variant="hero" size="xl" className="px-6 w-full sm:w-auto hero-button-mobile">
-                Werken bij Crewstars
+                Werken bij TAP
               </Button>
             </Link>
-            <Link to="/diensten" className="w-full sm:w-auto">
+            <Link to="/voor-opdrachtgevers" className="w-full sm:w-auto">
               <Button variant="hero-outline" size="xl" className="px-6 w-full sm:w-auto hero-button-mobile">
-                Voor opdrachtgevers
+                Voor Opdrachtgevers
               </Button>
             </Link>
           </div>
