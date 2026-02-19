@@ -90,7 +90,7 @@ const Contact = () => {
 
     try {
       // Submit to Basin
-      const response = await fetch("https://usebasin.com/f/d4e1aea6b9d0", {
+      const response = await fetch("https://usebasin.com/f/9a7badf39638", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -287,7 +287,7 @@ const Contact = () => {
                           </p>
                         </div>
 
-                        <form action="https://usebasin.com/f/d4e1aea6b9d0" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
+                        <form action="https://usebasin.com/f/9a7badf39638" method="POST" onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-6">
                         <input type="hidden" name="_redirect" value="https://www.tapcrew.nl/bedankt" />
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">

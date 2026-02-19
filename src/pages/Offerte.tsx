@@ -148,7 +148,7 @@ const Offerte = () => {
 
     try {
       // Submit to Basin
-      const response = await fetch("https://usebasin.com/f/defbe14b4736", {
+      const response = await fetch("https://usebasin.com/f/3962e9d6dfa3", {
         method: "POST",
         body: formDataToSubmit,
       });
@@ -365,7 +365,7 @@ const Offerte = () => {
 
                 {/* Rechterkant - Formulier */}
                 {!isSubmitted ? (
-                  <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="reveal bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
+                  <form action="https://usebasin.com/f/3962e9d6dfa3" method="POST" onSubmit={handleSubmit} noValidate className="reveal bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
                   <input type="hidden" name="_redirect" value="https://www.tapcrew.nl/bedankt" />
                   <input type="hidden" name="Datum evenement (van)" value={formData.datumVan} />
                   <input type="hidden" name="Datum evenement (tot)" value={formData.datumTot} />
