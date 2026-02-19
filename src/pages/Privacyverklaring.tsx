@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Privacyverklaring = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Privacyverklaring";
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -23,13 +28,13 @@ const Privacyverklaring = () => {
         <section className="section-padding bg-background">
           <div className="container-custom px-4 sm:px-6 lg:px-6 xl:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="space-y-6 sm:space-y-8 text-foreground/80 leading-relaxed">
+              <div className="reveal space-y-6 sm:space-y-8 text-foreground/80 leading-relaxed">
                 <p className="text-base sm:text-lg">
-                  Bij TAP vinden we het belangrijk dat er zorgvuldig wordt omgegaan met jouw persoonsgegevens. Daarom verwerken en beveiligen we je gegevens met de grootst mogelijke zorg. We houden ons hierbij aan de Algemene Verordening Gegevensbescherming (AVG). In deze verklaring lees je welke gegevens we verzamelen, waarom we dat doen, hoe lang we ze bewaren en welke rechten jij hebt.
+                  Bij TAP Crew vinden we het belangrijk dat er zorgvuldig wordt omgegaan met jouw persoonsgegevens. Daarom verwerken en beveiligen we je gegevens met de grootst mogelijke zorg. We houden ons hierbij aan de Algemene Verordening Gegevensbescherming (AVG). In deze verklaring lees je welke gegevens we verzamelen, waarom we dat doen, hoe lang we ze bewaren en welke rechten jij hebt.
                 </p>
 
                 <p className="text-sm sm:text-base">
-                  Via www.tapcrew.nl verwerken we persoonsgegevens. Of je nu contact met ons opneemt, je aanmeldt om te werken of gewoon onze site bezoekt: we zorgen dat jouw gegevens vertrouwelijk worden behandeld. TAP verzamelt gegevens onder andere wanneer je ons een bericht stuurt, iets invult op de website of via social media met ons in contact komt. Deze gegevens gebruiken we om onze dienstverlening te verbeteren, goed contact te onderhouden en een passende match te maken tussen crew en opdrachtgever.
+                  Via www.tapcrew.nl verwerken we persoonsgegevens. Of je nu contact met ons opneemt, je aanmeldt om te werken of gewoon onze site bezoekt: we zorgen dat jouw gegevens vertrouwelijk worden behandeld. TAP Crew verzamelt gegevens onder andere wanneer je ons een bericht stuurt, iets invult op de website of via social media met ons in contact komt. Deze gegevens gebruiken we om onze dienstverlening te verbeteren, goed contact te onderhouden en een passende match te maken tussen crew en opdrachtgever.
                 </p>
 
                 <div className="space-y-6 sm:space-y-8">
@@ -38,12 +43,12 @@ const Privacyverklaring = () => {
                       1. Op welke manier verzamelen we gegevens?
                     </h2>
                     <p className="mb-3 text-sm sm:text-base">
-                      TAP ontvangt gegevens van jou via meerdere kanalen:
+                      TAP Crew ontvangt gegevens van jou via meerdere kanalen:
                     </p>
                     <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li><strong>Direct via jou</strong> – Bijvoorbeeld als je je aanmeldt om voor ons te werken, een formulier invult of ons een e-mail stuurt.</li>
                       <li><strong>Via onze website</strong> – Door het gebruik van cookies verzamelen we anonieme informatie over je gedrag op de site, zodat we de gebruikservaring kunnen verbeteren.</li>
-                      <li><strong>Via de plannings- en loonapplicatie</strong> – Wanneer je voor TAP werkt, worden via deze systemen je gewerkte uren en bijbehorende gegevens verwerkt.</li>
+                      <li><strong>Via de plannings- en loonapplicatie</strong> – Wanneer je voor TAP Crew werkt, worden via deze systemen je gewerkte uren en bijbehorende gegevens verwerkt.</li>
                       <li><strong>Op locatie</strong> – Tijdens projecten of evenementen kunnen wij informatie verzamelen die noodzakelijk is voor de uitvoering van het werk, zoals aanwezigheid of logistieke gegevens.</li>
                     </ul>
                   </div>
@@ -64,7 +69,7 @@ const Privacyverklaring = () => {
                       <li>Reacties of berichten op social media of andere publieke platforms</li>
                     </ul>
                     <p className="mt-4 text-sm sm:text-base">
-                      Onze website kan links bevatten naar externe pagina's of social media. TAP is niet verantwoordelijk voor hoe die partijen met jouw gegevens omgaan. Lees daarom altijd hun privacybeleid.
+                      Onze website kan links bevatten naar externe pagina's of social media. TAP Crew is niet verantwoordelijk voor hoe die partijen met jouw gegevens omgaan. Lees daarom altijd hun privacybeleid.
                     </p>
                   </div>
 
@@ -73,7 +78,7 @@ const Privacyverklaring = () => {
                       3. Waarom gebruiken we jouw gegevens?
                     </h2>
                     <p className="mb-3 text-sm sm:text-base">
-                      TAP gebruikt persoonsgegevens om:
+                      TAP Crew gebruikt persoonsgegevens om:
                     </p>
                     <ul className="list-disc list-inside space-y-2 ml-2 sm:ml-4 text-sm sm:text-base">
                       <li>Je in te plannen voor werk</li>
@@ -135,7 +140,7 @@ const Privacyverklaring = () => {
                       Voor al deze zaken kun je contact opnemen via:
                     </p>
                     <p className="font-semibold text-sm sm:text-base">
-                      Crewstars B.V. (TAP)<br />
+                      Crewstars B.V. (TAP Crew)<br />
                       info@tapcrew.nl
                     </p>
                   </div>

@@ -1,68 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://crewstars.nl/</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/werken-bij</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/aanmelden</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/diensten</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/voor-opdrachtgevers</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/offerte</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/horeca-crew</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/projecten</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/hospitality-crew</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/contact</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/service-crew</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/vacatures/op-en-afbouw</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/offerte</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/vacatures/av-technician</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/contact</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/vacatures/specialisten</loc>
-    <lastmod>2025-02-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://crewstars.nl/privacyverklaring</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/privacy-verklaring</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://crewstars.nl/algemene-voorwaarden</loc>
-    <lastmod>2025-02-03</lastmod>
+    <loc>https://www.tapcrew.nl/algemene-voorwaarden</loc>
+    <lastmod>2026-02-19</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

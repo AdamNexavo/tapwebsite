@@ -27,7 +27,7 @@ const Hero = () => {
             padding-left: 0 !important;
             padding-right: 1rem !important;
             margin-left: -1.5rem !important;
-            padding-top: 1rem !important;
+            padding-top: 7rem !important; /* Plaats content nog iets hoger op mobile */
           }
           
           .hero-content-container {
@@ -83,17 +83,18 @@ const Hero = () => {
             margin-left: 0 !important;
           }
           
-          /* Zorg dat hero titel visueel in 2 regels blijft op mobile - ook op echte telefoons */
+          /* Zorg dat hero titel visueel in 3 regels blijft op mobile - ook op echte telefoons */
           /* Maak de h1 box breder naar rechts, tekst blijft op dezelfde plek */
           /* Overschrijf container constraints voor h1 door het uit de container te laten breken */
           .hero-content-container {
             overflow: visible !important;
             position: relative !important;
+            margin-top: 6rem !important; /* Plaats content nog lager op mobile */
           }
           
           h1.hero-title-mobile.text-primary-foreground {
-            font-size: 2.1875rem !important; /* 35px, iets groter maar blijft op 2 regels */
-            line-height: 1.15 !important;
+            font-size: 2.125rem !important; /* 34px - iets groter maar nog steeds in 3 regels */
+            line-height: 1.25 !important; /* Meer ruimte tussen regels */
             max-width: none !important;
             width: calc(100vw - 1.5rem) !important;
             min-width: calc(100vw - 1.5rem) !important;
@@ -108,8 +109,8 @@ const Hero = () => {
           }
           
           section.relative.min-h-screen h1.hero-title-mobile {
-            font-size: 2.1875rem !important;
-            line-height: 1.15 !important;
+            font-size: 2.125rem !important; /* 34px - iets groter maar nog steeds in 3 regels */
+            line-height: 1.25 !important; /* Meer ruimte tussen regels */
             width: calc(100vw - 1.5rem) !important;
             min-width: calc(100vw - 1.5rem) !important;
             margin-left: 0.5rem !important;
@@ -119,8 +120,8 @@ const Hero = () => {
           }
           
           .hero-content-container h1.hero-title-mobile {
-            font-size: 2.1875rem !important;
-            line-height: 1.15 !important;
+            font-size: 2.125rem !important; /* 34px - iets groter maar nog steeds in 3 regels */
+            line-height: 1.25 !important; /* Meer ruimte tussen regels */
             width: calc(100vw - 1.5rem) !important;
             min-width: calc(100vw - 1.5rem) !important;
             max-width: none !important;
@@ -130,9 +131,9 @@ const Hero = () => {
             box-sizing: border-box !important;
           }
           
-          /* Forceer dat de line-break behouden blijft */
+          /* Verwijder line-break op mobile zodat tekst natuurlijk in 3 regels wrapt */
           h1.hero-title-mobile br {
-            display: block !important;
+            display: none !important;
           }
           
           /* Maak hero knoppen kleiner en minder breed op mobile */
@@ -187,15 +188,15 @@ const Hero = () => {
             margin-bottom: 2.25rem !important;
           }
           
-          /* Zorg dat de line-break behouden blijft */
-          h1.hero-title-mobile br {
-            display: block !important;
-          }
-          
-          /* Forceer dat de tekst in 2 regels blijft */
+          /* Zorg dat de tekst natuurlijk in 3 regels wrapt */
           h1.hero-title-mobile {
             display: block !important;
             overflow-wrap: break-word !important;
+          }
+          
+          /* Hero foto iets naar rechts positioneren op mobile (maar niet helemaal rechts) */
+          section.relative.min-h-screen div.absolute.inset-0.overflow-hidden img {
+            object-position: 55% center !important;
           }
         }
       `}</style>
@@ -225,11 +226,11 @@ const Hero = () => {
             topcrew en topbeleving<span className="text-accent">.</span>
           </h1>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 animate-fade-up delay-200 hero-buttons-container">
-            <Link to="/aanmelden" className="w-full sm:w-auto">
+            <a href="https://app.recruitment.fleks.works/172b1913-9407-4035-bc25-95465367e408/apply" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button variant="hero" size="xl" className="px-6 w-full sm:w-auto hero-button-mobile">
                 Werken bij TAP
               </Button>
-            </Link>
+            </a>
             <Link to="/voor-opdrachtgevers" className="w-full sm:w-auto">
               <Button variant="hero-outline" size="xl" className="px-6 w-full sm:w-auto hero-button-mobile">
                 Voor Opdrachtgevers

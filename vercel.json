@@ -12,17 +12,37 @@
     },
     {
       "source": "/vacatures",
-      "destination": "/werken-bij",
+      "destination": "/aanmelden",
       "permanent": true
     },
     {
       "source": "/vacatures-evenementenbouwer",
-      "destination": "/vacatures/op-en-afbouw",
+      "destination": "/aanmelden",
       "permanent": true
     },
     {
       "source": "/vacatures-avtechnician",
-      "destination": "/vacatures/av-technician",
+      "destination": "/aanmelden",
+      "permanent": true
+    },
+    {
+      "source": "/diensten",
+      "destination": "/voor-opdrachtgevers",
+      "permanent": true
+    },
+    {
+      "source": "/werken-bij",
+      "destination": "/aanmelden",
+      "permanent": true
+    },
+    {
+      "source": "/projecten",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/privacyverklaring",
+      "destination": "/privacy-verklaring",
       "permanent": true
     },
     {
@@ -32,12 +52,12 @@
     },
     {
       "source": "/en/vacatures/",
-      "destination": "/werken-bij",
+      "destination": "/aanmelden",
       "permanent": true
     },
     {
       "source": "/nl/vacatures/",
-      "destination": "/werken-bij",
+      "destination": "/aanmelden",
       "permanent": true
     },
     {
@@ -47,17 +67,32 @@
     },
     {
       "source": "/nl/solliciteren/",
-      "destination": "/werken-bij",
+      "destination": "/aanmelden",
       "permanent": true
     },
     {
       "source": "/nl/voor-opdrachtgevers/",
-      "destination": "/diensten",
+      "destination": "/voor-opdrachtgevers",
       "permanent": true
     },
     {
       "source": "/nl/vacatures-avtechnican/",
-      "destination": "/vacatures/av-technician",
+      "destination": "/aanmelden",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures/op-en-afbouw",
+      "destination": "/aanmelden",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures/av-technician",
+      "destination": "/aanmelden",
+      "permanent": true
+    },
+    {
+      "source": "/vacatures/specialisten",
+      "destination": "/aanmelden",
       "permanent": true
     }
   ],

@@ -47,10 +47,17 @@ const HashtagBanner = () => {
           }
         }
         .animate-scroll {
-          animation: scroll 60s linear infinite;
+          animation: scroll 35s linear infinite;
         }
         .animate-scroll:hover {
           animation-play-state: paused;
+        }
+        
+        /* Veel snellere animatie op mobile only */
+        @media (max-width: 639px) {
+          .animate-scroll {
+            animation: scroll 12s linear infinite !important;
+          }
         }
       `}</style>
     </section>

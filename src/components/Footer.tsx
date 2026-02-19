@@ -30,7 +30,7 @@ const Footer = () => {
   return (
     <footer className="text-white" style={{ backgroundColor: "#2f2f2f" }}>
       {/* Main Footer */}
-      <div className="container-custom px-4 sm:px-6 lg:pl-4 lg:pr-8 xl:pr-12 py-10 sm:py-12 md:py-16">
+      <div className="reveal container-custom px-4 sm:px-6 lg:pl-4 lg:pr-4 xl:pr-8 py-10 sm:py-12 md:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 md:gap-12 lg:gap-10 xl:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2 lg:-ml-4">
@@ -86,7 +86,7 @@ const Footer = () => {
           </div>
 
           {/* Links */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-[1.3fr,1fr,1fr,1.7fr] gap-8 sm:gap-10 md:gap-12 lg:gap-8 xl:gap-12 lg:col-span-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-[1.2fr,1fr,0.7fr,2.2fr] gap-8 sm:gap-10 md:gap-12 lg:gap-6 xl:gap-10 lg:col-span-3">
             <div className="lg:-ml-2">
               <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Menu</h4>
               <ul className="space-y-1 sm:space-y-1.5 -mt-2 sm:-mt-3">
@@ -96,9 +96,9 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/aanmelden" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
+                  <a href="https://app.recruitment.fleks.works/172b1913-9407-4035-bc25-95465367e408/apply" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
                     Werken bij TAP
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <Link to="/voor-opdrachtgevers" className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base">
@@ -124,16 +124,24 @@ const Footer = () => {
                     Privacyverklaring
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    to="/algemene-voorwaarden"
+                    className="text-white/70 hover:text-accent transition-colors text-sm sm:text-base"
+                  >
+                    Algemene Voorwaarden
+                  </Link>
+                </li>
               </ul>
             </div>
 
-            <div className="lg:ml-2">
+            <div className="lg:-ml-2">
               <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Socials</h4>
               <div className="flex items-center gap-3 sm:gap-4 -mt-2 ml-0 sm:ml-1">
-                <a href="https://www.linkedin.com/company/crewstars/" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/tap-crew" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="LinkedIn">
                   <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
-                <a href="https://www.instagram.com/crewstars/" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="Instagram">
+                <a href="https://www.instagram.com/tapcrew.nl" target="_blank" rel="noreferrer" className="text-white/70 hover:text-accent transition-colors" aria-label="Instagram">
                   <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
                 </a>
               </div>
@@ -142,11 +150,11 @@ const Footer = () => {
             <div>
               <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent">Personeel inhuren?</h4>
               <p className="text-white/70 leading-relaxed -mt-2 text-sm sm:text-base">
-                planning@tapcrew.nl
+                <a href="mailto:planning@tapcrew.nl" className="hover:text-accent transition-colors">planning@tapcrew.nl</a>
               </p>
               <h4 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4 text-accent mt-6">Technisch personeel nodig?</h4>
               <p className="text-white/70 leading-relaxed -mt-2 text-sm sm:text-base">
-                Bekijk ons aanbod op www.crewstars.nl
+                Bekijk ons aanbod op <a href="https://www.tapcrew.nl" target="_blank" rel="noreferrer" className="hover:text-accent transition-colors underline">www.tapcrew.nl</a>
               </p>
             </div>
           </div>

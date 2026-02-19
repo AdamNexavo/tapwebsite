@@ -803,7 +803,7 @@ const Projecten = () => {
             transform: translateX(-50%) !important;
             width: 4px !important;
             height: 10rem !important; /* longer connector */
-            background-color: #6366f1 !important;
+            background-color: #7a6df7 !important;
             border-radius: 999px !important;
           }
           
@@ -864,7 +864,7 @@ const Projecten = () => {
             </div>
             {/* Rechterhelft - paars */}
             <div 
-              className="absolute inset-0 bg-[#6366f1]"
+              className="absolute inset-0 bg-[#7a6df7]"
               style={{
                 clipPath: "polygon(45% 100%, 100% 100%, 100% 0, 55% 0)",
               }}
@@ -1051,7 +1051,7 @@ const Projecten = () => {
               {/* Modern Timeline */}
               <div className="relative">
                 {/* Vertical Timeline Line - volledig paars */}
-                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-[#6366f1] transform md:-translate-x-1/2 hidden md:block" />
+                <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-[#7a6df7] transform md:-translate-x-1/2 hidden md:block" />
                 
                 {/* Year Navigation - Arrows (sticky, fixed to timeline with connector line) */}
                 <div className="hidden md:block absolute top-0 left-1/2" style={{ 
@@ -1104,7 +1104,7 @@ const Projecten = () => {
                                       }}
                                       className="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm cursor-pointer group hover:scale-110 transition-transform duration-200"
                                     >
-                                      <ChevronUp className="w-5 h-5 text-[#6366f1] group-hover:-translate-y-0.5 transition-transform duration-200" />
+                                      <ChevronUp className="w-5 h-5 text-[#7a6df7] group-hover:-translate-y-0.5 transition-transform duration-200" />
                                     </div>
                                     <div
                                       onClick={(e) => {
@@ -1124,7 +1124,7 @@ const Projecten = () => {
                                       }}
                                       className="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm cursor-pointer group hover:scale-110 transition-transform duration-200"
                                     >
-                                      <ChevronDown className="w-5 h-5 text-[#6366f1] group-hover:translate-y-0.5 transition-transform duration-200" />
+                                      <ChevronDown className="w-5 h-5 text-[#7a6df7] group-hover:translate-y-0.5 transition-transform duration-200" />
                                     </div>
                                   </div>
                                   
@@ -1149,7 +1149,7 @@ const Projecten = () => {
                                       }}
                                       className="group hover:opacity-80 transition-opacity cursor-pointer pb-1"
                                     >
-                                      <span className="text-sm font-semibold text-[#6366f1] tracking-wider uppercase">
+                                      <span className="text-sm font-semibold text-[#7a6df7] tracking-wider uppercase">
                                         {years[currentYearIndex - 1]}
                                       </span>
                                     </div>
@@ -1176,7 +1176,7 @@ const Projecten = () => {
                                       }}
                                       className="group hover:opacity-80 transition-opacity cursor-pointer pt-1"
                                     >
-                                      <span className="text-sm font-semibold text-[#6366f1] tracking-wider uppercase">
+                                      <span className="text-sm font-semibold text-[#7a6df7] tracking-wider uppercase">
                                         {years[currentYearIndex + 1]}
                                       </span>
                                     </div>
@@ -1205,9 +1205,9 @@ const Projecten = () => {
                                       className="flex items-center gap-3 group"
                                     >
                                       <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm">
-                                        <ChevronUp className="w-5 h-5 text-[#6366f1] group-hover:-translate-y-0.5 transition-transform duration-200" />
+                                        <ChevronUp className="w-5 h-5 text-[#7a6df7] group-hover:-translate-y-0.5 transition-transform duration-200" />
                                       </div>
-                                      <span className="px-3 py-2 bg-white rounded-[5px] text-sm font-semibold text-[#6366f1] tracking-wider uppercase group-hover:scale-110 transition-transform duration-200 shadow-sm">
+                                      <span className="px-3 py-2 bg-white rounded-[5px] text-sm font-semibold text-[#7a6df7] tracking-wider uppercase group-hover:scale-110 transition-transform duration-200 shadow-sm">
                                         {years[currentYearIndex - 1]}
                                       </span>
                                     </div>
@@ -1234,9 +1234,9 @@ const Projecten = () => {
                                       className="flex items-center gap-3 group"
                                     >
                                       <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-sm">
-                                        <ChevronDown className="w-5 h-5 text-[#6366f1] group-hover:translate-y-0.5 transition-transform duration-200" />
+                                        <ChevronDown className="w-5 h-5 text-[#7a6df7] group-hover:translate-y-0.5 transition-transform duration-200" />
                                       </div>
-                                      <span className="px-3 py-2 bg-white rounded-[5px] text-sm font-semibold text-[#6366f1] tracking-wider uppercase group-hover:scale-110 transition-transform duration-200 shadow-sm">
+                                      <span className="px-3 py-2 bg-white rounded-[5px] text-sm font-semibold text-[#7a6df7] tracking-wider uppercase group-hover:scale-110 transition-transform duration-200 shadow-sm">
                                         {years[currentYearIndex + 1]}
                                       </span>
                                     </div>
@@ -1263,8 +1263,8 @@ const Projecten = () => {
                         
                         {/* Year Circle */}
                         <div className="relative z-10 flex-shrink-0">
-                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#333333] border-4 border-[#6366f1] flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300">
-                            <span className="text-lg md:text-xl font-black text-[#6366f1]">
+                          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-[#333333] border-4 border-[#7a6df7] flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300">
+                            <span className="text-lg md:text-xl font-black text-[#7a6df7]">
                               {year}
                             </span>
                           </div>
@@ -1365,7 +1365,7 @@ const Projecten = () => {
                             >
                               {/* Connector line van tijdlijn (50%) naar het midden van de fotobox */}
                               <div 
-                                className="h-1 bg-[#6366f1] absolute z-10 transition-all duration-1000 ease-out"
+                                className="h-1 bg-[#7a6df7] absolute z-10 transition-all duration-1000 ease-out"
                                 style={{ 
                                   width: isLargeScreen ? '400px' : '280px', // Alle connector lines dezelfde breedte
                                   top: '50%',
@@ -1415,7 +1415,7 @@ const Projecten = () => {
                 {/* Hexagon aan het einde van de verticale lijn - helemaal onderaan */}
                 <div className="absolute left-0 md:left-1/2 bottom-0 hidden md:block z-10" style={{ transform: 'translate(-50%, 0)' }}>
                   <div 
-                    className="w-6 h-6 bg-[#6366f1]"
+                    className="w-6 h-6 bg-[#7a6df7]"
                     style={{
                       clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
                       marginTop: '-24px'

@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Aanmelden = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Aanmelden";
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />

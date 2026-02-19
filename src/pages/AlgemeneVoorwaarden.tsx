@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const AlgemeneVoorwaarden = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Algemene Voorwaarden";
+  }, []);
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -13,7 +18,7 @@ const AlgemeneVoorwaarden = () => {
           
           <div className="container-custom px-4 sm:px-6 lg:px-6 xl:px-8 relative z-10">
             <div className="max-w-6xl mx-auto pt-8 sm:pt-12 md:pt-16 lg:pt-20">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-foreground mb-4 sm:mb-6 text-center">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-foreground mb-4 sm:mb-6 text-center uppercase italic">
                 Algemene Voorwaarden
               </h1>
             </div>
@@ -24,14 +29,14 @@ const AlgemeneVoorwaarden = () => {
         <section className="section-padding bg-background">
           <div className="container-custom px-4 sm:px-6 lg:px-6 xl:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="space-y-6 sm:space-y-8 text-foreground/80 leading-relaxed">
+              <div className="reveal space-y-6 sm:space-y-8 text-foreground/80 leading-relaxed">
                 <p className="text-base sm:text-lg">
-                  Welkom bij Crewstars B.V. Om onze dienstverlening zo helder en transparant mogelijk te houden, hanteren wij algemene voorwaarden die van toepassing zijn op al onze offertes, overeenkomsten en geleverde diensten.
+                  Welkom bij TAP Crew. Om onze dienstverlening zo helder en transparant mogelijk te houden, hanteren wij algemene voorwaarden die van toepassing zijn op al onze offertes, overeenkomsten en geleverde diensten.
                 </p>
 
                 <div className="space-y-6 sm:space-y-8">
                   <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground mb-3 sm:mb-4 uppercase">
                       Informatievoorziening
                     </h2>
                     <p className="text-sm sm:text-base">
@@ -40,7 +45,7 @@ const AlgemeneVoorwaarden = () => {
                   </div>
 
                   <div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground mb-3 sm:mb-4">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground mb-3 sm:mb-4 uppercase">
                       Contact en opvragen
                     </h2>
                     <p className="mb-3 text-sm sm:text-base">

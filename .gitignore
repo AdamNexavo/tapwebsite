@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python scripts (temporary processing scripts)
+process_image_with_control.py
+restore_original_image.py
+remove_bg*.py

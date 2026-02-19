@@ -6,12 +6,11 @@ import { componentTagger } from "lovable-tagger";
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: 'localhost',
+    host: '0.0.0.0', // Maakt server beschikbaar op netwerk voor telefoon
     port: 8080,
     strictPort: false,
     hmr: {
       overlay: true,
-      clientPort: 8080,
     },
     watch: {
       usePolling: false,

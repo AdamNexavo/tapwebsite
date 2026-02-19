@@ -177,6 +177,11 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
   }
+
+  /* Maak alle h2 headers met font-black cursief */
+  h2.font-black {
+    font-style: italic;
+  }
   
   /* Mobile-only: Zorg dat alle tekstkolommen exact dezelfde breedte hebben */
   @media (max-width: 639px) {
@@ -863,7 +868,7 @@
   }
 
   .gradient-orange {
-    @apply bg-gradient-to-r from-accent to-[hsl(246,90%,65%)];
+    @apply bg-gradient-to-r from-accent to-[#7a6df7];
   }
 }
 
@@ -1060,12 +1065,18 @@
     box-sizing: border-box !important;
   }
   
-  /* H1 font-size aanpassen zodat het precies in 2 regels past */
+  /* H1 font-size aanpassen zodat het precies in 3 regels past */
   section.relative.min-h-screen .hero-title-mobile {
-    font-size: 2rem !important; /* 32px - 1px kleiner */
-    line-height: 1.1 !important;
+    font-size: 2.125rem !important; /* 34px - iets groter maar nog steeds in 3 regels */
+    line-height: 1.25 !important; /* Meer ruimte tussen regels */
   }
   
+  /* CTA: Maak breder op mobile door container padding te verkleinen */
+  section#contact > .container-custom {
+    padding-left: 0.125rem !important;
+    padding-right: 0.125rem !important;
+  }
+
   /* CTA: Maak langer op mobile en toon watermark */
   section#contact > div > div.relative.overflow-hidden {
     min-height: 600px !important; /* Maak CTA langer op mobile */
@@ -1078,6 +1089,11 @@
     align-items: flex-start !important; /* Content bovenaan uitlijnen */
   }
   
+  /* CTA titel: iets groter op mobile */
+  section#contact .relative.grid h2 {
+    font-size: 1.875rem !important; /* 30px, was 24px (text-2xl) */
+  }
+
   /* CTA tekst onder header: iets groter en meer regelafstand */
   section#contact .relative.grid p.text-sm {
     font-size: 1rem !important; /* 16px, was 14px (text-sm) - 2px groter */
@@ -1114,11 +1130,13 @@
   section#contact .cta-watermark-mobile {
     display: block !important;
     right: -20px !important;
-    bottom: -100px !important; /* Lager gepositioneerd - verder naar beneden */
-    opacity: 1 !important; /* Geen transparantie voor donkergrijs effect */
+    bottom: -40px !important;
+    opacity: 1 !important;
     z-index: 5 !important;
-    transform: scale(1.7) rotate(15deg) translateX(40px) translateY(50px) translateZ(0) !important; /* Klein tikje meer naar rechts */
-    filter: grayscale(100%) brightness(0.75) !important; /* Zelfde donkergrijs als laptop versie */
+    transform: scale(1.1) rotate(15deg) translateX(120px) translateY(120px) translateZ(0) !important; /* Alleen translateY verhoogd: lager geplaatst */
+    filter: grayscale(100%) brightness(0.75) !important;
+    image-rendering: crisp-edges !important;
+    -webkit-image-rendering: -webkit-optimize-contrast !important;
   }
   
   /* Verklein "Website verzorgd door Nexavo" tekst op mobile */
@@ -1169,7 +1187,7 @@
   }
   
   /* WerkenBij, Diensten, Offerte, Projecten, Contact: Paarse schuine scheiding schuiner maken maar 50/50 verdeling behouden op mobile - alleen voor secties met diagonale scheiding */
-  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-\[#6366f1\] {
+  section.relative.section-padding.overflow-hidden:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) .absolute.inset-0.bg-\[#7a6df7\] {
     clip-path: polygon(40% 100%, 100% 100%, 100% 0, 60% 0) !important; /* Schuiner: 40%/60% (was 45%/55%), maar nog steeds 50/50 verdeling */
   }
   
@@ -1180,7 +1198,7 @@
   
   /* WerkenBij pagina: Maak hele eerste sectie paars vanaf bovenaan met foto als achtergrond op mobile - alleen voor secties met diagonale scheiding */
   main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary),
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\]) {
     background-color: transparent !important; /* Transparant, paarse overlay komt via ::after */
     min-height: 50vh !important; /* Langere sectie op mobile */
     display: flex !important;
@@ -1196,20 +1214,20 @@
   
   /* WerkenBij pagina: Maak diagonale scheiding container zichtbaar voor foto op mobile - alleen voor secties met diagonale scheiding */
   main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0,
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\]) > div.absolute.inset-0.z-0 {
     display: block !important; /* Maak container zichtbaar voor foto */
     clip-path: none !important; /* Geen clipPath beperkingen */
   }
   
   /* WerkenBij pagina: Verwijder clipPath van ALLE child elementen in z-0 container op mobile - alleen voor secties met diagonale scheiding */
   main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 *,
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 * {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\]) > div.absolute.inset-0.z-0 * {
     clip-path: none !important;
   }
   
   /* WerkenBij pagina: Verberg specifiek de paarse div door alle mogelijke selectors op mobile - alleen voor secties met diagonale scheiding */
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\],
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\] {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\]) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -1227,8 +1245,8 @@
   }
   
   /* WerkenBij pagina: Verberg paarse clipPath deel volledig op mobile - overschrijf inline styles - alleen voor secties met diagonale scheiding */
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\],
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div.absolute.inset-0.bg-\[#6366f1\] {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) > div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\],
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary) div.absolute.inset-0.bg-\[#7a6df7\] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -1319,7 +1337,7 @@
     right: 0 !important;
     bottom: 0 !important;
     height: calc(100% + 6rem) !important; /* Voeg header hoogte toe aan hoogte */
-    background-color: #6366f1 !important; /* Paarse overlay */
+    background-color: #7a6df7 !important; /* Paarse overlay */
     opacity: 0.85 !important; /* 85% opacity zodat foto er licht doorheen schijnt */
     z-index: 1 !important; /* Boven foto */
     pointer-events: none !important;
@@ -1335,7 +1353,7 @@
     left: 0 !important;
     right: 0 !important;
     height: 6rem !important; /* h-24 = 6rem */
-    background-color: #6366f1 !important; /* Paars in plaats van grijs */
+    background-color: #7a6df7 !important; /* Paars in plaats van grijs */
     z-index: 1 !important;
     pointer-events: none !important;
     transform: translateZ(0) !important;
@@ -1404,7 +1422,7 @@
   
   /* WerkenBij, Diensten, Offerte, Projecten, Contact: Eerste sectie heeft grijze achtergrond bovenaan en content begint eronder op mobile - alleen voor secties met diagonale scheiding */
   main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary),
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\]) {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\]) {
     position: relative !important;
     padding-top: calc(6rem + 1.5rem) !important; /* h-24 (6rem) + extra padding (1.5rem) zodat content onder grijze gedeelte begint */
     margin-top: 0 !important;
@@ -1413,7 +1431,7 @@
   
   /* WerkenBij, Diensten, Offerte, Projecten, Contact: Verwijder grijze achtergrond pseudo-element op mobile zodat foto zichtbaar is */
   main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-secondary)::before,
-  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#6366f1\])::before {
+  main > section.relative.section-padding.overflow-hidden:first-child:has(> div.absolute.inset-0.z-0 > div.absolute.inset-0.bg-\[#7a6df7\])::before {
     display: none !important; /* Verberg grijze achtergrond zodat foto zichtbaar is */
   }
   
@@ -2047,7 +2065,8 @@
     margin-right: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    font-size: 1.625rem !important; /* 26px - groter dan text-2xl (24px) */
+    font-size: 2.25rem !important; /* 36px - flink groter op mobile */
+    margin-bottom: 0.5rem !important; /* Minder padding onder de titel */
   }
   
   /* Algemene Voorwaarden pagina: Zelfde styling als Privacyverklaring */
@@ -2079,7 +2098,13 @@
     margin-right: 0 !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
-    font-size: 1.625rem !important; /* 26px - groter dan text-2xl (24px) */
+    font-size: 2.25rem !important; /* 36px - flink groter op mobile */
+    margin-bottom: 0.5rem !important; /* Minder padding onder de titel */
+  }
+  
+  /* Header: Mobile logo iets meer naar rechts op telefoon */
+  img.mobile-logo-tap {
+    margin-left: 0.5rem !important;
   }
 }
 
@@ -2113,3 +2138,146 @@ section.py-12.bg-background div.w-full.rounded-2xl button[data-state="open"] svg
 }
 
 /* Desktop/Laptop: Zorg dat eerste sectie WerkenBij exact hetzelfde blijft als origineel */
+
+/* ============================================
+   TAP Crew — Sitewide Scroll-Reveal System
+   ============================================
+   Centrale config: pas onderstaande variabelen
+   aan om ALLE reveal-animaties sitewide in
+   één keer te wijzigen.
+   ============================================ */
+
+:root {
+  --reveal-duration: 0.6s;
+  --reveal-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* ease-out */
+  --reveal-distance: 12px;
+  --reveal-stagger: 80ms;
+}
+
+/* Verborgen state — wacht op IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--reveal-duration) var(--reveal-easing),
+    transform var(--reveal-duration) var(--reveal-easing);
+  will-change: opacity, transform;
+}
+
+/* Zichtbaar nadat IntersectionObserver triggert */
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger: kinderen van .reveal-stagger krijgen oplopende delay */
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: var(--reveal-stagger); }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: calc(var(--reveal-stagger) * 2); }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: calc(var(--reveal-stagger) * 3); }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: calc(var(--reveal-stagger) * 4); }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: calc(var(--reveal-stagger) * 5); }
+.reveal-stagger > .reveal:nth-child(7) { transition-delay: calc(var(--reveal-stagger) * 6); }
+.reveal-stagger > .reveal:nth-child(8) { transition-delay: calc(var(--reveal-stagger) * 7); }
+.reveal-stagger > .reveal:nth-child(9) { transition-delay: calc(var(--reveal-stagger) * 8); }
+.reveal-stagger > .reveal:nth-child(10) { transition-delay: calc(var(--reveal-stagger) * 9); }
+
+/* VoorOpdrachtgevers: DIENSTEN hero header op mobile (alleen de hero sectie met pt-24) */
+@media (max-width: 639px) {
+  section.relative.section-padding.pt-24.overflow-hidden > .container-custom > .max-w-6xl > .grid > div > h1.italic {
+    text-align: center !important;
+    font-size: 3rem !important; /* 48px, flink groter op mobile */
+  }
+}
+
+/* VoorOpdrachtgevers: Label "VOOR OPDRACHTGEVERS" links uitgelijnd en dichter bij header op mobile */
+@media (max-width: 639px) {
+  section.section-padding.relative.overflow-hidden > .container-custom > .max-w-6xl > .flex.justify-center.uppercase {
+    justify-content: flex-start !important; /* Links uitlijnen i.p.v. gecentreerd */
+    margin-bottom: 0.5rem !important; /* Dichter bij de header, consistent met andere labels */
+  }
+}
+
+/* VoorOpdrachtgevers: Meer ruimte boven "ZO REGELEN WIJ HET" sectie op mobile */
+@media (max-width: 639px) {
+  section.px-4.-mt-12 {
+    margin-top: 1rem !important;
+    padding-top: 1rem !important;
+  }
+
+  /* "ZO REGELEN WIJ HET" header centreren op mobile */
+  section.px-4.-mt-12 h2.text-3xl.font-black {
+    text-align: center !important;
+  }
+}
+
+/* VoorOpdrachtgevers: Meer ruimte tussen crew type blocks op mobile */
+@media (max-width: 639px) {
+  section.section-padding.relative.overflow-hidden .flex.flex-col.gap-2 {
+    gap: 0.75rem !important; /* Was 0.5rem (gap-2), iets meer ruimte */
+  }
+}
+
+/* VoorOpdrachtgevers: Crew team foto zichtbaar op mobile (was hidden lg:block) */
+@media (max-width: 639px) {
+  section.section-padding.bg-secondary img[alt="TAP Crew team"].hidden.lg\:block {
+    display: block !important;
+    /* Blijft absolute inset-0 vanuit Tailwind, overlayed op paarse achtergrond */
+  }
+}
+
+/* Crew pagina's (Horeca/Hospitality/Service): Hero foto zichtbaar + bovenaan op mobile */
+@media (max-width: 639px) {
+  /* Toon de foto container */
+  section.min-h-\[80vh\] .grid > div.hidden {
+    display: block !important;
+    order: -1 !important;
+    height: 450px !important;
+    overflow: hidden !important;
+    border-bottom-left-radius: 1.5rem !important;
+    border-bottom-right-radius: 1.5rem !important;
+  }
+  /* Foto responsive positioneren */
+  section.min-h-\[80vh\] .grid > div.hidden img {
+    position: relative !important;
+    width: 100% !important;
+    height: 450px !important;
+    object-fit: cover !important;
+    border-bottom-left-radius: 1.5rem !important;
+    border-bottom-right-radius: 1.5rem !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+  /* Paarse gradient overlay op foto (boven donker, onder transparant) */
+  section.min-h-\[80vh\] .grid > div.hidden {
+    position: relative !important;
+  }
+  section.min-h-\[80vh\] .grid > div.hidden::after {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.85) 0%, rgba(26, 26, 26, 0) 60%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+  /* Tekst-kolom minder padding op mobile zodat content dichterbij foto staat */
+  section.min-h-\[80vh\] .grid > div.reveal.flex.flex-col {
+    padding-top: 3.5rem !important;
+    padding-bottom: 5rem !important;
+  }
+}
+
+/* Accessibility: schakel animaties uit bij voorkeur voor verminderde beweging */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}

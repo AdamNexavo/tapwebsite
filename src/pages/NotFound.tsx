@@ -8,6 +8,7 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
+    document.title = "TAP Crew | Pagina niet gevonden";
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
 
@@ -29,7 +30,7 @@ const NotFound = () => {
                   to="/" 
                   className="inline-block text-accent hover:text-accent/80 underline text-base sm:text-lg font-semibold transition-colors"
                 >
-                  Bezoek www.crewstars.nl opnieuw
+                  Bezoek www.tapcrew.nl opnieuw
                 </Link>
               </div>
             </div>

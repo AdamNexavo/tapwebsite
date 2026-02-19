@@ -49,7 +49,7 @@ const VacatureOpAfbouw = () => {
             </div>
             {/* Rechterhelft - paars */}
             <div 
-              className="absolute inset-0 bg-[#6366f1]"
+              className="absolute inset-0 bg-[#7a6df7]"
               style={{
                 clipPath: "polygon(45% 100%, 100% 100%, 100% 0, 55% 0)",
               }}

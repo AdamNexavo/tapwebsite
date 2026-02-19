@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,6 +16,10 @@ import crewWorking from "@/assets/crew-working.png";
 import medewerkerFoto from "@/assets/medewerker-foto.jpg";
 
 const Offerte = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Crew aanvragen";
+  }, []);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     naam: "",
@@ -169,10 +173,10 @@ const Offerte = () => {
       <style>{`
         @media (max-width: 639px) {
           /* Achtergrondfoto naar boven positioneren op mobiel */
-          section.relative.section-padding.pt-24 img[alt="Crewstars crewlid aan het werk"] {
+          section.relative.section-padding.pt-24 img[alt="TAP Crew crewlid aan het werk"] {
             object-position: 20% top !important;
           }
-          /* Header "Offerte aanvragen" op mobiel - alleen op Offerte pagina */
+          /* Header "Crew aanvragen" op mobiel - alleen op Offerte pagina */
           section.relative.section-padding.pt-24 h1.text-3xl.sm\\:text-4xl {
             font-size: 2rem !important; /* 32px, 2px groter dan text-3xl (30px) */
           }
@@ -209,6 +213,12 @@ const Offerte = () => {
             height: auto !important;
           }
         }
+        @media (min-width: 1024px) and (max-width: 1919px) {
+          /* Laptop-only: iets kleinere hero titel */
+          section.relative.section-padding.pt-24 h1 {
+            font-size: 3.25rem !important;
+          }
+        }
       `}</style>
       <Header />
       <main>
@@ -237,10 +247,10 @@ const Offerte = () => {
               >
                 <img
                   src={crewWorking}
-                  alt="Crewstars crewlid aan het werk"
+                  alt="TAP Crew crewlid aan het werk"
                   className="w-full h-full object-cover opacity-90"
                   style={{
-                    objectPosition: "100% center",
+                    objectPosition: "100% 42%",
                   }}
                 />
                 {/* Lichte zwarte overlay */}
@@ -249,7 +259,7 @@ const Offerte = () => {
             </div>
             {/* Rechterhelft - paars */}
             <div 
-              className="absolute inset-0 bg-[#6366f1]"
+              className="absolute inset-0 bg-[#7a6df7]"
               style={{
                 clipPath: "polygon(45% 100%, 100% 100%, 100% 0, 55% 0)",
               }}
@@ -264,8 +274,8 @@ const Offerte = () => {
                 
                 {/* Rechterhelft - tekst meer naar rechts en naar onder */}
                 <div className="text-center lg:flex lg:justify-center lg:items-center lg:pt-16 lg:pl-16 xl:pl-24">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-white mb-4 sm:mb-6 whitespace-nowrap">
-                    Offerte aanvragen
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight text-white mb-4 sm:mb-6 whitespace-nowrap uppercase italic">
+                    Crew aanvragen
                   </h1>
                 </div>
               </div>
@@ -279,13 +289,13 @@ const Offerte = () => {
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-[0.9fr,1.4fr] gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start">
                 {/* Linkerkant - Informatie */}
-                <div className="space-y-6 sm:space-y-8">
+                <div className="reveal space-y-6 sm:space-y-8">
                   <div>
                     <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-3 sm:mb-4">
                       <span className="text-accent text-lg sm:text-xl">•</span>
-                      <span className="text-accent">Offerte aanvragen</span>
+                      <span className="text-accent">Crew aanvragen</span>
                     </div>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-black leading-tight text-foreground mb-4 sm:mb-6 whitespace-nowrap">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] font-black leading-tight text-foreground mb-4 sm:mb-6 whitespace-nowrap uppercase">
                       Vraag een offerte aan
                     </h2>
                     <p className="text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed mb-4 sm:mb-6">
@@ -293,14 +303,14 @@ const Offerte = () => {
                     </p>
                     <p className="text-xs sm:text-sm md:text-base text-foreground/70 leading-relaxed mb-4">
                       Weet je nog niet precies welke diensten je nodig hebt?{" "}
-                      <Link to="/diensten" className="text-accent hover:text-accent/80 font-semibold underline underline-offset-2 transition-colors">
+                      <Link to="/voor-opdrachtgevers" className="text-accent hover:text-accent/80 font-semibold underline underline-offset-2 transition-colors">
                         Bekijk ons aanbod
                       </Link>
                     </p>
                   </div>
 
                   <div className="space-y-3 sm:space-y-4">
-                    <h3 className="text-lg sm:text-xl font-black text-foreground">Wat kun je verwachten?</h3>
+                    <h3 className="text-lg sm:text-xl font-black text-foreground uppercase">Wat kun je verwachten?</h3>
                     <div className="space-y-2 sm:space-y-3">
                       <div className="flex items-start gap-2 sm:gap-3">
                         <div className="mt-1 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent flex-shrink-0" />
@@ -334,7 +344,7 @@ const Offerte = () => {
                       Heb je vragen of wil je liever direct contact? Neem dan contact met ons op via telefoon of e-mail.
                     </p>
                     <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-4">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 bg-muted ring-[3px] sm:ring-[5px] ring-[#6366f1]">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 bg-muted ring-[3px] sm:ring-[5px] ring-[#7a6df7]">
                         <img
                           src={medewerkerFoto}
                           alt="Adam Akoudad"
@@ -355,13 +365,13 @@ const Offerte = () => {
 
                 {/* Rechterkant - Formulier */}
                 {!isSubmitted ? (
-                  <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
-                  <input type="hidden" name="_redirect" value="https://www.crewstars.nl/bedankt" />
+                  <form action="https://usebasin.com/f/defbe14b4736" method="POST" onSubmit={handleSubmit} noValidate className="reveal bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
+                  <input type="hidden" name="_redirect" value="https://www.tapcrew.nl/bedankt" />
                   <input type="hidden" name="Datum evenement (van)" value={formData.datumVan} />
                   <input type="hidden" name="Datum evenement (tot)" value={formData.datumTot} />
                   <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div className="space-y-2">
-                      <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
+                      <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#7a6df7]">*</span></Label>
                       <Input
                         id="naam"
                         name="Naam"
@@ -376,7 +386,7 @@ const Offerte = () => {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="bedrijf" className="font-bold">Bedrijf <span className="text-[#6366f1]">*</span></Label>
+                      <Label htmlFor="bedrijf" className="font-bold">Bedrijf <span className="text-[#7a6df7]">*</span></Label>
                       <Input
                         id="bedrijf"
                         name="Bedrijf"
@@ -394,7 +404,7 @@ const Offerte = () => {
 
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#6366f1]">*</span></Label>
+                      <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#7a6df7]">*</span></Label>
                       <Input
                         id="email"
                         name="E-mailadres"
@@ -409,7 +419,7 @@ const Offerte = () => {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="telefoon" className="font-bold">Telefoonnummer <span className="text-[#6366f1]">*</span></Label>
+                      <Label htmlFor="telefoon" className="font-bold">Telefoonnummer <span className="text-[#7a6df7]">*</span></Label>
                       <Input
                         id="telefoon"
                         name="Telefoonnummer"
@@ -460,7 +470,7 @@ const Offerte = () => {
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
-                              className="w-full justify-start text-left font-normal h-10 border border-input bg-background text-foreground hover:bg-background hover:text-foreground focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 focus:outline-none focus:border-[#6366f1] data-[state=open]:ring-2 data-[state=open]:ring-[#6366f1] data-[state=open]:ring-offset-2 data-[state=open]:border-[#6366f1] pr-8"
+                              className="w-full justify-start text-left font-normal h-10 border border-input bg-background text-foreground hover:bg-background hover:text-foreground focus:ring-2 focus:ring-[#7a6df7] focus:ring-offset-2 focus:outline-none focus:border-[#7a6df7] data-[state=open]:ring-2 data-[state=open]:ring-[#7a6df7] data-[state=open]:ring-offset-2 data-[state=open]:border-[#7a6df7] pr-8"
                             >
                               <Calendar className="mr-2 h-4 w-4" />
                               {datumVan ? format(datumVan, "PPP", { locale: nl }) : <span className="text-muted-foreground">Selecteer datum</span>}
@@ -497,7 +507,7 @@ const Offerte = () => {
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
-                              className={`w-full justify-start text-left font-normal h-10 border border-input bg-background text-foreground hover:bg-background hover:text-foreground focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 focus:outline-none focus:border-[#6366f1] data-[state=open]:ring-2 data-[state=open]:ring-[#6366f1] data-[state=open]:ring-offset-2 data-[state=open]:border-[#6366f1] pr-8 ${
+                              className={`w-full justify-start text-left font-normal h-10 border border-input bg-background text-foreground hover:bg-background hover:text-foreground focus:ring-2 focus:ring-[#7a6df7] focus:ring-offset-2 focus:outline-none focus:border-[#7a6df7] data-[state=open]:ring-2 data-[state=open]:ring-[#7a6df7] data-[state=open]:ring-offset-2 data-[state=open]:border-[#7a6df7] pr-8 ${
                                 !datumVan ? 'opacity-50 cursor-not-allowed' : ''
                               }`}
                               onClick={(e) => {
@@ -568,7 +578,7 @@ const Offerte = () => {
                         type="text"
                         value={formData.typePersonnel}
                         onChange={handleChange}
-                        placeholder="Bijv. sitecrew, stagehands"
+                        placeholder="Bijv. barpersoneel, hostesses"
                         className="text-sm sm:text-base"
                       />
                     </div>
@@ -605,7 +615,7 @@ const Offerte = () => {
                     <div className="mb-6">
                       <CheckCircle2 className="w-20 h-20 text-accent mx-auto" />
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-black leading-tight text-foreground mb-4">
+                    <h3 className="text-2xl md:text-3xl font-black leading-tight text-foreground mb-4 uppercase">
                       Aanvraag verzonden!
                     </h3>
                     <p className="text-lg text-foreground/70 leading-relaxed mb-6 max-w-md">
@@ -647,7 +657,7 @@ const Offerte = () => {
         {/* CTA Section */}
         <CTA 
           title="Ondersteuning nodig?"
-          description="Heb je een evenement of project waar je ondersteuning bij nodig hebt? Neem contact met ons op en ontdek hoe Crewstars jouw evenement kunt ondersteunen."
+          description="Heb je een evenement of project waar je ondersteuning bij nodig hebt? Neem contact met ons op en ontdek hoe TAP Crew jouw evenement kan ondersteunen."
           buttonText="Neem contact op"
           buttonLink="/contact"
         />

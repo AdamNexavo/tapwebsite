@@ -475,7 +475,7 @@ Van grote festivals tot intieme corporate events: we zijn thuis in verschillende
         <div className="flex justify-center mt-12 sm:mt-16 md:mt-24">
           <Link to="/offerte">
             <Button variant="accent-bottom" size="xl" className="w-full sm:w-auto px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300">
-              Vraag offerte aan
+              Crew aanvragen
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>

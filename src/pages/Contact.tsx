@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,6 +11,10 @@ import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 import contactIntro from "@/assets/contact-intro.jpg";
 
 const Contact = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Contact";
+  }, []);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     naam: "",
@@ -195,7 +199,7 @@ const Contact = () => {
             </div>
             {/* Rechterhelft - paars */}
             <div 
-              className="absolute inset-0 bg-[#6366f1]"
+              className="absolute inset-0 bg-[#7a6df7]"
               style={{
                 clipPath: "polygon(45% 100%, 100% 100%, 100% 0, 55% 0)",
               }}
@@ -210,7 +214,7 @@ const Contact = () => {
                 
                 {/* Rechterhelft - tekst meer naar rechts en naar onder */}
                 <div className="text-center lg:flex lg:justify-center lg:items-center lg:pt-16">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-white mb-4 sm:mb-6 whitespace-nowrap">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight text-white mb-4 sm:mb-6 whitespace-nowrap uppercase italic">
                     Contact
                   </h1>
                 </div>
@@ -223,10 +227,10 @@ const Contact = () => {
         <section className="section-padding bg-secondary pt-16 sm:pt-20 md:pt-24 lg:pt-32">
           <div className="container-custom px-4 sm:px-6 lg:px-6 xl:px-8">
             <div className="max-w-6xl mx-auto">
-              <div className="bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
+              <div className="reveal bg-background rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 lg:p-12 shadow-xl border border-border/50">
                 {/* Titel bovenaan */}
                 <div className="mb-6 sm:mb-8">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-[2.5rem] font-black leading-tight text-foreground mb-8 sm:mb-12 text-center">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-[2.5rem] font-black leading-tight text-foreground mb-8 sm:mb-12 text-center uppercase">
                     Neem contact met ons op
                   </h2>
                 </div>
@@ -257,7 +261,7 @@ const Contact = () => {
                       <div className="flex flex-col -space-y-1">
                         <h3 className="font-semibold text-foreground text-sm sm:text-base">Adres</h3>
                         <span className="text-xs sm:text-sm text-foreground/70">
-                          Pelmolenlaan 18, 3447GW, Woerden
+                          Bierbrouwersweg 29, 3449HW, Woerden
                         </span>
                       </div>
                     </div>
@@ -275,7 +279,7 @@ const Contact = () => {
                             <span className="text-accent text-lg sm:text-xl">•</span>
                             <span className="text-accent">Stuur een bericht</span>
                           </div>
-                          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-black leading-tight text-foreground mb-2">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl xl:text-3xl font-black leading-tight text-foreground mb-2 uppercase">
                             Vul het formulier in
                           </h3>
                           <p className="text-sm sm:text-base lg:text-lg text-foreground/70 leading-relaxed">
@@ -287,7 +291,7 @@ const Contact = () => {
                         <input type="hidden" name="_redirect" value="https://www.tapcrew.nl/bedankt" />
                         <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-2">
-                            <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#6366f1]">*</span></Label>
+                            <Label htmlFor="naam" className="font-bold">Naam <span className="text-[#7a6df7]">*</span></Label>
                             <Input
                               id="naam"
                               name="Naam"
@@ -302,7 +306,7 @@ const Contact = () => {
                             )}
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#6366f1]">*</span></Label>
+                            <Label htmlFor="email" className="font-bold">E-mailadres <span className="text-[#7a6df7]">*</span></Label>
                             <Input
                               id="email"
                               name="E-mailadres"
@@ -344,7 +348,7 @@ const Contact = () => {
                         </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="bericht" className="font-bold">Bericht <span className="text-[#6366f1]">*</span></Label>
+                            <Label htmlFor="bericht" className="font-bold">Bericht <span className="text-[#7a6df7]">*</span></Label>
                             <Textarea
                               id="bericht"
                               name="Bericht"
@@ -376,7 +380,7 @@ const Contact = () => {
                         <div className="mb-6">
                           <CheckCircle2 className="w-20 h-20 text-accent mx-auto" />
                         </div>
-                        <h3 className="text-2xl md:text-3xl font-black leading-tight text-foreground mb-4">
+                        <h3 className="text-2xl md:text-3xl font-black leading-tight text-foreground mb-4 uppercase">
                           Bericht verzonden!
                         </h3>
                         <p className="text-lg text-foreground/70 leading-relaxed mb-8 max-w-md">
@@ -411,7 +415,7 @@ const Contact = () => {
                         <span className="text-accent text-lg sm:text-xl">•</span>
                         <span className="text-accent">Onze locatie</span>
                       </div>
-                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-black leading-tight text-foreground mb-2">
+                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl font-black leading-tight text-foreground mb-2 uppercase">
                         Bezoek ons op kantoor
                       </h3>
                       <p className="text-xs sm:text-sm text-foreground/70">
@@ -420,7 +424,7 @@ const Contact = () => {
                     </div>
                     <div className="rounded-lg sm:rounded-xl overflow-hidden shadow-lg border border-border/50 flex-1">
                       <iframe
-                        src="https://www.google.com/maps?q=Pelmolenlaan+18,+3447GW+Woerden,+Nederland&output=embed"
+                        src="https://www.google.com/maps?q=Bierbrouwersweg+29,+3449HW+Woerden,+Nederland&output=embed"
                         width="100%"
                         height="100%"
                         style={{ border: 0, minHeight: '300px' }}
@@ -428,7 +432,7 @@ const Contact = () => {
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
                         className="w-full"
-                        title="TAP Crew locatie - Pelmolenlaan 18, 3447GW, Woerden"
+                        title="TAP Crew locatie - Bierbrouwersweg 29, 3449HW, Woerden"
                       />
                     </div>
                   </div>
@@ -441,7 +445,7 @@ const Contact = () => {
         {/* CTA Section */}
         <CTA 
           title="Samenwerken?"
-          description="Of je nu op zoek bent naar ondersteuning voor je evenement of een uitdagende baan, bij Crewstars ben je aan het juiste adres."
+          description="Of je nu op zoek bent naar ondersteuning voor je evenement of een uitdagende baan, bij TAP Crew ben je aan het juiste adres."
           buttonText="Contact opnemen"
           buttonLink="/contact"
         />

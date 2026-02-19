@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HashtagBanner from "@/components/HashtagBanner";
@@ -8,6 +9,10 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  useEffect(() => {
+    document.title = "TAP Crew | Horeca & Hospitality Crew";
+  }, []);
+
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden">
       <Header />

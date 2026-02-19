@@ -376,7 +376,7 @@ const Diensten = () => {
             </div>
             {/* Rechterhelft - paars */}
             <div 
-              className="absolute inset-0 bg-[#6366f1]"
+              className="absolute inset-0 bg-[#7a6df7]"
               style={{
                 clipPath: "polygon(45% 100%, 100% 100%, 100% 0, 55% 0)",
               }}
@@ -916,7 +916,7 @@ const Diensten = () => {
             <div className="flex justify-center mt-12 sm:mt-16 md:mt-20">
               <Link to="/offerte">
                 <Button variant="accent-bottom" size="xl" className="w-full sm:w-auto px-6 text-sm sm:text-base hover:-translate-y-2 transition-all duration-300">
-                  Vraag offerte aan
+                  Crew aanvragen
                   <ArrowRight className="w-4 h-4" />
                 </Button>
               </Link>
@@ -1190,7 +1190,7 @@ const Diensten = () => {
         <CTA 
           title="Ondersteuning nodig?"
           description="Heb je een evenement of project waar je ondersteuning bij nodig hebt? Neem contact met ons op en ontdek hoe Crewstars jouw evenement kunt ondersteunen."
-          buttonText="Vraag offerte aan"
+          buttonText="Crew aanvragen"
           buttonLink="/offerte"
         />
       </main>
