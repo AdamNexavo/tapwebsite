@@ -222,7 +222,7 @@ const Hero = () => {
             <span className="text-white">Horeca & Hospitality crew</span>
           </div>
           <h1 className="hero-title-mobile text-primary-foreground mb-10 sm:mb-6 animate-fade-up delay-100 text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-[64px] font-extrabold leading-none" style={{ lineHeight: '1.0' }}>
-            Wij zijn de schakel tussen<br />
+            Wij zijn de schakel tussen{" "}<br />
             topcrew en topbeleving<span className="text-accent">.</span>
           </h1>
           <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 animate-fade-up delay-200 hero-buttons-container">

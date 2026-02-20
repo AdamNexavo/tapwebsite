@@ -139,7 +139,7 @@ const MixMatch = () => {
                   </div>
                   <div className="flex-1 pt-2">
                     <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold uppercase mb-2" style={{ WebkitTextStroke: '2px white', WebkitTextFillColor: 'transparent', color: 'transparent' }}>
-                      AANMELDEN
+                      Aanmelden
                     </h2>
                     <p className="text-white/90 text-sm sm:text-base">
                       Meld je aan via het inschrijfformulier.
@@ -161,10 +161,10 @@ const MixMatch = () => {
                   </div>
                   <div className="flex-1 pt-2">
                     <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold uppercase mb-2" style={{ WebkitTextStroke: '2px white', WebkitTextFillColor: 'transparent', color: 'transparent' }}>
-                      KIES JE SHIFT
+                      Onboarding
                     </h2>
                     <p className="text-white/90 text-sm sm:text-base">
-                      We bellen je om kennis te maken en onze werkwijze uit te leggen.
+                      Wij nemen contact met je op en leggen onze werkwijze uit.
                     </p>
                   </div>
                 </div>
@@ -183,10 +183,10 @@ const MixMatch = () => {
                   </div>
                   <div className="flex-1 pt-2">
                     <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold uppercase mb-2" style={{ WebkitTextStroke: '2px white', WebkitTextFillColor: 'transparent', color: 'transparent' }}>
-                      AAN DE SLAG!
+                      Aan de slag!
                     </h2>
                     <p className="text-white/90 text-sm sm:text-base">
-                      Wij regelen de rest en je kunt beginnen!
+                      Kies je shifts of word uitgenodigd voor diensten.
                     </p>
                   </div>
                 </div>
