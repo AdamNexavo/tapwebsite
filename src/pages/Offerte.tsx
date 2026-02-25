@@ -178,7 +178,9 @@ const Offerte = () => {
           }
           /* Header "Crew aanvragen" op mobiel - alleen op Offerte pagina */
           section.relative.section-padding.pt-24 h1.text-3xl.sm\\:text-4xl {
-            font-size: 2rem !important; /* 32px, 2px groter dan text-3xl (30px) */
+            font-size: 2rem !important;
+            white-space: normal !important;
+            padding-bottom: 2.5rem !important;
           }
           /* Bevestigingsblok op mobiel - smaller en gecentreerd */
           .offerte-success-message {
